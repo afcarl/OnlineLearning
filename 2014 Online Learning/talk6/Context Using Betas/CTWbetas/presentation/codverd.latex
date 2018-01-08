@@ -1,0 +1,31 @@
+\setlength{\unitlength}{3947sp}%
+%
+\begingroup\makeatletter\ifx\SetFigFont\undefined%
+\gdef\SetFigFont#1#2#3#4#5{%
+  \reset@font\fontsize{#1}{#2pt}%
+  \fontfamily{#3}\fontseries{#4}\fontshape{#5}%
+  \selectfont}%
+\fi\endgroup%
+\begin{picture}(9024,3711)(9889,-3760)
+\put(16201,-3661){\makebox(0,0)[b]{\smash{{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}$P_c(1\cdots 11)$}}}}
+\put(16201,-3211){\makebox(0,0)[b]{\smash{{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}$\cdots$}}}}
+\put(16201,-2761){\makebox(0,0)[b]{\smash{{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}$P_c(0\cdots 01)$}}}}
+\put(16201,-2311){\makebox(0,0)[b]{\smash{{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}$P_c(0\cdots 00)$}}}}
+\put(12601,-2311){\makebox(0,0)[b]{\smash{{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}$P_c(0\cdots 00)$}}}}
+\put(12601,-2761){\makebox(0,0)[b]{\smash{{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}$P_c(0\cdots 01)$}}}}
+\put(12601,-3211){\makebox(0,0)[b]{\smash{{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}$\cdots$}}}}
+\put(12601,-3661){\makebox(0,0)[b]{\smash{{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}$P_c(1\cdots 11)$}}}}
+\thinlines
+\put(15301,-961){\framebox(1800,900){}}
+\put(11701,-961){\framebox(1800,900){}}
+\put(9901,-511){\vector( 1, 0){1800}}
+\put(13501,-511){\vector( 1, 0){1800}}
+\put(17101,-511){\vector( 1, 0){1800}}
+\put(12601,-1861){\vector( 0, 1){900}}
+\put(16201,-1861){\vector( 0, 1){900}}
+\put(12601,-623){\makebox(0,0)[b]{\smash{{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}encoder}}}}
+\put(16201,-623){\makebox(0,0)[b]{\smash{{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}decoder}}}}
+\put(10576,-286){\makebox(0,0)[b]{\smash{{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}$\xT$}}}}
+\put(14401,-286){\makebox(0,0)[b]{\smash{{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}$c(\xT)$}}}}
+\put(18226,-286){\makebox(0,0)[b]{\smash{{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}$\xT$}}}}
+\end{picture}%

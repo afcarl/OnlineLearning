@@ -1,0 +1,16 @@
+\setlength{\unitlength}{4144sp}%
+%
+\begingroup\makeatletter\ifx\SetFigFont\undefined%
+\gdef\SetFigFont#1#2#3#4#5{%
+  \reset@font\fontsize{#1}{#2pt}%
+  \fontfamily{#3}\fontseries{#4}\fontshape{#5}%
+  \selectfont}%
+\fi\endgroup%
+\begin{picture}(2363,1672)(6413,-3267)
+\thinlines
+\special{ps: gsave 0 0 0 setrgbcolor}\put(7201,-1861){\line( 2,-1){1350}}
+\put(8551,-2536){\line(-2,-1){1350}}
+\special{ps: grestore}\put(8776,-2592){\makebox(0,0)[lb]{\smash{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$s$\special{ps: grestore}}}}
+\put(6413,-3267){\makebox(0,0)[lb]{\smash{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$0s$\special{ps: grestore}}}}
+\put(6413,-1917){\makebox(0,0)[lb]{\smash{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$1s$\special{ps: grestore}}}}
+\end{picture}

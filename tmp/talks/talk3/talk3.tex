@@ -1,0 +1,372 @@
+% $Header: /data/cvsroot/Courses/OnlineLearning/talks/talk3/talk3.tex,v 1.2 2006/01/18 02:26:18 yfreund Exp $
+
+%\documentclass{beamer}
+\documentclass[handout]{beamer}
+% This file is a solution template for:
+
+% - Giving a talk on some subject.
+% - The talk is between 15min and 45min long.
+% - Style is ornate.
+
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice. 
+
+
+\mode<presentation>
+{
+  \usetheme{Montpellier}
+
+  %\setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+\usepackage{xmpmulti} % package that defines \multiinclude
+
+\usepackage[english]{babel}
+
+\usepackage[latin1]{inputenc}
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+% Or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+
+\title[log loss] % (optional, use only with long paper titles)
+{Lossless compression \\ and \\ cumulative log loss}
+
+\author[Freund] % (optional, use only with lots of authors)
+{Yoav Freund}
+% - Give the names in the same order as the appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[Universities of Somewhere and Elsewhere] % (optional, but mostly needed)
+
+\subject{Machine Learning}
+% This is only inserted into the PDF information catalog. Can be left
+% out. 
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+% \pgfdeclareimage[height=0.5cm]{university-logo}{university-logo-filename}
+% \logo{\pgfuseimage{university-logo}}
+
+
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+%% \AtBeginSubsection[]
+%% {
+%%   \begin{frame}<beamer>
+%%     \frametitle{Outline}
+%%     \tableofcontents[currentsection,currentsubsection]
+%%   \end{frame}
+%% }
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command: 
+
+\beamerdefaultoverlayspecification{<+->}
+
+\newcommand{\R}[1]{{\color{red}{#1}}}
+\newcommand{\W}{\vec{W}}
+\newcommand{\V}{\vec{V}}
+\newcommand{\X}{\vec{X}}
+\newcommand{\loss}{\vec{\ell}}
+\newcommand{\HedgeLoss}{L_{\mbox{\footnotesize Hedge}}}
+
+\input{../macros}
+
+\begin{document}
+
+%\iffalse %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Outline}
+  \tableofcontents[pausesections]
+  % You might wish to add the option [pausesections]
+\end{frame}
+
+\section{Lossless data compression}
+
+\begin{frame}
+\frametitle{The source compression problem}
+\begin{itemize}
+\item
+{\bf Example:}
+``There are no people like show people'' \\
+\pause 
+\R{$\stackrel{\mathrm{encode}}{\rightarrow} x \in \{0,1\}^n$} \\
+\pause
+\R{$\stackrel{\mathrm{decode}}{\rightarrow}$} ``there are no people like show people''
+\item
+{\bf Lossless:} Message reconstructed perfectly.
+\item
+{\bf Goal:} minimize expected length  \R{$E(n)$} of coded message. 
+\item
+Can we do better than \R{$\lceil \log_2(26) \rceil = 5$} bits per character?
+\item
+{\bf Basic idea:} Use short codes for common messages.
+\item
+{\bf Stream compression:} 
+\begin{itemize}
+\item Message revealed one character at a time.
+\item Code generated as message is revealed.
+\item Decoded message is constructed gradually.
+\end{itemize}
+\item Easier than block codes when processing long messages.
+\item A natural way for describing a distribution.
+\end{itemize}
+\end{frame}
+
+\section{The guessing game}
+
+\begin{frame}
+\frametitle{The Guessing game}
+\begin{itemize}
+\item
+Message reveraled one character at a time
+\item
+An algorithm predicts the next character from the revealed part of the message.
+\item
+If algorithm wrong - as for next guess.
+\item
+{\bf Example} 
+\begin{columns}
+\column[t]{0.1cm}{t\\6}
+\column[t]{0.1cm} h \\ 2 
+\column[t]{0.1cm}{e\\1}
+\column[t]{0.1cm} r \\ 2 
+\column[t]{0.1cm} e \\ 1 
+\column[t]{0.1cm}   \\ 1 
+\column[t]{0.1cm} a \\ 5 
+\column[t]{0.1cm} r \\ 2 
+\column[t]{0.1cm} e \\ 1 
+\column[t]{0.1cm}   \\ 1 
+\column[t]{0.1cm} n \\ 4 
+\column[t]{0.1cm} o \\ 1 
+\column[t]{0.1cm}   \\ 1 
+\column[t]{0.1cm} p \\ 5 
+\column[t]{0.1cm} e \\ 3 
+\end{columns}
+\item
+Code = sequence of number of mistakes.
+\item
+To decode use the same prediction algorithm
+\end{itemize}
+
+\end{frame}
+
+\section{Arithmetic coding}
+
+\begin{frame}
+\frametitle{Arithmetic Coding (background)}
+\begin{itemize}
+\item Refines the guessing game:
+\begin{itemize}
+\item In guessing game the predictor chooses \R{order} over alphabet.
+\item In arithmetic coding the predictor chooses a \R{Distribution} over alphabet.
+\end{itemize}
+\item First discovered by Elias (MIT).
+\item Invented independently by Rissanen and Pasco in 1976.
+\item Widely used in practice.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Arithmetic Coding (basic idea)}
+\begin{itemize}
+\item Easier notation: represent characters by numbers \R{$1 \leq c_t \leq | \Sigma |$}. (English: \R{$| \Sigma | =26$})
+\item message-prefix \R{$c_1,c_2,\ldots,c_{t-1}$} represented by line segment \R{$[l_{t-1},u_{t-1})$}
+\item Initial segment \R{$[l_0,u_0) = [0,1)$}
+\item After observing \R{$c_1,c_2,\ldots,c_{t-1}$}, predictor outputs \\
+\R{$\condp{c_t=1}{c_1,c_2,\ldots,c_{t-1}},\ldots, \condp{c_t=|\Sigma|\;}{c_1,c_2,\ldots,c_{t-1}}$},
+\item Distribution is used to partition \R{$[l_{t-1},u_{t-1})$} into \R{$| \Sigma |$} sub-segments.
+\item next character \R{$c_t$} determines \R{$[l_t,u_t)$}
+\item Code = discriminating binary expansion of a point in \R{$[l_t,u_t)$}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Arithmetic Coding (Example)}
+\begin{columns}
+
+\begin{column}[T]{4cm}
+\begin{itemize}
+\item Simplest case.
+\item \R{$\Sigma = \{0,1\}$}
+\item \R{$\forall t,$ \\ $p(c_t=0)=1/3$ \\ $ p_t(c_t=1)=2/3$}
+\item Message = \R{$1111$}
+\item Code = \R{$111$}
+\item (Technical: Assume decoder knows message length)
+\end{itemize}
+\end{column}
+
+\begin{column}[T]{5.5cm}
+\multiinclude[graphics={width=5cm},format=pdf]{figures/ArithmeticCoding}
+\end{column}
+
+\end{columns}
+\end{frame}
+
+%\fi %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{The performance of arithmetic coding}
+
+\begin{frame}
+\frametitle{The code length for arithmetic coding}
+\begin{itemize}
+\item Given \R{$m$} bits of binary expansion we assume the rest are all zero.
+\item Distance between two \R{$m$} bit expansions is \R{$2^{-m}$}
+\item If \R{$l_T - u_T \geq 2^{-m}$} then there must be a point \R{$x$} described by \R{$m$} expansion bits such that 
+\R{$l_T \leq x < u_T$}
+\item Required number of bits is \R{$\lceil -\log_2 (u_T-l_T) \rceil$}.
+\item \R{$u_T - l_T = \prod_{t=1}^T \condp{c_t}{c_1,c_2,\ldots,c_{t-1}} \doteq p(c_1,\ldots c_T)$}
+\item Number of bits required to code \R{$c_1,c_2,\ldots, c_T$} is
+\R{$\lceil - \sum_{t=1}^T \log_2 p_t(c_t) \rceil$}.
+\item We call \R{$-\sum_{t=1}^T \log_2 p_t(c_t) = -log_2 p(c_1,\ldots c_T)$} the {\color{blue} Cumulative log loss}
+\item Holds for \R{all sequences}.
+\end{itemize}
+\end{frame}
+
+\section{Source entropy}
+
+\begin{frame}
+\frametitle{Expectation of code length}
+\begin{itemize}
+\item Fix the messsage length \R{$T$}
+\item Suppose the message is \R{generated} at random according to the distribution \R{$p(c_1,\ldots c_T)$}
+\item Then the expected code length is 
+\R{\begin{eqnarray*}
+&& \sum_{c_1,\ldots c_T} p(c_1,\ldots c_T) \lceil -\log_2 p(c_1,\ldots c_T) \rceil  \\
+\pause
+&\leq& 1-\sum_{c_1,\ldots c_T} p(c_1,\ldots c_T) \log_2 p(c_1,\ldots c_T) \\
+\pause
+&\doteq& 1+H(p_T)
+\end{eqnarray*}}
+\item \R{$H(p)$} is the entropy of the distribution $p$.
+%\item Entropy is the expected value of the cumulative log loss when the messages are generated according to the predictive distribution.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Shannon's lower bound}
+\begin{itemize}
+\item Assume \R{$p_T$} is ``well behaved''. For example, IID.
+\item Let \R{$T \to \infty$}
+\item \R{$H(p) \doteq \lim_{T \to \infty} \frac{H(p_T)}{T}$} exists and is called the per character entropy of the source \R{$p$}
+\item The expected code length for \R{any} coding scheme is at least 
+\R{\[
+\paren{1-o(1)} H(p_T) = \paren{1-o(1)}\; T\; H(p)
+\]}
+\item The proof of Shannon's lower bound is not trivial (suggested project for 4 unit students).
+\end{itemize}
+\end{frame}
+
+\section{Other properties of log loss}
+
+\newmcommandii{\condp}{p\left( #1 \left| #2 \right. \right)}
+
+\subsection{Unbiased prediction}
+
+\begin{frame}
+\frametitle{log loss encourages unbiased prediction}
+\begin{itemize}
+\item Suppose the source is random and the probability of the next outcome is \R{$\condp{c_t}{c_1,c_2,\ldots,c_{t-1}}$} 
+\item Then the prediction that minimizes the log loss is \R{$\condp{c_t}{c_1,c_2,\ldots,c_{t-1}}$}.
+\item Note that when minimizing expected number of mistakes, the best prediction in this situation is to put all of the probability on the
+most likely outcome.
+\item There are other losses with this property, for example, square loss.
+\end{itemize}
+\end{frame}
+
+\subsection{Other examples for using log loss}
+
+\begin{frame}
+\frametitle{Monthly bonuses for a weather forecaster}
+\begin{itemize}
+\item Before the first of the month assign one dollar to the forecaster's bonus. \R{$b_0=1$}
+\item Forecaster assigns probability \R{$p_t$} to rain on day \R{$t$}.
+\item If it rains on day \R{$t$} then \R{ $b_t = 2 b_{t-1} p_t$}
+\item If it does not rain on day \R{$t$} then \R{ $b_t = 2 b_{t-1} (1-p_t)$}
+\item At the end of the month, give forecaster \R{$b_T$}
+\item Risk averse strategy: Setting \R{$p_t=1/2$} for all days, guarantees \R{$b_T=1$}
+\item High risk prediction: Setting \R{$p_t \in \{0,1\}$} results in Bonus \R{$b_T=2^T$} if always correct, zero otherwise.
+\item If forecaster predicts with the true probabilities then 
+\R{$$ E(\log b_T) = T - H(p_T) $$} and that is the maximal expected value for \R{$E(\log b_T)$}
+\end{itemize}
+\end{frame}
+
+%% \subsection{The yield of investment portfolios}
+
+%% \begin{frame}
+%% \frametitle{}
+%% \begin{itemize}
+%% \item XXX
+%% \end{itemize}
+%% \end{frame}
+
+\section{universal coding}
+
+\begin{frame}
+\frametitle{``Universal'' coding}
+\begin{itemize}
+\item Suppose there are \R{$N$} alternative prediction algorithms.
+\item We would like to code almost as well as the best one.
+\end{itemize}
+\end{frame}
+
+\subsection{Two part codes}
+
+\begin{frame}
+\frametitle{Two part codes}
+\begin{itemize}
+\item Send the index of the coding algorithm before the message.
+\item Requires \R{$\log_2 N$} additional bits.
+\item Requires the encoder to make {\bf two} passes over the data.
+\item Is the key idea of {\color{blue}MDL} (Minimal Description Length) modeling.
+\begin{itemize}
+\item Good prediction model = model that minimizes the total code length
+\end{itemize}
+\item Often inappropriate because based on {\color{blue} lossless} coding. \\
+{\bf Lossy} coding often more appropriate.
+\end{itemize}
+\end{frame}
+
+\subsection{Combining expert advice for cumulative log loss}
+
+\begin{frame}
+\frametitle{Combining predictors adaptively}
+\begin{itemize}
+\item Treat each of the predictors as an ``expert''.
+\item Assign a weight to each expert and reduce it if expert performs poorly.
+\item Combine expert predictions according to their weights.
+\item Would require only a single pass. Truly online.
+\item {\bf Goal:} Total loss of algorithm minus loss of best predictor should be at most \R{$\log_2 N$}
+\item Details: next class.
+\end{itemize}
+\end{frame}
+
+\iffalse %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\fi %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
+
+

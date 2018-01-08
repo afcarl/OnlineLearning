@@ -1,0 +1,54 @@
+\beamer@endinputifotherversion {3.01pt}
+\headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
+\headcommand {\beamer@framepages {1}{1}}
+\headcommand {\sectionentry {1}{Outlines}{2}{Outlines}{0}}
+\headcommand {\beamer@sectionpages {1}{1}}
+\headcommand {\beamer@subsectionpages {1}{1}}
+\headcommand {\beamer@subsectionpages {2}{1}}
+\headcommand {\slideentry {1}{1}{1}{2/2}{Part I: Review of Previous Lecture}{0}}
+\headcommand {\beamer@framepages {2}{2}}
+\headcommand {\beamer@subsectionpages {2}{2}}
+\headcommand {\slideentry {1}{2}{1}{3/4}{Part II: Today's Lecture}{0}}
+\headcommand {\beamer@framepages {3}{4}}
+\headcommand {\partentry {Review of Previous Lecture}{1}}
+\headcommand {\beamer@partpages {1}{4}}
+\headcommand {\beamer@sectionpages {2}{4}}
+\headcommand {\beamer@subsectionpages {3}{4}}
+\headcommand {\slideentry {1}{0}{2}{5/5}{}{1}}
+\headcommand {\beamer@framepages {5}{5}}
+\headcommand {\sectionentry {2}{Previous Lecture}{6}{Summary of the Previous Lecture}{1}}
+\headcommand {\beamer@sectionpages {5}{5}}
+\headcommand {\beamer@subsectionpages {5}{5}}
+\headcommand {\beamer@subsectionpages {6}{5}}
+\headcommand {\slideentry {2}{1}{1}{6/7}{Topics}{1}}
+\headcommand {\beamer@framepages {6}{7}}
+\headcommand {\beamer@subsectionpages {6}{7}}
+\headcommand {\slideentry {2}{2}{1}{8/9}{Learning Objectives}{1}}
+\headcommand {\beamer@framepages {8}{9}}
+\headcommand {\partentry {Today's Lecture}{2}}
+\headcommand {\beamer@partpages {5}{9}}
+\headcommand {\beamer@sectionpages {6}{9}}
+\headcommand {\beamer@subsectionpages {8}{9}}
+\headcommand {\slideentry {2}{0}{2}{10/10}{}{2}}
+\headcommand {\beamer@framepages {10}{10}}
+\headcommand {\sectionentry {3}{Models}{11}{The Model of Overhead-Free Computation}{2}}
+\headcommand {\beamer@sectionpages {10}{10}}
+\headcommand {\beamer@subsectionpages {10}{10}}
+\headcommand {\slideentry {3}{0}{3}{11/11}{}{2}}
+\headcommand {\beamer@framepages {11}{11}}
+\headcommand {\beamer@subsectionpages {11}{11}}
+\headcommand {\slideentry {3}{1}{1}{12/12}{Standard Model}{2}}
+\headcommand {\beamer@framepages {12}{12}}
+\headcommand {\sectionentry {4}{Limitations}{13}{Limitations of Overhead-Free Computation}{2}}
+\headcommand {\beamer@sectionpages {11}{12}}
+\headcommand {\beamer@subsectionpages {12}{12}}
+\headcommand {\slideentry {4}{0}{2}{13/13}{}{2}}
+\headcommand {\beamer@framepages {13}{13}}
+\headcommand {\beamer@subsectionpages {13}{13}}
+\headcommand {\slideentry {4}{1}{1}{14/14}{Linear Space}{2}}
+\headcommand {\beamer@framepages {14}{14}}
+\headcommand {\beamer@partpages {10}{14}}
+\headcommand {\beamer@subsectionpages {14}{14}}
+\headcommand {\beamer@sectionpages {13}{14}}
+\headcommand {\beamer@documentpages {14}}
+\headcommand {\def \inserttotalframenumber {11}}

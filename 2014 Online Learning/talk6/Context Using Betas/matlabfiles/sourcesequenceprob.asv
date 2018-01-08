@@ -1,0 +1,18 @@
+function ssprob = sourcesequenceprob
+
+global state pa
+
+if     state==0 thr = 0.5;   % Pr{X(t)=1|...,X(t-2)=0,X(t-1)=0)
+elseif state==1 thr = 0.3;   % Pr{X(t)=1|...,X(t-2)=1,X(t-1)=0)
+elseif state==2 thr = 0.1;   % Pr{X(t)=1|...,X(t-2)=0,X(t-1)=1)
+else            thr = 0.1;   % Pr{X(t)=1|...,X(t-2)=1,X(t-1)=1)
+end;
+
+dummy=rand;
+dummy=rand;
+
+if   rand<thr symbol=1; pa = pa*thr;
+else          symbol=0; pa = pa*(1.0-thr);
+end;                                    % actual probability computation
+
+state = floor(state/2) + symbol*2;      % new state

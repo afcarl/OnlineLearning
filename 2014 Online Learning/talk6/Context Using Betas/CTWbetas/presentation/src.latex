@@ -1,0 +1,15 @@
+\setlength{\unitlength}{4144sp}%
+%
+\begingroup\makeatletter\ifx\SetFigFont\undefined%
+\gdef\SetFigFont#1#2#3#4#5{%
+  \reset@font\fontsize{#1}{#2pt}%
+  \fontfamily{#3}\fontseries{#4}\fontshape{#5}%
+  \selectfont}%
+\fi\endgroup%
+\begin{picture}(4524,1374)(-11,-3223)
+\thinlines
+\special{ps: gsave 0 0 0 setrgbcolor}\put(2251,-2536){\vector( 1, 0){2250}}
+\special{ps: grestore}\special{ps: gsave 0 0 0 setrgbcolor}\put(  1,-3211){\framebox(2250,1350){}}
+\put(1126,-2592){\makebox(0,0)[b]{\smash{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}source\special{ps: grestore}}}}
+\put(4501,-2311){\makebox(0,0)[rb]{\smash{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$x_{1}x_{2}\cdots x_{T}$\special{ps: grestore}}}}
+\end{picture}

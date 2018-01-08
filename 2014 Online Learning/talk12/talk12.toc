@@ -1,0 +1,11 @@
+\beamer@endinputifotherversion {3.01pt}
+\select@language {english}
+\beamer@sectionintoc {1}{Repeated Games}{11}{0}{1}
+\beamer@sectionintoc {2}{Fictitious play}{24}{0}{2}
+\beamer@sectionintoc {3}{Hannan Consistency}{31}{0}{3}
+\beamer@sectionintoc {4}{Hannan set}{35}{0}{4}
+\beamer@sectionintoc {5}{Online strategies that converge to a correlated equilibrium}{38}{0}{5}
+\beamer@sectionintoc {6}{Repeated Zero-sum Games}{40}{0}{6}
+\beamer@sectionintoc {7}{The basic algorithm}{56}{0}{7}
+\beamer@sectionintoc {8}{The basic analysis}{60}{0}{8}
+\beamer@sectionintoc {9}{Proof of minmax theorem}{79}{0}{9}

@@ -1,0 +1,589 @@
+%% Modified from bare_conf.tex on 06-12-04
+%% V1.2
+%% 2002/11/18
+%% by Michael Shell
+%% mshell@ece.gatech.edu
+%%
+%
+\documentclass[10pt,conference]{IEEEtran}
+% If the IEEEtran.cls has not been installed into the LaTeX system files,
+% manually specify the path to it:
+% \documentclass[conference]{../sty/IEEEtran}
+
+\newtheorem{theorem}{Theorem}
+\setcounter{page}{100}
+
+
+\newcommand{\xpast}{x_{1-D}^{0}}
+\newcommand{\xT}{x^{T}_{1}}
+\newcommand{\xt}{x^{t}_{1}}
+\newcommand{\XT}{X^{T}_{1}}
+\newcommand{\Xt}{X^{t}_{1}}
+\newcommand{\xtm}{x^{t-1}_{1}}
+\newcommand{\xtmW}{x^{t-1}_{t-W}}
+\newcommand{\xtWm}{x^{t-W-1}_{1}}
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\cS}{{\cal{S}}}
+\newcommand{\hcS}{{\hat{\cal{S}}}}
+\newcommand{\cTD}{{\cal{T}_{D}}}
+\newcommand{\define}{\stackrel{\Delta}{=}}
+\newcommand{\alphaexp}{ \frac{ \alpha_{s} }{ 1-\alpha_{s} } }
+\newcommand{\GD}{{\Gamma_{D}}}
+\newcommand{\apri}{{P^{*}}}
+
+\begin{document}
+
+% paper title
+\title{Context-Tree Weighting and Maximizing: \\Processing Betas}
+
+% author names and affiliations
+% use a multiple column layout for up to three different
+% affiliations
+
+\author{\authorblockN{Frans M.J. Willems}
+\authorblockA{Eindhoven University of Technology\\
+%Electrical Engineering Department\\
+Eindhoven, The Netherlands \\
+Email: f.m.j.willems@tue.nl}
+\and
+\authorblockN{Tjalling J. Tjalkens}
+\authorblockA{Eindhoven University of Technology\\
+%Electrical Engineering Department\\
+Eindhoven, The Netherlands \\
+Email: t.j.tjalkens@tue.nl}
+\and
+\authorblockN{Tanya Ignatenko}
+\authorblockA{Eindhoven University of Technology\\
+%Electrical Engineering Department\\
+Eindhoven, The Netherlands \\
+Email: t.ignatenko@tue.nl}
+ }
+% avoiding spaces at the end of the author lines is not a problem with
+% conference papers because we don't use \thanks or \IEEEmembership
+% for over three affiliations, or if they all won't fit within the width
+% of the page, use this alternative format:
+%
+%\author{\authorblockN{Michael Shell\authorrefmark{1},
+%Homer Simpson\authorrefmark{2},
+%James Kirk\authorrefmark{3},
+%Montgomery Scott\authorrefmark{3} and
+%Eldon Tyrell\authorrefmark{4}}
+%\authorblockA{\authorrefmark{1}School of Electrical and Computer Engineering\\
+%Georgia Institute of Technology,
+%Atlanta, Georgia 30332--0250\\ Email: mshell@ece.gatech.edu}
+%\authorblockA{\authorrefmark{2}Twentieth Century Fox, Springfield, USA\\
+%Email: homer@thesimpsons.com}
+%\authorblockA{\authorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
+%Telephone: (800) 555--1212, Fax: (888) 555--1212}
+%\authorblockA{\authorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
+
+
+% make the title area
+\maketitle
+
+\begin{abstract}
+The context-tree weighting method (Willems, Shtarkov, and Tjalkens [1995]) is a sequential universal source coding method that achieves the Rissanen lower bound [1984] for tree sources.
+The same authors also proposed context-tree maximizing, a two-pass version of the context-tree weighting method [1993].
+Later Willems and Tjalkens [1998] described a method based on ratios (betas) of sequence probabilities that can be used to reduce the storage complexity of the context-tree weighting method.
+These betas can be applied to express a posteriori model probabilities in a recursive way (Willems, Nowbahkt-Irani, Volf [2001]).
+In the present paper we present new results related to betas.
+These results provide a new view on the relation between context-tree weighting and maximizing.
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction: Context-tree weighting}
+%=======================================================================
+\subsection{Arithmetic Coding}
+Denote the binary sequence $x_1 x_2 \cdots x_T$ by $\xT$.
+Given a coding distribution $P_{c}(\xT)$ over all binary sequences of length $T$, the Elias algorithm (see e.g. Jelinek~\cite{Jel68}) generates codewords that satisfy the prefix condition with lengths
+\begin{equation}
+ \label{eq:bndLcod}
+L(\xT) = \lceil \log_2 \frac{1}{P_{c}(\xT)} \rceil +1 < \log_2 \frac{1}{P_{c}(\xT)}+2.
+\end{equation}
+Implementations of this method are called arithmetic coding methods (e.g. Rissanen~\cite{Ris76}, Pasco~\cite{Pas76}).
+The codeword length that we obtain in this way is at most two binary digits longer than the length that we desire (i.e. the ideal codeword length $-\log_2 P_c(\xT)$).
+We say that the individual {\em coding redundancy} is smaller than 2.
+Therefore universal source coding is mainly concerned with finding good coding distributions.
+
+%=======================================================================
+\subsection{Krichevski-Trofimov estimator}
+The actual probability $\Pr\{\Xt=\xt\}$ of a source sequence $\xt$ for $t=1,T$ is denoted as $P_a(\xt)$.
+For an independent identically distributed (i.i.d.) binary source with an unknown parameter $\theta = P_a(1)$ we should use
+\begin{equation}
+ \label{eq:KT}
+P_{e}(a,b) = \frac{(a-\half)(a-\frac{3}{2})\cdot \dots \cdot \half (b-\half)(b-\frac{3}{2})\cdot \dots \cdot \half} {(a+b)(a+b-1)\cdot \dots \cdot 1}
+\end{equation}
+as coding probability for a sequence containing $a$ zeroes and $b$ ones.
+This assignment is called the Krichevsky-Trofimov (KT) estimate~\cite{KriTro81}.
+Consider a sequence $\xT$ with $a$ zeroes and $b$ ones, then from (\ref{eq:bndLcod}) we may conclude that
+\begin{equation}
+  \label{eq:bndLonepar}
+  L(\xT) < \log_2 \frac{1}{P_{e}(a,b)} + 2.
+\end{equation}
+Define the individual redundancy for sequence $\xT$ as
+\begin{equation}
+  \label{eq:defrho}
+\rho(\xT) \define L(\xT) - \log_2 \frac{1}{P_a(\xT)},
+\end{equation}
+then this redundancy for a sequence $\xT$ with $a$ zeroes and $b$ ones satisfies
+\begin{eqnarray}
+  \label{bndredonepar}
+\rho(\xT) &<& \log_2\frac{1}{P_{e}(a,b)} + 2 -
+\log_2\frac{1}{(1-\theta)^{a}\theta^{b}} \nonumber \\
+&=& \log_2\frac{(1-\theta)^{a}\theta^{b}}{P_{e}(a,b)} + 2 \leq \frac{1}{2}\log_2 T + 3,
+\end{eqnarray}
+where we used lemma 1 from \cite{WilShtTja95} to upper bound the $\log_2( P_{a}/P_{e} )$-term.
+This term, called the {\em parameter redundancy}, is never larger than $\frac{1}{2}\log_2(a+b) + 1$.
+Hence the individual redundancy is not larger than $\frac{1}{2}\log_2 T + 3$ for all $\xT$ and all $\theta \in [0,1]$.
+Therefore this estimator is asymptotically optimal (see Rissanen~\cite{Ris84}).
+
+%=======================================================================
+\subsection{Tree Sources}
+\begin{figure}
+\centering
+\input{modparx.latex}
+\caption{Model (suffix set) and parameters.}
+\label{fig:tree}
+\end{figure}
+Consider figure \ref{fig:tree}.
+For a {\em tree source} the probability $P_{a}(X_{t}=1|\cdots,x_{t-2},x_{t-1})$ is determined by starting in the root $\lambda$ of the tree and moving along the path $x_{t-1}, x_{t-2}, \cdots$ until a leaf of the tree is reached.
+In this leaf $s$ we find the desired probability (parameter) $\theta_{s}$.
+The suffix set or tree $\cS,$ containing the paths to all leaves, is called the {\em model} of the source.
+
+For the source in figure \ref{fig:tree} the actual (conditional) probability of the source generating the sequence $01101$ given the past symbols $\cdots 010$ is:
+\begin{eqnarray}
+P_{a}(01101|\cdots 010)
+&=& (1-\theta_{10}) \theta_{00} \theta_{1} (1-\theta_{1}) \theta_{10} \nonumber \\
+&=& 0.00945.
+\end{eqnarray}
+
+%========================================================================
+\subsection{Unknown Parameters, Known Model}\label{subsec:knownmodel}
+The source model (tree) $\cS$ partitions the source sequence in i.i.d. sub-sequences, one for each leaf $s\in\cS$.
+If the parameters of the source are unknown we can use the KT-estimator for each of these sub-sequences.
+E.g. for ${\cal S}= \{ 00, 10,1\}$ we get:
+\begin{equation}
+P_{e}(\xT|{\cal S}) = P_{e}(a_{00},b_{00}) \cdot P_{e}(a_{10},b_{10})\cdot P_{e}(a_{1},b_{1}),
+\end{equation}
+where $a_{s}$ is the number of zeroes in the subsequence of $\xT$ corresponding to leaf $s$, and $b_{s}$ the number of ones in this subsequence.
+In general we obtain for the estimated probabilities for tree-model ${\cal S}$:
+\begin{equation}
+P_{e}(\xT|{\cal S}) = \prod_{s\in {\cal S}} P_{e}(a_{s},b_{s}).
+\label{eq:codprobknmod}
+\end{equation}
+
+If we use this probability estimate as coding probability, we obtain for the (parameter plus coding) redundancy
+\begin{eqnarray}
+\rho(\xT) & < & \log_{2}\frac{1}{ P_{e}(\xT|{\cal S}) } + 2 - \log_{2}\frac{1}{ P_{a}(\xT) } \nonumber \\
+&\leq& \left( \frac{|\cS|}{2} \log_{2}\frac{T}{|\cS|} + |\cS| \right) + 2,
+\end{eqnarray}
+for $T \geq |\cS|$.
+Note that the second inequality follows from the convexity of the $\log_2(\cdot)$.
+Moreover $\rho(\xT) < T+2$ for $T<|\cS|$.
+
+%=========================================================================
+\subsection{Weighting}
+Consider two sources.
+For the first source we should use coding distribution $P^{1}_c(\xT)$ to obtain a small redundancy, for the second source we should use distribution $P^{2}_c(\xT)$.
+If we need a single code that is good for both sources then
+\begin{equation}
+P_{w}(\xT) = \frac{P^{1}_c(\xT)+ P^{2}_c(\xT)}{2}
+\end{equation}
+would be a good coding distribution for this code.
+It leads to codeword length
+\begin{eqnarray}
+L_{w}(\xT)
+&<& \log_2 \frac{2}{ P^{1}_c(\xT) + P^{2}_c(\xT) } +2 \nonumber \\
+&\leq & \log_2 \frac{1}{ P^{i}_c(\xT) }+ 3 \mbox{, for $i=1,2$},
+\end{eqnarray}
+and we loose at most one binary digit with this weighting technique!
+
+%========================================================================
+\subsection{Unknown Model}
+Suppose that the actual source model $\cS$ is unknown, but that its depth is not larger than $D$.
+A {\em context} is a string of binary symbols.
+Note that to each context $s$, there corresponds a substring of $x_{1}\cdots x_{T}$ of symbols that are produced by the source following this context $s$.
+Let $a_{s}$ be the number of zeroes in this subsequence and $b_{s}$ the number of ones.
+The structure that contains a node for all contexts $s$ having depth not larger than $D$ is called the {\em context tree} $\cTD$.
+A good probability estimate for the subsequence corresponding to a context (node) $s$ at depth $D$ is $P_{w}^{s} = P_{e}(a_{s},b_{s})$.
+Now let the depth $d$ of some node $s$ be less than $D$ and assume that we already have good probability estimates for subsequences corresponding to nodes $0s$ and $1s$ at depth $d+1$.
+Denote these probability estimates by $P_{w}^{0s}$ and $P^{1s}_{w}$ respectively.
+For the subsequence corresponding to $s$ we then have two alternatives.
+We can use the KT-estimate $P_{e}(a_{s},b_{s})$ for the entire subsequence corresponding to $s,$ or we can split up this subsequence in two sub-subsequences and use the product $P_{w}^{0s}P_{w}^{1s}$ of the probabilities $P_{w}^{0s}$ and $P_{w}^{1s}$ as estimate.
+If we weight these two alternatives we obtain the weighted probability
+\begin{equation}\label{def:CTW}
+P_{w}^{s} = \left\{\begin{array}{ll}
+                \half P_{e}(a_{s},b_{s}) + \half P_{w}^{0s} P_{w}^{1s}
+                &\mbox{if depth($s$) $<D$}, \\
+               P_{e}(a_{s},b_{s}) &\mbox{otherwise.}
+                 \end{array} \right.
+\end{equation}
+The weighted probability $P_{w}^{\lambda}$ in the root of the context tree can now be used as coding probability for the entire sequence $\xT$.
+The method is called the context-tree weighting (CTW) method.
+Important is that the weighted probability realized by CTW satisfies
+\begin{eqnarray}
+P_{w}^{\lambda}
+&=& \sum_{\cS} 2^{-\GD(\cS)} \cdot \prod_{s\in\cS} P_{e}(a_s,b_s), \nonumber \\
+&\geq& 2^{-\GD(\cS_a)} \cdot \prod_{s\in\cS_a} P_{e}(a_s,b_s), \label{eq:bndcodprobwei}
+\end{eqnarray}
+where the summation is over all tree models that fit in the context tree $\cTD$, see Lemma 2 in \cite{WilShtTja95}.
+The cost of model $\cS$ is defined as
+\begin{equation}
+\GD(\cS) \define 2|\cS| - 1 - |\{ s\in\cS, \mbox{depth$(s) = D$} \}|, \label{eq:defcost}
+\end{equation}
+and $\cS_a$ is the actual model.
+%=========================================================================
+\subsection{Performance}
+The individual redundancy $\rho(\xT)$ relative to the actual source for sequence $\xT$ can be upper bounded by
+\begin{eqnarray}
+\rho(\xT)
+&=&  L_w(\xT) - \log_2 \frac{1}{P_{a}(\xT)}  \nonumber \\
+&<& \GD(\cS_a) + \frac{|\cS_a|}{2} \log_2 \frac{T}{|\cS_a|} +|\cS_a|+ 2, \label{eq:bndrhowei}
+\end{eqnarray}
+for $T\geq|\cS_a|$.
+Moreover $\rho(\xT) < \GD(\cS_a)+T+2$ for $T<|\cS_a|$.
+The three terms in bound (\ref{eq:bndrhowei}) are the cost of specifying the model i.e. $\GD(\cS_a)$, the cost of specifying the parameters which is $\frac{|\cS_a|}{2}\log_2 \frac{T}{|\cS_a|}+|\cS_a|$ and the loss of 2 binary digits due to arithmetic coding.
+
+Observe that bound (\ref{eq:bndrhowei}) also holds for the redundancy relative to {\em any other source tree model $\cS$} with depth $\leq D$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Ratios of probabilities: betas}
+To reduce the complexity we can store in a node instead of the estimated and weighted block probability a {\em probability ratio}.
+This idea was proposed in \cite{WilTja98}.
+Consider an internal node $s$ in the context tree $\cTD$ and the corresponding {\em conditional} weighted probability $P_{w}^{s}(X_{t}=1|\xtm,\xpast)$.
+Assuming that $0s$ (and not $1s$) is a suffix of the context $\xpast,\xtm$ of $x_{t}$, we obtain for this probability that
+\begin{eqnarray}
+\label{eq:switch}
+\lefteqn{ P_{w}^{s}(X_{t}=1|\xtm,\xpast) }  \nonumber \\
+&=&\frac{ P_{e}^{s}(\xtm,X_{t}=1) + P_{w}^{0s}(\xtm,X_{t}=1) P_{w}^{1s}(\xtm) }
+        { P_{e}^{s}(\xtm)         + P_{w}^{0s}(\xtm        ) P_{w}^{1s}(\xtm) }  \nonumber \\
+&=&\frac{ \beta^{s}(\xtm) P_{e}^{s}(X_{t}=1|\xtm) + P_{w}^{0s}(X_{t}=1|\xtm) }
+        { \beta^{s}(\xtm) + 1 }
+\end{eqnarray}
+where
+\begin{equation}
+\beta^{s}(\xtm)=\frac{ P_{e}^{s}(\xtm) }{ P_{w}^{0s}(\xtm)P_{w}^{1s}(\xtm) }.
+\end{equation}
+Here we used in the first equality the main CTW-definition (\ref{def:CTW}) and the fact that $P_{w}^{1s}(\xtm,X_{t}=1) = P_{w}^{1s}(\xtm)$ since $1s$ is not a suffix of the context $\xpast,\xtm$.
+For simplicity we have omitted $\xpast$ in all conditions.
+
+Assuming that in node $s$ the counts $a_{s}(\xtm)$ and $b_{s}(\xtm)$ are stored, as well as the ratio $\beta^{s}(\xtm)$, leads to the following sequence of operations:
+\begin{enumerate}
+\item
+Node $0s$ delivers the conditional weighted probability $P_{w}^{0s}(X_{t}=1|\xtm)$ to node $s$.
+\item
+A conditional estimated probability is determined as suggested by Krichevsky and Trofimov \cite{KriTro81}, i.e.:
+\begin{equation}
+\label{Pefromcnts}
+P_{e}^{s}(X_{t}=1|\xtm) = \frac{b_{s}(\xtm)+1/2}{a_{s}(\xtm)+b_{s}(\xtm)+1}.
+\end{equation}
+The block-version of this KT-estimator appears in (\ref{eq:KT}).
+\item
+Now the outgoing conditional weighted probability can be computed as described in (\ref{eq:switch}).
+\item
+The ratio $\beta^{s}(\cdot)$ is then updated with symbol $x_{t}$.
+This is done as described below:
+\begin{equation}\label{updbeta}
+\beta^{s}(\xtm,x_{t}) = \beta^{s}(\xtm) \cdot \frac{ P_{e}^{s} (X_{t}=x_{t}|\xtm) }{ P_{w}^{0s}(X_{t}=x_{t}|\xtm) }.
+\end{equation}
+\item
+Finally, depending on the value $x_t$, either count $a_{s}(\xtm)$ or $b_{s}(\xtm)$ is incremented.
+\end{enumerate}
+
+We see that inside the node $s$ there is a {\em switch} that controls the mixture between the incoming conditional weighted probability $P_{w}^{0s}(X_{t}=1|\xtm)$ and the (internal) ratio $P_{e}^{s}(X_{t}=1|\xtm)$.
+The mixture is determined by the ratio $\beta^{s}(\xtm)$.
+For large $\beta^{s}(\xtm)$ the outgoing conditional probability is roughly $P_{e}^{s}(X_{t}=1|\xtm),$ for small $\beta^{s}(\xtm)$ it is approximately equal to $P_{w}^{0s}(X_{t}=1|\xtm)$.
+If $s$ is a leaf of $\cTD$ the outgoing conditional weighted probability is simply $P_{e}^{s}(X_{t}=1|\xtm)$, i.e. the internal one.
+
+A storage complexity reduction is obtained since estimated and weighted block probabilities decrease as the sequence length $T$ increases, while the ratio $\beta^{s}$ corresponds to two different coding alternatives for the subsequence in the node $s$ and is therefore closer to one.
+Moreover Eq. (\ref{eq:switch}) shows that in practice the performance does not depend on how large and how small $\beta^{s}$ really can become as long as it is large enough and small enough.
+%In \cite{WilTja97} it is shown that good performance can already be obtained for $|\log_2 \beta^s| \leq A$ for $A \approx 20$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{On a linear combination}
+We can we use equation (\ref{eq:switch}) to express the conditional weighted probability of the root as a linear combination of the estimated probabilities of the nodes along the context path $x_{t-D}x_{t-D+1}\cdots x_{t-1}$.
+This results in
+\begin{equation}\label{eq:convexcomb}
+P_{w}^{\lambda}(\xtm) = \sum_{d=0,D} \mu^{s_d}(\xtm) P_{e}^{s}(X_t=1|\xtm)
+\end{equation}
+where $s_0\define\lambda$ and $s_d \define x_{t-d} \cdots x_{t-1}$ for $d=1,\cdots,D$, and
+\begin{equation}
+\mu^{s_{d}}(\xtm) = \frac{\beta^{s_d}(\xtm)}{\beta^{s_d}(\xtm)+1} \prod_{i=0,d-1} \frac{1} {\beta^{s_i}(\xtm)+1},\label{def:mua}
+\end{equation}
+for $d=0,1,\cdots,D-1$ and
+\begin{equation}
+\mu^{s_{D}}(\xtm) =  \prod_{i=0,D-1} \frac{1} {\beta^{s_i}(\xtm)+1}.\label{def:mub}
+\end{equation}
+If we observe that $\mu^{s_d}(\xtm) \geq 0$ for $d=0,1,\cdots,D$ and
+\begin{equation}
+\sum_{d=0,D} \mu^{s_d}(\xtm) = 1,
+\end{equation}
+we may conclude that (\ref{eq:convexcomb}) is actually a convex combination.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Computing a posteriori model  probabilities}\label{sec:aposteriori}
+Consider a sub-tree model $\cS_s$ (a proper and complete set of strings all having a common suffix $s$), rooted in node $s$ of $\cTD$ and fitting in the context tree $\cTD$.
+Then we define the "conditional" probability of the sub-tree $\cS_{s}$ given $\xT$ as
+\begin{equation}
+Q_{w}^{s}(\cS_s) \define \frac{2^{-\GD(\cS_{s})} \prod_{s\in\cS_s} P_e( a_s,b_s) }{ P_{w}^{s} },\label{def:Qw}
+\end{equation}
+where the cost of sub-model $\cS_{s}$ is defined as
+\begin{equation}
+\GD(\cS_{s}) \define 2|\cS_{s}| - 1 - |\{ s\in\cS_{s}, \mbox{depth$(s) = D$} \}|. \label{def:subtreecost}
+\end{equation}
+It makes sense to call this probability a conditional probability since the denominator in (\ref{def:Qw}) can be expressed as
+\begin{equation}
+P^s_w = \sum_{\cS_{s}} 2^{-\GD(\cS_{s})} \prod_{s\in\cS_s} P_e( a_s,b_s),
+\end{equation}
+and
+\begin{equation}
+\sum_{\cS_{s}} 2^{-\GD(\cS_{s})} = 1,
+\end{equation}
+where the summations are over all sub-models rooted in $s$ having no leaves at depth deeper than $D$.
+This is Lemma 2 in \cite{WilShtTja95}.
+
+Now if $|\cS_s|>1$, note that the node $s$ can not be at level $D$ then, we can split up the sub-model $\cS_{s}$ into a sub-model $\cS_{0s}$ and a sub-model $\cS_{1s}$ and we obtain for the conditional probability
+\begin{eqnarray}
+Q_{w}^{s}(\cS_s) &=&    \frac{ 2^{-\GD(\cS_{0s})}
+\prod_{s\in\cS_{0s}}
+       P_e(a_s,b_s) } { P_{w}^{0s}} \nonumber \\
+&&\cdot\frac{ 2^{-\GD(\cS_{1s})} \prod_{s\in\cS_{1s}}
+       P_e(a_s,b_s) } { P_{w}^{1s}} \nonumber \\
+&&\cdot\frac{ P_{w}^{0s} P_{w}^{1s} }
+       { P_e(a_s,b_s)+P_{w}^{0s}P_{w}^{1s} } \nonumber \\
+&=&    Q_{w}^{0s}(\cS_{0s})Q_{w}^{1s}(\cS_{1s})\frac{1}{\beta_{s}+1}.
+\end{eqnarray}
+
+When the sub-model $\cS_{s}$ contains only one leaf-node $s$, not at depth $D$, then
+\begin{equation}
+Q_{w}^{s}(\cS_s)
+= \frac{ P_e(a_s,b_s) }{ P_e(a_s,b_s) + P_{w}^{0s}P_{w}^{1s} }
+= \frac{\beta_{s}}{\beta_{s}+1}.
+\end{equation}
+
+If sub-model $\cS_{s}$ consists only of a single leaf-node $s$ at level $D$ then
+\begin{equation}
+Q_{w}^{s}(\cS_s) = 1.
+\end{equation}
+
+Summarizing the three considered cases we can write
+\begin{equation}
+\label{eq:defaposteriori}
+Q_{w}^{s}(\cS_{s})  =
+\left\{\begin{array}{ll}
+                Q_{w}^{0s}(\cS_{0s}) Q_{w}^{1s}(\cS_{1s}) \frac{1}{\beta_{s}+1}
+                &\mbox{if $|\cS_s|>1$}, \\
+                \frac{\beta_{s}}{\beta_{s}+1} \mbox{ if depth$(s)<D$}
+                &\mbox{for $|\cS_s|=1$}, \\
+                1 \mbox{ if depth$(s)=D$}
+                &\mbox{for $|\cS_s|=1$}.
+       \end{array} \right.
+\end{equation}
+If we take
+\begin{equation}
+P(\cS) \define  2^{-\GD(\cS)}
+\end{equation}
+as the {\em a priori probability} of model $\cS$, then we can write for the {\em a posteriori probability} of model $\cS$ after having observed $\xT$ that
+\begin{equation}
+P_{w}(\cS|\xT) = \frac{2^{-\GD(\cS)} \prod_{s\in\cS} P_e(a_s,b_s)
+} { P_{w}^{\lambda} } = Q_{w}^{\lambda}(\cS),
+\end{equation}
+where the last equality follows from (\ref{def:Qw}).
+Recursive expression (\ref{eq:defaposteriori}) can now be used to determine the a posteriori probability $Q_{w}^{\lambda}(\cS)$ of a model $\cS$ from the $\beta$'s in the context tree.
+We just have to form a product which consists of a factor $1/(\beta_{s'}+1)$ for each internal node $s'$ of the model $\cS$ and a factor $\beta_{s"}/(\beta_{s"}+1)$ for each leaf $s"$ of the model $\cS$ not at level $D$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction: Context-Tree Maximizing}\label{sec:maximizing}
+%========================================================================
+\subsection{Two-pass methods}
+CTW is a {\em one-pass method}.
+The source sequence $\xT$ is processed in a sequential way, i.e. the first source symbol $x_1$ is observed, some first code symbols may be produced, the second symbol $x_2$ is observed, more code symbols may be produced, etc. .
+In a {\em two-pass system} the entire source sequence $\xT$ is observed first.
+Only after that a codeword is constructed.
+Consider the following {\em two-pass method}:
+\begin{enumerate}
+\item
+After observing $\xT$ determine the ``best model'' $\hcS$ matching to $\xT$.
+\item
+Encode this model $\hcS$.
+\item
+Encode the sequence $\xT$ given this model $\hcS$.
+\end{enumerate}
+Some questions that arise now are:
+(a) What is the best model $\hcS$?
+How can it be determined efficiently?
+(b) How do we encode the best model $\hcS$ and sequence $\xT$ given model $\hcS$?
+
+%================================================================================
+\subsection{The context-tree maximizing algorithm}
+When the source produces sequence $\xT$ and model $\cS$ is chosen as the best model, the resulting coding probability\footnote{It satisfies $\sum_{\xT} P^{\lambda}_m(\xT) < 1$ however.} for the two-pass case, is
+\begin{equation}
+2^{-\GD(\cS)} \cdot \prod_{s\in\cS} P_{e}(a_s,b_s).\label{eq:codprobmax}
+\end{equation}
+Here the first factor is the number of bits needed to specify the model $\cS$ in a recursive way (i.e. the natural code mentioned in \cite{WilShtTja95}) and the second factor is the coding probability of the sequence $\xT$ given the model $\cS$, see (\ref{eq:codprobknmod}).
+The context-tree maximizing (CTM) method, first mentioned in \cite{WilShtTja93} but also proposed by Nohre in his Ph.D. thesis \cite{Noh94}), finds the model maximizing (\ref{eq:codprobmax}) recursively, using a context tree, by taking
+\begin{equation}\label{def:CTM}
+P_{m}^{s} = \left\{\begin{array}{ll}
+                \max [ \half P_{e}(a_{s},b_{s}) , \half P_{m}^{0s} P_{m}^{1s} ]
+                &\mbox{if depth($s$) $<D$}, \\
+               P_{e}(a_{s},b_{s}) &\mbox{otherwise.}
+                 \end{array} \right.
+\end{equation}
+We assumed that the entire sequence $\xT$ was processed into the context tree.
+We finally will find the best model ${\cal S}$ by tracking the maximization procedure, starting in the {\em root} $\lambda$ of the context tree.
+If in a node $s$ in the context tree $P_{e}(a_{s},b_{s}) \geq P_{m}^{0s} P_{m}^{1s}$ then $s$ is a leaf of the best tree ${\hcS}$ and we do not have to investigate the sub-tree rooted in $s$ any further.
+Otherwise $s$ is an internal node of the best model and we have to check the nodes $0s$ and $1s$.
+Note that
+\begin{equation}
+P_{m}^{\lambda} = \max_{\cS} 2^{-\GD(\cS)} \prod_{s\in\cS} P_{e}(a_s,b_s),
+\end{equation}
+and denote that model maximizing this expression by $\hcS$.
+
+
+%=========================================================================
+\subsection{Performance}
+The coding probability for context-tree maximizing satisfies
+\begin{equation}
+P_{m}^{\lambda} =
+2^{-\GD(\hcS)} \prod_{s\in\hcS} P_{e}(a_s,b_s) \geq 2^{-\GD(\cS_a)}  \prod_{s\in\cS_a} P_{e}(a_s,b_s),
+\end{equation}
+just like $P_w^{\lambda}$, see (\ref{eq:bndcodprobwei}), and therefore maximizing, just like weighting, leads to the redundancy bound (\ref{eq:bndrhowei}).
+Observe that this bound holds for any model, not only for $\cS_a$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Finding the maximum a posteriori model}
+
+Observe first that the context-tree maximizing method yields the maximum a posteriori (MAP) tree model given the observed sequence $\xT$.
+This observation can be found in \cite{WilNowVol02}.
+In \cite{WilNowVol02} also the method for computing a posteriori model probabilities, that was described in section \ref{sec:aposteriori}, was proposed.
+It is a bit strange that on one hand a posteriori model probabilities can be computed from the $\beta$'s in a context tree while on the other hand to determine the MAP tree-model we need the context-tree maximizing method.
+Therefore we want to find a method that determines the MAP-model based on the $\beta$'s in the weighted context-tree.
+First we determine the probability of the MAP sub-model corresponding to a node $s$ at depth $<D$.
+For such a node we can write
+\begin{eqnarray}
+\lefteqn{\max_{\cS_s} Q_{w}^{s}(\cS_{s})} \nonumber \\
+&=& \max [ \frac{1}{\beta_{s}+1} \max_{\cS_{0s}} Q_{w}^{0s}(\cS_{0s}) \max_{\cS_{1s}} Q_{w}^{1s}(\cS_{1s}) , \frac{\beta_s}{\beta_{s}+1} ].  \nonumber \\
+&&
+\end{eqnarray}
+Here the last term corresponds to the sub-model which has only a single leaf-node at $s$.
+The first term correspond to all larger sub-models.
+
+For a node at depth $D$ only the one-leaf sub-model plays a role and
+\begin{equation}
+\max_{\cS_s} Q_{w}^{s}(\cS_{s}) = 1.
+\end{equation}
+
+If we now define for all nodes $s\in\cTD$ the MAP sub-model probability
+\begin{equation}
+Q_{mw}^{s} \define  \max_{\cS_s} Q_{w}^{s}(\cS_{s}),
+\end{equation}
+then the following recursive equation holds:
+\begin{equation}
+\label{def:MAP}
+Q_{mw}^{s} =
+\left\{\begin{array}{ll}
+                \max [ Q_{mw}^{0s} Q_{mw}^{1s} \frac{1}{\beta_{s}+1} , \frac{\beta_{s}}{\beta_{s}+1} ] &\mbox{if depth$(s)<D,$} \\
+                1 &\mbox{if depth$(s)=D.$}
+                       \end{array} \right.
+\end{equation}
+Now in the root $\lambda$ of the context tree we find the maximum a posteriori model probability $Q_{mw}^{\lambda}$.
+Tracking the procedure starting in the root of the context tree yields the MAP-model.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Difference between CTW and CTM}
+Let $\hcS$ be the MAP model, then
+\begin{equation}
+1 \geq \frac{2^{-\GD(\hcS)} \prod_{s\in\hcS} P_e( a_s,b_s) }{ P_{w}^{s} }
+= Q_{w}^{\lambda}(\hcS) = Q^{\lambda}_{mw}.
+\end{equation}
+For the difference in codeword lengths for CTW and CTM we first can write
+\begin{eqnarray}
+\lefteqn{L_w(\xT)-L_m(\xT)} \nonumber \\
+&= & \lceil \log_2\frac{1}{P_w(\xT)}\rceil + 1 - \lceil\log_2\frac{1}{P_m(\xT)}\rceil -1 \nonumber \\
+&\leq& 0.
+\end{eqnarray}
+However we can also show that
+\begin{eqnarray}
+\lefteqn{L_w(\xT)-L_m(\xT)} \nonumber \\
+&< & \log_2\frac{1}{P_w(\xT)} + 2 - \log_2\frac{1}{P_m(\xT)} - 1 \nonumber \\
+&=& \log_2\frac{2^{-\GD(\hcS)} \prod_{s\in\hcS} P_e( a_s,b_s) }{ P_{w}^{s} } +1 \nonumber \\
+&=& \log_2 Q_{mw}^{\lambda} + 1,
+\end{eqnarray}
+and similarly
+\begin{equation}
+L_w(\xT)-L_m(\xT) > \log_2 Q_{mw}^{\lambda} - 1.
+\end{equation}
+
+Note that only for $Q_{mw}^{\lambda} \approx 1$ we obtain that $L_m(\xT) \leq L_w(\xT) + 1$ and CTM yields roughly the same performance as CTW.
+In \cite{WilShtTja00} it was shown that for tree sources that fit in the context tree $\cTD$ MAP proability $Q_{mw}^{\lambda} \rightarrow 1$ for asymptotically large sequence length $T$.
+When $Q_{mw}^{\lambda}$ is not close to one (no convergence) $L_m(\xT)$ is significantly larger than $L_w(\xT)$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{A posteriori node probabilities}
+We can define the a posteriori {\em node} probability of a node $s \in \cTD$ as
+\begin{equation}
+Q_w(s) \define \sum_{\cS: s\in\cS} Q_{w}^{\lambda}(\cS),
+\end{equation}
+where the summation is over all models $\cS$ that contain leaf $s$.
+
+It now can be shown that for all $s\in\cTD$
+\begin{equation}
+\mu^{s} = Q_{w}(s),
+\end{equation}
+where $\mu_s$ is as in (\ref{def:mua}) and (\ref{def:mub}).
+
+For a proof of this statement we refer to figure \ref{fig:pathtoleaf}.
+Let node $s$ have depth $d$ and assume that $s=u_{d},u_{d-1},\cdots,u_{1},$ a binary string.
+Then define $s(i) \define u_{i},u_{i-1},\cdots,u_{1}$ and $s^{c}(i) \define 1-u_{i},u_{i-1},\cdots,u_{1}$ for $i=1,\cdots,d$ and $s(0)\define\lambda$.
+The crucial part of the proof is (\ref{eq:defaposteriori}).
+Note that the nodes $s(i), i=0,1,\cdots,d-1$ are inner nodes of all models that have a leaf $s$.
+These nodes give rise to the factors in (\ref{def:mua}) and (\ref{def:mub}).
+Moreover we use that
+\begin{equation}
+\sum_{\cS_{s^{c}(i)}} Q_{w}^{s^{c}(i)}(\cS_{s^{c}(i)}) =1.
+\end{equation}
+for all $i=1,2,\cdots,d$.
+\begin{figure}
+\centering
+\input{pathtoleaf.latex}
+\caption{A leaf at depth $d$ and the path leading to this leaf.}
+\label{fig:pathtoleaf}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Concluding remarks}
+We have presented here several new results related to $\beta$'s.
+The results are all based on uniform weighting, i.e. using coefficients $\half,\half$ if we weight two alternatives.
+Our results carry over to the case where arbitrary coefficients are used.
+Note that a uniform distribution over all tree-models can be achieved by a special kind of non-uniform weighting (see \cite{WilShtTja95}).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{thebibliography}{1}
+\bibitem{Jel68} F. Jelinek, {\em Probabilistic Information Theory,} New York: McGraw-Hill, 1968, pp. 476 - 489.
+
+\bibitem{KriTro81} R.E. Krichevsky and V.K. Trofimov, ``The Performance of Universal Encoding,'' {\em IEEE Trans. Inform. Theory,} vol.~IT-27, pp. 199 - 207, March 1981.
+
+\bibitem{Noh94} R. Nohre, {\em Some Topics in Descriptive Complexity,} Ph.D. thesis, Linkoping University, Sweden, 1994.
+
+\bibitem{Pas76} R. Pasco, {\em Source Coding Algorithms for Fast Data Compression,} Ph.D. thesis, Stanford University, 1976.
+
+\bibitem{Ris76} J. Rissanen, ``Generalized Kraft Inequality and Arithmetic Coding,'' {\em IBM J. Res. Devel.}, vol. 20, p. 198, 1976.
+
+\bibitem{Ris84} J. Rissanen, ``Universal Coding, Information, Prediction, and Estimation,'' {\em IEEE Inform. Theory,} vol.~IT-30, pp. 629 - 636, July 1984.
+
+\bibitem{WilNowVol02} F.M.J. Willems, A. Nowbahkt-Irani, and P.A.J. Volf, "Maximum A Posteriori Tree Models," {\em Proc. 4th Int. ITG Conf. Source and Channel Coding,} Berlin, Germany, pp. 335 - 340, February 28-30, 2002.
+
+\bibitem{WilShtTja93} F.M.J. Willems, Y.M. Shtarkov and Tj.J. Tjalkens, ``Context Weighting: General Finite Context Sources,'' {\em Proc. I14th Symp. on Inform. Theory in the Benelux,} pp. 120 - 127, Veldhoven, May 17 \& 18, 1993.
+
+\bibitem{WilShtTja95} F.M.J. Willems, Y.M. Shtarkov and Tj.J. Tjalkens, ``The Context-Tree Weighting Method: Basic Properties,'' {\em IEEE Trans. Inform. Theory,} vol. IT-41, pp. 653 - 664, May 1995.
+
+\bibitem{WilShtTja00} F.M.J. Willems, Y.M. Shtarkov and Tj.J. Tjalkens, ``Context-Tree Maximizing,'' {\em 2000 Conf. on Inform. Sciences ans Syst.,} Princeton Univ., Princeton, NJ, TP6.7 - TP6.12, March 15 - 17, 2000.
+
+\bibitem{WilTja98} F.M.J. Willems and Tj.J. Tjalkens, ``Reducing complexity of the context-tree weighting method,'' {\em Proc. IEEE International Symposium on Information Theory,} p. 347, Cambridge, Mass., August 16 - 21, 1998.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{thebibliography}
+\end{document}
+
+

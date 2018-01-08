@@ -1,0 +1,13 @@
+\BOOKMARK [2][]{Outline0.1}{Combining experts in the log loss framework}{}
+\BOOKMARK [2][]{Outline0.2}{The online Bayes Algorithm}{}
+\BOOKMARK [2][]{Outline0.3}{The performance bound}{}
+\BOOKMARK [2][]{Outline0.4}{Comparison with Bayesian Statistics}{}
+\BOOKMARK [2][]{Outline0.5}{Computational issues}{}
+\BOOKMARK [2][]{Outline0.6}{The Universal prediction machine}{}
+\BOOKMARK [2][]{Outline0.7}{The biased coins set of experts}{}
+\BOOKMARK [2][]{Outline0.8}{Generalization to larger sets of distributions}{}
+\BOOKMARK [2][]{Outline0.9}{Fixed Length Markov Models}{}
+\BOOKMARK [2][]{Outline0.10}{Variable Length Markov Model \(VMM\)}{}
+\BOOKMARK [2][]{Outline0.11}{Assigning weights to trees}{}
+\BOOKMARK [2][]{Outline0.12}{Learning the structure, an inefficient solution}{}
+\BOOKMARK [2][]{Outline0.13}{Efficient Implementation}{}

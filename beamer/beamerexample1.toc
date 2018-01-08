@@ -1,0 +1,16 @@
+\beamer@endinputifotherversion {3.01pt}
+\select@language {english}
+\beamer@sectionintoc {2}{The Model of Overhead-Free Computation}{5}{1}{1}
+\beamer@subsectionintoc {2}{1}{The Standard Model of Linear Space}{5}{1}{1}
+\beamer@subsectionintoc {2}{2}{Our Model of Absolutely No Space Overhead}{17}{1}{1}
+\beamer@sectionintoc {3}{The Power of Overhead-Free Computation}{31}{1}{2}
+\beamer@subsectionintoc {3}{1}{Palindromes}{31}{1}{2}
+\beamer@subsectionintoc {3}{2}{Linear Languages}{49}{1}{2}
+\beamer@subsectionintoc {3}{3}{Context-Free Languages with a Forbidden Subword}{57}{1}{2}
+\beamer@subsectionintoc {3}{4}{Languages Complete for Polynomial Space}{64}{1}{2}
+\beamer@sectionintoc {4}{Limitations of Overhead-Free Computation}{67}{1}{3}
+\beamer@subsectionintoc {4}{1}{Linear Space is Strictly More Powerful}{67}{1}{3}
+\beamer@sectionintoc {6}{Appendix}{77}{2}{4}
+\beamer@subsectionintoc {6}{1}{Complete Languages}{78}{2}{4}
+\beamer@subsectionintoc {6}{2}{Improvements for Context-Free Languages}{79}{2}{4}
+\beamer@subsectionintoc {6}{3}{Abbreviations}{80}{2}{4}

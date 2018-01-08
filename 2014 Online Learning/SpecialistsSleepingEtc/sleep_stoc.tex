@@ -1,0 +1,1992 @@
+\documentstyle[times,twocolumn]{article}
+
+% ACM suggests you use the Times-Roman font, which I think looks better
+% than the default font for LaTeX.  If the following line works on your 
+% system, this will do it.  Otherwise, you'll get an error message.  
+% Delete the line and thus use the default LaTeX font (computer modern).
+
+% \usepackage{times}
+
+\pagestyle{empty}
+
+% Official lengths and widths for the ACM page format.
+% (except for paragraph indentation, which is not specified by ACM). 
+
+\setlength{\textheight}{9.25in}
+\setlength{\columnsep}{0.33in}
+\setlength{\textwidth}{7.0in}
+\setlength{\topmargin}{-.25in}
+\setlength{\headheight}{0.0in}
+\setlength{\headsep}{0.0in}
+\setlength{\oddsidemargin}{-.25in}
+\setlength{\parindent}{1pc}
+
+% The following is copied (more or less) from the IEEE (FOCS) macros.
+% it sets the size of section and subsection headers, and the paper header
+% (title, author list).
+
+\makeatletter
+
+\def\section{\@startsection{section}{1}{\z@}{-3.25ex plus -1ex minus 
+   -.2ex}{1.5ex plus .2ex}{\large\bf}}
+\def\subsection{\@startsection{subsection}{2}{\z@}{-3.25ex plus 
+-1ex minus -.2ex}{1.5ex plus .2ex}{\normalsize\bf}}
+
+
+%making the paper head, title 15 point, authors 12 point.
+
+\def\maketitle{\par
+ \begingroup
+   \def\thefootnote{\fnsymbol{footnote}}
+   \def\@makefnmark{\hbox   
+       to 0pt{$^{\@thefnmark}$\hss}}   
+   \if@twocolumn               
+     \twocolumn[\@maketitle]   
+     \else \newpage
+     \global\@topnum\z@        % Prevents figures from going at top of page.
+     \@maketitle \fi\thispagestyle{plain}\@thanks
+ \endgroup
+ \setcounter{footnote}{0}
+ \let\maketitle\relax
+ \let\@maketitle\relax
+ \gdef\@thanks{}\gdef\@author{}\gdef\@title{}\let\thanks\relax
+ \begin{figure}[b] \vspace*{0.69in} \end{figure}  % space for ACM notice
+}
+
+
+\def\@maketitle{\newpage
+ \null
+ \begin{center}%
+  \vspace*{.125in}
+  {\Large \bf \@title \par}%
+  \vspace*{\baselineskip}
+  \vspace*{\baselineskip}
+  {\large
+   \lineskip .6em
+   \begin{tabular}[t]{c}\@author
+   \end{tabular}\par}%
+  \vspace*{\baselineskip}%
+ \end{center}%
+ \par
+ \vspace*{\baselineskip}
+ }
+
+% Changing the thebibliography environment to remove vertical space between
+% items
+
+\def\thebibliography#1{\section*{References\@mkboth
+  {REFERENCES}{REFERENCES}}\list
+  {[\arabic{enumi}]}{\settowidth\labelwidth{[#1]}\leftmargin\labelwidth
+    \advance\leftmargin\labelsep
+    \usecounter{enumi}\itemsep 0pt\parsep 0pt}
+    \def\newblock{\hskip .11em plus .33em minus .07em}
+    \sloppy\clubpenalty4000\widowpenalty4000
+    \sfcode`\.=1000\relax}
+
+
+%%%%%%%%%%%%%%  make small captions %%%%%%%
+
+\long\def\@caption#1[#2]#3{\par\addcontentsline{\csname
+  ext@#1\endcsname}{#1}{\protect\numberline{\csname 
+  the#1\endcsname}{\ignorespaces #2}}\begingroup
+    \@parboxrestore
+    \small
+    \@makecaption{\csname fnum@#1\endcsname}{\ignorespaces #3}\par
+  \endgroup}
+
+\long\def\@makecaption#1#2{
+   \vskip 1pt \small
+     #1: #2\par                 %   set as ordinary paragraph.
+   }
+
+\makeatother
+
+
+% This template made by Peter Shor for the ACM STOC conference.
+% It has no official sanction of any kind by ACM.  No warranty of
+% any kind is given.  Any mistakes are purely my fault.
+% Peter Shor
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+%\documentstyle[times]{ACMconf}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+% \documentstyle[11pt,fullpage,times]{article} 
+%%%%
+%\setlength{\headheight}{0in}
+%\setlength{\headsep}{0in}
+%\setlength{\topmargin}{0in}
+%\setlength{\oddsidemargin}{0.3625in}
+%\setlength{\evensidemargin}{\oddsidemargin}
+
+%%%%%%%%%%%%%%%%%%%
+% include these lines for printing a draft (wide margins and double
+% spaced)
+% if you don't wan't these, comment them out, but DO NOT REMOVE THEM.
+%\setlength{\textwidth}{5.5in}
+%\renewcommand{\baselinestretch}{1.5}
+%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  CLUDGE to get citation to appear at top of title.
+\setlength{\topmargin}{0pt}
+% Definition of 'titleheadings' page style.
+%
+\makeatletter
+\def\ps@titleheadings{\let\@mkboth\@gobbletwo
+\def\@oddhead{\hfill\it {\it Proceedings of the Twenty-Ninth Annual ACM
+Symposium on the Theory of Computing}, 1997.}%
+\def\@oddfoot{}\def\@evenhead{leftmark}%
+\def\@evenfoot{}}
+\makeatother
+\thispagestyle{titleheadings}
+\setlength{\topmargin}{-0.125in}
+\addtolength{\headheight}{\baselineskip}
+\addtolength{\topmargin}{-.5\headheight}
+\addtolength{\headsep}{-.5\headheight}
+\addtolength{\headsep}{.5in}
+\addtolength{\topmargin}{-.5in}
+\setlength{\footheight}{\baselineskip}
+\setlength{\footskip}{0.475in}
+\pagestyle{plain}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% CLUDGE to get acm notice at bottom of page
+% Title stuff, taken from deproc. 
+\makeatletter
+\def\maketitle{\par 
+ \begingroup 
+   \def\thefootnote{\fnsymbol{footnote}} 
+   \def\@makefnmark{\hbox to 0pt{$^{\@thefnmark}$\hss}} 
+   \twocolumn[\@maketitle] \@thanks 
+ \endgroup 
+ \setcounter{footnote}{0} 
+ \let\maketitle\relax \let\@maketitle\relax 
+ \gdef\@thanks{}\gdef\@author{}\gdef\@title{}\let\thanks\relax
+ \begin{figure}[b]
+     \vbox to 0.69in {\footnotesize \vspace{-0.2in} Permission to make digital or hard
+copies of part or all of this work for
+personal or classroom use is granted without fee provided that copies are 
+not made or distributed for profit or commercial advantage and that copies 
+bear this notice and the full citation on the first page. Copyrights for 
+components of this work owned by others than ACM must be honored. 
+Abstracting with credit is permitted. To copy otherwise, to republish, to 
+post on servers or to redistribute to lists, requires prior specific 
+permission and/or a fee.}
+ \end{figure}  % space for ACM notice
+}
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                 MACROS                                   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newfont{\msym}{msbm10}
+
+\newcommand{\nats}{\mbox{\msym N}}
+
+\newtheorem{theorem}{Theorem}	
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}{Definition}
+
+\newcommand{\note}[1]{\par{\bf Note:}#1\par}
+\newcommand{\notem}[1]{{\marginpar{\tiny #1}}}
+
+\newlength{\colwidth}
+\setlength{\colwidth}{0.5\textwidth}
+\addtolength{\colwidth}{-0.5\columnsep}
+
+\newcommand{\figline}{\rule{\colwidth}{0.5pt}}
+\newcommand{\fullfigline}{\rule{\textwidth}{0.5pt}}
+
+\newlength{\parmwidth}
+\settowidth{\parmwidth}{\bf Parameters:~}
+\setlength{\parmwidth}{-\parmwidth}
+\addtolength{\parmwidth}{\colwidth}
+
+\newcommand{\proof}{\noindent{\bf Proof:} }
+\newcommand{\proofsketch}{\noindent{\bf Proof sketch:} }
+\newcommand{\qed}{\rule{0.7em}{0.7em}}
+
+\iffalse
+\newcommand{\newmcommand}[2]{\newcommand{#1}{{\ifmmode {#2}\else\mbox{${#2}$}\fi}}}
+\newcommand{\newmcommandi}[2]{\newcommand{#1}[1]{{\ifmmode {#2}\else\mbox{${#2}$}\fi}}}
+\newcommand{\newmcommandii}[2]{\newcommand{#1}[2]{{\ifmmode {#2}\else\mbox{${#2}$}\fi}}}
+\newcommand{\newmcommandiii}[2]{\newcommand{#1}[3]{{\ifmmode {#2}\else\mbox{${#2}$}\fi}}}
+\fi
+
+\newcommand{\newmcommand}[2]{\newcommand{#1}{\ifmmode #2\else\mbox{$#2$}\fi}}
+\newcommand{\newmcommandi}[2]{\newcommand{#1}[1]{\ifmmode #2\else\mbox{$#2$}\fi}}
+\newcommand{\newmcommandii}[2]{\newcommand{#1}[2]{\ifmmode #2\else\mbox{$#2$}\fi}}
+\newcommand{\newmcommandiii}[2]{\newcommand{#1}[3]{\ifmmode #2\else\mbox{$#2$}\fi}}
+
+
+\newcommand{\E}[1]{{\bf E}\left[ #1 \right]}
+
+\newmcommand{\predspace}{\Phi}
+\newmcommand{\outspace}{\Omega}
+
+\newmcommandii{\advice}{x_{{#2},{#1}}}
+\newmcommandi{\advicei}{x_{#1}}
+\newmcommandi{\advicevec}{{\bf x}_{#1}}
+\newmcommandi{\pred}{\hat{y}_{#1}}
+\newmcommandi{\outcome}{y_{#1}}
+
+\newmcommand{\loss}{\mbox{L}}
+\newmcommandii{\sloss}{\ell_{#1}^{#2}}
+\newmcommandi{\algloss}{\ell_A^{#1}}
+\newmcommand{\talgloss}{L_A}
+
+\newmcommand{\vu}{{\bf u}}	% the optimal weighting of the specialists
+\newmcommand{\vv}{{\bf v}}
+\newmcommandi{\uu}{u_{#1}}
+
+\newmcommandi{\vp}{{\bf p}_{#1}} % the $t$th distribution chosen by
+				 % the algorithm
+\newmcommandii{\pp}{p_{{#2},{#1}}}
+\newmcommandi{\ppi}{p_{#1}}	% an element of \vp at an unspeciafied
+				% time
+
+\newmcommand{\Bayes}{{\bf Bayes}} % Bayes algorithm
+\newmcommand{\SBayes}{{\bf SBayes}} % Bayes algorithm for Specialists
+\newmcommand{\SAbs}{{\bf SAbs}}	%Absolute loss algorithm with experts
+
+\newmcommand{\SI}{{\bf WMS}}
+\newmcommand{\SII}{{\bf EGS}}
+\newmcommandii{\RE}{{\mbox{\bf RE} \left( #1 \| #2 \right)}}
+\newmcommand{\updatefcn}{U_\beta}
+
+\newcommand{\ohone}{\{0,1\}}
+\newcommand{\luf}{\mu}
+\newcommand{\angles}[1]{\left\langle {#1} \right\rangle}
+% Rob's new macros
+\newmcommand{\pfunc}{{\rm pred}}
+\newmcommand{\pfuncN}{\pfunc_N}
+\newmcommand{\ufunc}{{\rm update}}
+\newmcommand{\ufuncN}{\ufunc_N}
+\newmcommandi{\simplex}{\Delta_{#1}}
+\newmcommandi{\aset}{{E_{#1}}}
+\newmcommandi{\resadvicevec}{\advicevec{#1}^\aset{#1}}
+\newmcommandii{\resadvice}{\advice{#1}{#2}^\aset{#2}}
+\newmcommandi{\resadvicei}{\advicei{#1}^\aset{}}
+\newmcommandii{\rvpp}{\vp{#1}^\aset{#2}}
+%\newcommand{\rvpp}[2]{{\bf p}_{#1}^\aset{#2}}
+\newmcommandi{\rvp}{\rvpp{#1}{#1}}
+\newmcommandii{\rpp}{\pp{#1}{#2}^\aset{#2}}
+\newmcommandi{\rppi}{\ppi{#1}^\aset{}}
+\newmcommandi{\rvu}{\vu^\aset{#1}}
+\newmcommand{\EG}{{\bf EG}}
+\newmcommand{\SEG}{{\bf SEG}}
+\newmcommandi{\closs}{\loss_{#1}}
+\newmcommandi{\clossi}{\loss_{#1}^{I}}
+\newmcommandi{\clossii}{\loss_{#1}^{II}}
+\newmcommandi{\clossiii}{\loss_{#1}^{I/II}}
+\newmcommandi{\paren}{\left({#1}\right)}
+
+\newcommand{\cpred}{b}
+\newcommand{\String}{s}
+\newcommand{\uptok}{\ohone^{\le k}}
+\newmcommand{\pgraph}{\cal G}
+\newmcommand{\prun}{\cal P}
+\newmcommand{\ginst}{z^t}
+\newmcommand{\prior}{p_{1}}
+\newmcommand{\pdist}{\nu}
+\newmcommandii{\swp}{p^{#1}_{#2}}
+\newmcommandii{\sswp}{Q^{#2}_{#1}}
+\newmcommandi{\sumf}{F_{#1}}
+\newmcommandii{\sfac}{R^{#2}_{#1}}
+\newmcommand{\partexp}{S}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                              END OF MACROS                               %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{psfig}
+
+\begin{document}
+
+\title{Using and combining predictors that specialize}
+ 
+\author{Yoav Freund ~ Robert E. Schapire ~ Yoram Singer \\
+		AT\&T Labs\thanks{%
+AT\&T Labs is planning to move from Murray Hill in 1997.
+The new address will be:
+180 Park Avenue, Florham Park, NJ \ 07932-0971.}
+\\
+		600 Mountain Avenue,
+%		Room \{2B-428, 2A-424\}\\
+		Murray Hill, NJ \ 07974\\
+		\{yoav, schapire, singer\}@research.att.com \\
+	\and Manfred K. Warmuth \\
+	University of California \\
+	Santa Cruz, CA \ 95064\\
+	manfred@cse.ucsc.edu
+}
+
+%\def\blackslug{\hbox{\hskip 1pt \vrule width 4pt height 8pt depth 1.5pt
+%\hskip 1pt}}
+%\def\proof{\par\penalty-1000\vskip .5 pt\noindent{\bf Proof\/: }}
+%\def\QED{\quad\blackslug\lower 8.5pt\null\par}
+
+\maketitle
+
+{\small
+\noindent
+{\bf Abstract.}
+We study online learning algorithms
+that predict by combining the predictions
+of several subordinate prediction algorithms, sometimes called
+``experts.''
+These simple algorithms belong to the multiplicative weights family
+of algorithms.
+The performance of these algorithms degrades only logarithmically with
+the number of experts, making them particularly useful
+in applications where the number of experts is very large.
+However, in applications such as text categorization, it is often
+natural for some of the experts to abstain from making predictions on
+some of the instances.
+We show how to transform algorithms that assume that
+all experts are always awake to algorithms that do not
+require this assumption.
+We also show how to derive corresponding loss bounds.
+Our method is very general, and can be applied to a large family of
+online learning algorithms.
+We also give applications to various prediction models including
+decision graphs and ``switching'' experts.
+\par
+}
+
+%\thispagestyle{empty}
+%\setcounter{page}{0}
+
+
+% ------------------------------------------------------------------------
+\section{Introduction}
+
+We study online learning algorithms
+that predict by combining the predictions
+of several subordinate prediction algorithms, sometimes called
+``experts.''
+Starting with the work of
+Vovk~\cite{Vovk90} and
+Littlestone and Warmuth~\cite{LittlestoneWa94},
+many algorithms have been
+developed in recent years which use multiplicative weight updates.
+These algorithms enjoy theoretical
+performance guarantees which can be proved without making any statistical
+assumptions.
+Such results can be made meaningful in a non-statistical setting by
+proving that the performance of the master algorithm can never be much
+worse than that of the best expert.
+Furthermore, the dependence of such a bound on the number of experts is
+only logarithmic, making such algorithms applicable even when the
+number of experts is enormous.
+
+In this paper, we study an extension of the online prediction 
+framework first proposed by Blum~\cite{Blum95}.
+The added feature is that we allow experts to abstain
+from making a prediction. 
+Experts that are given the possibility to abstain are called
+{\em specialists}, because we think of them as making their prediction 
+only when the instance to be predicted falls within their area of
+expertise. We say that a specialist is {\em awake\/} when it makes a
+prediction and that it is {\em asleep\/} otherwise.
+We refer to the conventional framework as the {\em
+insomniac\/} framework since it is a special case
+in which all specialists are awake all the time.
+
+\iffalse
+The need for an expert to abstain is common in practical applications
+as almost any real world dataset that is used in machine learning
+contains records in which some feature values are missing.
+A very natural way for dealing with missing values is to consider
+experts whose predictions are functions of these values as abstaining.
+\fi
+
+An important real-world application of prediction for which
+specialists are very useful is in the field of information
+retrieval.
+Consider the problem of predicting the category to which a news
+article belongs (such as ``politics,'' ``weather,'' ``sports,'' etc.)
+based on the appearance of words in the given article.
+We can think of each word as a feature and
+represent each article as a vector of features.
+In this case the number of features is huge (on the order of $10^5$),
+which makes multiplicative weight-update algorithms very
+attractive.
+It is intuitively clear that most of the features are relevant only to
+the small subset of the documents in which they appear. A natural way
+for using this intuition is to use specialists that
+predict when a specific word or combination of words
+appear in the document and are
+asleep otherwise. This leads to very efficient algorithms that can
+deal with huge vocabularies and make very good predictions.
+This was demonstrated by Cohen and Singer~\cite{CohenSi96} who used one of the
+specialist algorithms described in this paper for such a
+text-classification task.
+Thus, our results generalize a theoretical foundation to an algorithm that has
+already been shown to be of practical value.
+
+In the first part of this paper, we give a general transformation for
+converting an insomniac algorithm into the specialist framework and
+how the corresponding bounds can also be transformed.
+This transformation can be applied to a large family of learning
+problems and algorithms, including all those that fall within
+Vovk's~\cite{Vovk95} very general framework of online learning, as well as
+the algorithms belonging to the ``exponentiated gradient'' family of
+algorithms introduced by Kivinen and Warmuth~\cite{KivinenWa95}.
+The feature common to the analysis of all these algorithms is that they
+use an amortized analysis in which relative entropy is the potential function.
+
+In the second part of the paper we show that using specialists is a
+powerful way for {\em decomposing\/} complex prediction problems. 
+The naive solution to these prediction problems uses a very
+large set of experts, making the 
+calculations of the prediction computationally infeasible.
+We show how a large set of experts can be represented using a much smaller
+set of specialists. Each expert corresponds to a subset of the
+specialists which take turns in making their predictions. 
+Only a small fraction of the specialists are involved in producing each
+prediction, which reduces the computational load even further.
+
+Specifically, we apply this decomposition to the problem of predicting
+almost as well as the best pruning of a decision graph.
+This generalizes previous work on predicting almost as well as the
+best pruning of a decision tree~\cite{WillemsShTj95,HelmboldSc95}.
+
+We also apply our methods to the problem of predicting in a model in
+which the ``best'' expert may change with time.
+We derive a specialist-based algorithm for this problem that
+is as fast as the best known algorithm of Herbster and
+Warmuth~\cite{HerbsterWa95} and 
+achieves almost as good a loss bound.
+However, unlike their algorithm, ours does not require prior
+knowledge of the length of the sequence and the number of switches.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The specialist framework}
+
+We now give a formal definition of the framework.
+We define online learning with specialists as a game
+that is played between the prediction algorithm and an adversary.
+We assume that there are $N$ specialists, indexed by
+$\{1,\ldots,N\}$. We assume that predictions and outcomes are
+real-valued numbers from a bounded range $[0,1]$.\footnote{In 
+two of the three cases we present here,
+the outcomes must lie in $\{0,1\}$.
+While some results can be presented in the much more
+general online prediction framework of Vovk~\cite{Vovk95}, we chose to
+simplify this paper by making these more restrictive choices.}
+We define a {\em loss function} $\loss: [0,1] \times [0,1]
+\to [0,\infty)$ that associates a non-negative loss to
+each pair of prediction and outcome.
+
+The game proceeds in iterations $t=1,\ldots,T$, each
+consisting of the following five steps:
+\begin{enumerate}
+\item
+The adversary chooses a set $\aset{t} \subseteq \{1,\ldots,N\}$ of
+specialists that are awake at iteration $t$.
+\item
+The adversary chooses a prediction $\advice{i}{t}$ for each awake
+specialist $i \in \aset{t}$. 
+\item
+The algorithm chooses its own prediction $\pred{t}$.
+\item
+The adversary chooses an outcome $\outcome{t}$.
+\item
+The algorithm suffers loss $\algloss{t} = \loss(\pred{t},\outcome{t})$
+and each of the awake specialists suffers loss $\sloss{i}{t}=
+\loss(\advice{i}{t},\outcome{t})$. Specialists that are asleep suffer
+no loss.
+\end{enumerate}
+
+The performance of an algorithm is measured in terms of its total loss
+$\talgloss = \sum_{t=1}^T \algloss{t}$.
+We are interested in bounds that hold for {\em any adversarial strategy}.
+As the adversary chooses the outcome after the algorithm made its
+prediction, it can clearly inflict on the algorithm a large loss on
+each iteration. 
+In order to give a meaningful bound, we consider the {\em difference}
+between the total loss of the algorithm and the total loss of the
+experts.
+The total loss of insomniac algorithms is usually compared to the loss
+of the best expert. Such a comparison does not make sense in the
+specialists framework because it is possible that no expert is awake
+all of the time. Instead, we compare the
+total loss of our algorithm to the loss
+of the best fixed {\em mixture\/} of the experts, as defined precisely below.
+Our goal is to derive bounds which guarantee that the
+performance of the algorithm will be good whenever there exists some mixture
+of the specialists that is good. Thus, the adversary cannot
+make the algorithm suffer large loss unless it inflicts large loss on 
+all mixtures of specialists.\footnote{This definition is
+similar in motivation to the definition of regret in the statistical
+analysis of prediction algorithms. However, unlike in that case, no
+statistical assumptions are made here regarding the mechanism that is
+generating the sequence. The bounds here hold for any sequence of
+outcomes.}
+
+This mixture of experts can be done in two ways, and we consider both
+in this paper. We denote by $\simplex{N}$ the set of probability
+vectors of dimension $N$.
+%\begin{itemize}
+%\item
+
+$\bullet$ {\bf Comparison to average loss:}
+In the easier type of comparison, we compare the total loss of the
+algorithm to
+\begin{equation} \label{eqn:compi}
+\min_{\vu \in \simplex{N}} \sum_{t=1}^T 
+\clossi{\vu}(\advicevec{t},\outcome{t}) 
+\end{equation}
+where
+% \;\; \mbox{ where }\;\; 
+\[
+\clossi{\vu}(\advicevec{t},\outcome{t}) \doteq
+{\sum_{i \in \aset{t}} u_i \; \loss(\advice{i}{t},\outcome{t})
+ \over
+ \sum_{i \in \aset{t}} u_i}~.
+\]
+The expression $\sum_{t=1}^T \clossi{\vu}(\advicevec{t},\outcome{t})$
+describes the total loss of an algorithm
+that at each iteration $t$ predicts by randomly {\em choosing one} of the
+specialists in $\aset{t}$ according to the fixed distribution $\vu$
+restricted to $\aset{t}$ and re-normalized.
+Equation~(\ref{eqn:compi}) defines the total loss of the best
+distribution $\vu$, which suffers the minimal loss for the particular
+sequence. As this optimal $\vu$ is not known in advance, it is
+impossible to actually achieve a total loss of~(\ref{eqn:compi}), and
+all we can hope for is to guarantee that the loss of our algorithms is
+never much larger than it.
+
+%\item
+$\bullet$ {\bf Comparison to average prediction:}
+In this case we compare the total loss of the algorithm to
+\begin{equation} \label{eqn:compii}
+\min_{\vu \in \simplex{N}} \sum_{t=1}^T 
+\clossii{\vu}(\advicevec{t},\outcome{t})
+\end{equation}
+where
+% \;\; \mbox{ where } \;\; 
+\[
+\clossii{\vu}(\advicevec{t},\outcome{t}) \doteq
+  \loss \left(
+   \frac{\sum_{i \in \aset{t}} u_i \advice{i}{t}}
+        {\sum_{i \in \aset{t}} u_i}
+   ,\outcome{t}
+  \right)
+\]
+This has a similar interpretation to the average loss comparison but
+in this case we consider the loss of an idealized algorithm which
+predicts with the combined prediction of the awake specialists, rather
+than choosing one of them at random and predicting with its prediction.
+Since in most interesting cases the loss function is
+convex, bounds of this form imply bounds of the previous form but not
+vice versa. Bounds of this second form are harder to achieve.
+%\end{itemize}
+
+\medskip
+
+In his work on predicting using specialists~\cite{Blum95},
+Blum proves a bound on the performance of a variant of the
+Winnow algorithm~\cite{Littlestone88}.
+This algorithm is used for making binary predictions
+and Blum made the
+additional assumption that a non-empty subset of the specialists never
+make a mistake. It is assumed that at any iteration at least one of
+these infallible specialists is awake. This is a special case of our 
+framework in which there exists a vector $\vu$ 
+(which has non-zero components on the infallible 
+subset of specialists)
+such that the loss associated with this vector is 
+zero.\footnote{
+However, the bounds derived by Blum are not comparable with the 
+bounds given here because he considers bounds which have no dependency
+on the total number of specialists, while all our bounds have some
+dependence on this number.}
+
+\section{Design and analysis of specialist algorithms}
+
+In this section we show how to transform insomniac learning algorithms
+into the specialist framework.  We start with a simple case and then
+describe a general transformation which we then apply to other, more
+complex cases.
+
+A few preliminaries: Recall that $\simplex{N}$ denotes the set
+of probability vectors of dimension
+$N$, i.e., $\simplex{N} = \{\vp{} \in [0,1]^N : \sum_i \ppi{i} = 1\}$.
+For two probability vectors $\vu,\vv\in \simplex{N}$, the relative
+entropy, written \RE{\vu}{\vv}\ is $\sum_i u_i \ln(u_i / v_i)$.
+(We follow the usual convention that $0\ln 0 = 0$.)
+For probability vector $\vu\in\simplex{N}$ and a set
+$\aset{}\subseteq\{1,\ldots,N\}$, we define
+$u(\aset{})=\sum_{i\in\aset{}} u_i$.
+
+\subsection{Log loss}
+\label{s:logloss}
+
+One of the simplest and best known online prediction algorithms is the 
+Bayes algorithm, which has been rediscovered many
+times, for instance, in the context of universal coding, Bayesian
+estimation and investment management~\cite{Cover91,DesantisMaWe88,Gallager68}.
+In this case, the predictions are from the range $[0,1]$, the outcomes
+are from $\{0,1\}$ and the loss is the log loss, or coding length,
+defined as
+\[
+\loss(\pred{},\outcome{}) =
+	\cases{
+          - \ln \pred{}
+        & if $\outcome{} = 1$ \cr
+           - \ln (1-\pred{})
+        & if $\outcome{} = 0$.
+        }
+\]
+Note that this loss is always nonnegative, but may be infinite (for
+instance, if $\pred{}=0$ and $\outcome{}=1$).
+
+% new version of Bayes/SBayes in which the log loss is plugged in
+% which makes the rules more elegant, but the general case less transparent
+\begin{figure*}[t]
+\normalsize
+{\bf Parameters:}
+Prior distribution $\vp{1}\in \simplex{N}$;
+number of trials $T$.
+\newline
+
+\hbox to \textwidth{
+\begin{minipage}[t]{\colwidth}
+{\bf Algorithm \Bayes} \newline
+{\noindent {\bf Do for}} $t=1,2,\ldots,T$
+\begin{enumerate}
+ \item Predict with the weighted average of the experts
+predictions:\newline
+% ~\newline
+  $$
+	\pred{t} = \sum_{i=1}^N \pp{i}{t} \advice{i}{t} 
+  $$
+ \item Observe outcome $\outcome{t}$ 
+       %  and incur loss $\loss(\pred{t},\outcome{t})$.
+ \item Calculate a new posterior distribution:
+\[
+\pp{i}{t+1} = 
+	\cases{
+            {{\displaystyle \pp{i}{t} \advice{i}{t}}
+             \over
+             {\displaystyle \pred{t}}}
+        & if $\outcome{t}=1$ \cr
+           {{\displaystyle \pp{i}{t} (1-\advice{i}{t})}
+             \over
+            {\displaystyle  1-\pred{t}}}
+        & if $\outcome{t}=0$.
+        }
+\]
+\end{enumerate}
+\end{minipage}
+\hfill 
+\begin{minipage}[t]{\colwidth}
+{\bf Algorithm \SBayes} \newline
+{\noindent {\bf Do for}} $t=1,2,\ldots,T$
+\begin{enumerate}
+ \item Predict with the weighted average of the predictions of the
+awake specialists:
+  $$
+	\pred{t} = { \sum_{i \in \aset{t}} \pp{i}{t} \advice{i}{t} 
+                     \over 
+                     \sum_{i \in \aset{t}} \pp{i}{t} }
+  $$
+ \item Observe outcome $\outcome{t}$ 
+       % and incur loss $\loss(\pred{t},\outcome{t})$.
+ \item Calculate a new posterior distribution: \\
+\[
+\mbox{If $i \in \aset{t}$, then }
+\pp{i}{t+1} = 
+	\cases{
+            {{\displaystyle \pp{i}{t} \advice{i}{t}}
+             \over
+             {\displaystyle \pred{t}}}
+        & if $\outcome{t}=1$ \cr
+           {{\displaystyle \pp{i}{t} (1-\advice{i}{t})}
+             \over
+            {\displaystyle  1-\pred{t}}}
+        & if $\outcome{t}=0$.
+        }
+\]
+Otherwise, $\pp{i}{t+1}=\pp{i}{t}$.
+\end{enumerate}
+\end{minipage}
+}
+
+\fullfigline
+\caption{The Bayes algorithm and the Bayes algorithm for specialists.
+\label{fig:Bayes}}
+\end{figure*}
+
+\Bayes\ algorithm is
+described on the left side of Figure~\ref{fig:Bayes}.  
+This algorithm maintains a probability vector \vp{t}\ over
+the $N$ experts.\footnote{This distribution over experts is often
+called the posterior distribution, and it has a natural probabilistic
+interpretation. However, as in this work we make no probabilistic 
+assumptions, the posterior distribution should be regarded simply
+as real-valued weights that are used by the prediction
+algorithm.}
+On each round $t$, each expert $i$ provides a prediction
+$\advice{i}{t}\in[0,1]$.
+The Bayes algorithm combines these by taking their average with
+respect to \vp{t}\ and predicting $\pred{t}=\vp{t}\cdot\advicevec{t}$.
+The outcome $\outcome{t}$ then defines the loss of each expert and of
+the master algorithm.
+The weights are then updated so as to increase the weights of the
+experts with relatively small loss, thereby ensuring that their
+predictions will count more on the next round.
+
+In our context the justification for using this algorithm is
+the following bound on the total loss relative to the loss of the best
+expert:
+\begin{eqnarray} \label{eqn:Bayes}
+\sum_{t=1}^T \loss(\pred{t},\outcome{t})
+\!\!\!\!\! & \leq &  \!\!\!\!\!
+\min_{\vu\in\simplex{N}} \paren{
+\sum_{t=1}^T 
+ \sum_{i=1}^N \uu{i} \loss(\advice{i}{t},\outcome{t})
++
+\RE{\vu}{\vp{1}}
+\!\!} \nonumber \\
+\!\!\!\!\! & \leq &  \!\!\!\!\!
+\min_i
+\sum_{t=1}^T 
+  \loss(\advice{i}{t},\outcome{t})
++
+\ln N
+\end{eqnarray}
+where the last inequality holds if the initial ``prior'' distribution
+\vp{1}\ is chosen to be uniform.
+Note that this bound holds for all sequences of expert predictions and
+outcomes.
+Also, note that the additional loss grows only logarithmically with
+the number of experts.
+
+On the right side of Figure~\ref{fig:Bayes}, we present the
+algorithm \SBayes, an adaptation of the insomniac algorithm
+\Bayes\ to the case of specialists. The adaptation is simple: on each
+round,
+we treat $\aset{t}$, the set of specialists that are awake, as if it
+were the complete set of specialists and leave the weights of the
+other specialists untouched. We then re-normalize the weights of the
+awake specialists so that their total weight remains unchanged.  The
+main theorem regarding the performance of \SBayes\ is a direct
+adaptation of the well-known theorem regarding \Bayes.
+
+\begin{theorem} \label{thm:SBayes}
+For any sequence of 
+awake specialists, specialist predictions and outcomes
+and for any distribution $\vu$ over $\{1,\ldots, N\}$, the loss of
+\SBayes\ satisfies
+\[
+ \sum_{t=1}^T u(\aset{t}) \loss(\pred{t},\outcome{t})
+\leq
+ \sum_{t=1}^T 
+  \sum_{i \in \aset{t}} \uu{i} \loss(\advice{i}{t},\outcome{t})
++
+  \RE{\vu}{\vp{1}}~.
+\]
+\end{theorem}
+
+\proof
+We show first that
+\begin{eqnarray}
+\lefteqn{\RE{\vu}{\vp{t}} - \RE{\vu}{\vp{t+1}}} \nonumber \\
+&=&
+u(\aset{t}) \loss(\pred{t},\outcome{t})
+- \sum_{i \in \aset{t}} \uu{i} \loss(\advice{i}{t},\outcome{t}).
+ \label{eqn:Bayes-pred}
+\end{eqnarray}
+Consider the change in the relative entropy between $\vu$ and $\vp{t}$
+on two consecutive trials:
+\begin{eqnarray*}
+{\RE{\vu}{\vp{t}} - \RE{\vu}{\vp{t+1}}}
+&=& \sum_{i=1}^N \uu{i} \ln {\pp{i}{t+1} \over \pp{i}{t}} \\
+&=& \sum_{i\in\aset{t}} \uu{i} \ln {\pp{i}{t+1} \over \pp{i}{t}}.
+\end{eqnarray*}
+If $\outcome{t}=1$, then the latter quantity is equal to
+\begin{eqnarray*}
+ \sum_{i\in\aset{t}} \uu{i} \ln \frac{\advice{i}{t}}{\pred{t}} &=&
+    \sum_{i\in\aset{t}} \uu{i} \ln {\advice{i}{t}} - u(\aset{t})\ln
+			\pred{t} \\
+  &=& - \sum_{i\in\aset{t}} \uu{i} \loss(\advice{i}{t},\outcome{t})
+          + u(\aset{t}) \loss(\pred{t}, \outcome{t}).
+\end{eqnarray*}
+The proof is similar when $\outcome{t}=0$.
+We thus get Equation~(\ref{eqn:Bayes-pred}).
+
+Summing this equality for $t=1,\ldots,T$ and using the fact that the
+relative entropy is always positive we get
+\begin{eqnarray*}
+  \RE{\vu}{\vp{1}}
+ \!\!\!\! & \geq & \!\!\!\!
+     \RE{\vu}{\vp{1}} - \RE{\vu}{\vp{T+1}}  \\
+ \!\!\!\! & = &    \!\!\!\!
+\sum_{t=1}^T u(\aset{t}) \loss(\pred{t},\outcome{t})
+       -  \sum_{t=1}^T \sum_{i\in\aset{t}} \uu{i} \loss(\advice{i}{t},\outcome{t}).
+\end{eqnarray*}
+Rearranging terms then gives the statement of the theorem.
+\qed
+
+If, in addition to the conditions of Theorem~\ref{thm:SBayes},
+$u(\aset{t})=U$ for all $1 \leq t \leq T$ then we get the
+following bound that is easier to interpret than the theorem:
+\begin{equation} \label{eqn:SBayes-constant-uAt}
+\sum_{t=1}^T \loss(\pred{t},\outcome{t})
+\leq
+\sum_{t=1}^T 
+ {\sum_{i \in \aset{t}} \uu{i} \loss(\advice{i}{t},\outcome{t})
+  \over
+  \sum_{i \in \aset{t}} \uu{i}}
++
+{\RE{\vu}{\vp{1}}
+ \over 
+ U}~.
+\end{equation}
+The first term on the right hand side of this inequality is equal to
+the expected loss of a prediction
+algorithm that predicts according to the distribution vector
+$\vu$ as follows. On iteration $t$ the algorithm chooses one of
+the awake experts according to the distribution defined by restricting
+$\vu$ to the set $\aset{t}$. It then predicts with the
+prediction of the chosen expert. 
+Equation~(\ref{eqn:SBayes-constant-uAt}) shows that the
+total loss of our algorithm is never much larger than the total loss
+incurred by using {\em any} such fixed $\vu$. It also shows that the
+gap is proportional to the distance between 
+the prior distribution $\vp{1}$ and the comparison distribution $\vu$
+and is inversely proportional to the fraction of the specialists that
+are awake at each iteration.
+
+Lastly, note that algorithm \Bayes\ is a special case of \SBayes\
+where $\aset{t} = \{1,\ldots,N\}$ for all $t$. Thus, the bound given in
+Equation~(\ref{eqn:Bayes}) is derived from
+Equation~(\ref{eqn:SBayes-constant-uAt}) by setting $U=1$.
+
+\subsection{The general case}
+\label{sec:gen}
+
+In this section, we generalize the method suggested in the last
+section and show how it can be applied to a large family of on-line
+algorithms.
+We give a general method for converting an insomniac on-line algorithm
+in this family, along with its relative loss bound, into the
+corresponding specialist algorithm and loss bound.
+
+%\subsubsection{Modifying the algorithm}
+
+We focus in this section on algorithms which, like \Bayes, maintain a
+distribution vector $\vp{t}\in \simplex{N}$.
+In general, such algorithms consist of two parts:
+\begin{enumerate}
+\item
+a prediction function
+$\pfuncN: \simplex{N}\times [0,1]^N \rightarrow [0,1]$
+which maps the current weight vector $\vp{t}$ and instance
+\advicevec{t}\ to a prediction \pred{t}; and
+\item
+an update function
+$\ufuncN: \simplex{N}\times [0,1]^N\times [0,1] \rightarrow
+  \simplex{N}$
+which maps the current weight vector $\vp{t}$, instance
+\advicevec{t}\ and outcome \outcome{t}\ to a new weight vector
+$\vp{t+1}$.
+\end{enumerate}
+When clear from context, we drop the subscript on \pfuncN\ and
+\ufuncN.
+
+\begin{figure*}[t]
+\normalsize
+
+\hbox to \textwidth{
+\begin{minipage}[t]{\colwidth}
+{\bf Insomniac algorithm} \newline
+{\noindent {\bf Do for}} $t=1,2,\ldots,T$
+\begin{enumerate}
+ \item Observe \advicevec{t}.
+ \item Predict $\pred{t} = \pfunc(\vp{t},\advicevec{t})$.
+ \item Observe outcome $\outcome{t}$ and 
+       suffer loss $\loss(\pred{t},\outcome{t})$.
+ \item Calculate the new weight vector\\
+	 $\vp{t+1} = \ufunc(\vp{t},\advicevec{t},\outcome{t})$
+\end{enumerate}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{\colwidth}
+{\bf Specialist algorithm} \newline
+{\noindent {\bf Do for}} \R{$t=1,2,\ldots,T$}
+\begin{enumerate}
+ \item Observe \R{\aset{t}} and \R{\resadvicevec{t}}
+ \item Predict $\pred{t} = \pfunc(\rvp{t},\resadvicevec{t})$.
+ \item Observe outcome $\outcome{t}$ and 
+       suffer loss $\loss(\pred{t},\outcome{t})$.
+ \item Calculate the new weight vector
+	 $\vp{t+1}$ so that it satisfies the following:
+   \begin{enumerate}
+      \item $\pp{i}{t+1} = \pp{i}{t}$ for $i\not\in \aset{t}$
+      \item \mbox{$\rvpp{t+1}{t} = \ufunc(\rvp{t},\resadvicevec{t},\outcome{t})$}
+      \item $\sum_{i=1}^N \pp{i}{t+1} = 1$.
+   \end{enumerate}
+\end{enumerate}
+\end{minipage}
+}
+
+\fullfigline
+\caption{Abstract insomniac and specialist on-line learning algorithms.}
+\label{fig:abstract-alg}
+\end{figure*}
+
+The functioning of such an algorithm is shown on the left side of
+Figure~\ref{fig:abstract-alg}.
+
+The conversion of such an algorithm to the specialist framework in
+which some of the experts may be sleeping is fairly straightforward.
+First, for any nonempty subset 
+$\aset{}\subseteq \{1,\ldots,N\}$ of awake
+specialists and instance $\advicevec{}\in [0,1]^N$, let
+$\resadvicevec{}\in [0,1]^{|\aset{}|}$ denote the restriction of
+$\advicevec{}$ to the components of \aset{}.
+Formally, if $\aset{} = \{i_1,\ldots,i_{|\aset{}|}\}$ with
+$i_1<\cdots<i_{|\aset{}|}$
+then
+$\resadvicei{j} = \advicei{i_j}$.
+Similarly, let $\rvp{}\in \simplex{|\aset{}|}$ denote the restriction of
+$\vp{}$ to $\aset{}$ but now the components are also normalized.
+Thus, $\rppi{j} = \ppi{i_j} / \sum_{i\in \aset{}} \ppi{i}$.
+
+The specialist version of our abstract on-line learning algorithm is
+shown on the right side of Figure~\ref{fig:abstract-alg}.
+The prediction depends only on the awake specialists, and is given by
+$\pfunc(\rvp{t},\resadvicevec{t})$.
+The update rule says to leave the weights of sleeping specialists
+unchanged, and to modify the weights of awake experts in the natural
+way.
+That is, we modify these weights so that
+$\rvpp{t+1}{t} = \ufunc(\rvp{t},\resadvicevec{t},\outcome{t})$ while
+meeting the requirement that \\
+$\sum_i \pp{i}{t+1} = 1$
+(or equivalently, that
+$\sum_{i\in\aset{t}} \pp{i}{t+1} = 
+  \sum_{i\in\aset{t}} \pp{i}{t}$).
+
+It can be verified that, when this transformation is applied to
+\Bayes, the resulting algorithm is exactly \SBayes.
+
+\subsubsection*{Analysis}
+
+As in the case of \Bayes, a large family of on-line learning
+algorithms can be analyzed by examining \RE{\vu}{\vp{t}}, the relative
+entropy between a comparison distribution vector \vu\ and the
+algorithm's weight vector \vp{t}.
+For instance, the key fact in the analysis of \Bayes\ is the
+following:
+\[
+  \RE{\vu}{\vp{t}} - \RE{\vu}{\vp{t+1}}
+    = \loss(\pred{t},\outcome{t})
+       - \sum_{i=1}^N \uu{i} \loss(\advice{i}{t},\outcome{t}).
+\]
+This is a trivial special case of
+Equation~(\ref{eqn:Bayes-pred}) with all specialists awake.
+
+The analysis of many other insomniac algorithms is based on a similar
+core inequality of the form
+\begin{equation} \label{eqn:core}
+  \RE{\vu}{\vp{t}} - \RE{\vu}{\vp{t+1}}
+    \geq a \loss(\pred{t},\outcome{t})
+       - b \closs{\vu}(\advicevec{t},\outcome{t}).
+\end{equation}
+Here, $a$ and $b$ are positive constants which depend on the
+specific on-line learning problem, $\loss(\pred{},\outcome{})$ is the
+loss of the algorithm, and $\closs{\vu}(\advicevec{},\outcome{})$ is
+the comparison loss of vector \vu, which in this paper will always
+be either 
+$\clossi{\vu}(\advicevec{},\outcome{})$ or
+$\clossii{\vu}(\advicevec{},\outcome{})$ as defined in the introduction.
+\iffalse
+the two types of comparison losses that interest us here are
+$\clossi{\vu}(\advicevec{},\outcome{}) \doteq \sum_{i} \uu{i}
+\loss(\advicei{i},\outcome{})$ and 
+$\clossii{\vu}(\advicevec{},\outcome{}) \doteq 
+\loss(\sum_{i} \uu{i}\advicei{i},\outcome{})$.
+\fi
+For instance, for \Bayes, $a=b=1$, \loss\ is log loss, and
+our bound is with respect to $\clossi{\vu}$.
+
+Equation~(\ref{eqn:core}) immediately gives a bound on the cumulative
+loss of the algorithm since, by summing over $t=1,\ldots,T$ we get
+\begin{eqnarray*}
+  \RE{\vu}{\vp{1}} & \geq &
+     \RE{\vu}{\vp{1}} - \RE{\vu}{\vp{T+1}} \\
+    & \geq & a \sum_{t=1}^T \loss(\pred{t},\outcome{t})
+       - b \sum_{t=1}^T \closs{\vu}(\advicevec{t},\outcome{t})
+\end{eqnarray*}
+so
+\begin{equation} \label{eqn:insombound}
+  \sum_{t=1}^T \loss(\pred{t},\outcome{t}) \leq 
+    \frac{b}{a} \sum_{t=1}^T \closs{\vu}(\advicevec{t},\outcome{t})
+    + \frac{1}{a} \RE{\vu}{\vp{1}}.
+\end{equation}
+
+Suppose now that we move to the specialist algorithm.
+We have that
+\begin{eqnarray*}
+\lefteqn{\RE{\vu}{\vp{t}} - \RE{\vu}{\vp{t+1}} = } \\
+& = &   \sum_i \uu{i} \ln\frac{\pp{i}{t+1}}{\pp{i}{t}} 
+= \sum_{i\in\aset{t}} \uu{i} \ln\frac{\pp{i}{t+1}}{\pp{i}{t}} \\
+&=& u(\aset{t}) \paren{\RE{\rvu{t}}{\rvp{t}} - \RE{\rvu{t}}{\rvpp{t+1}{t}}}.
+\end{eqnarray*}
+Assuming Equation~(\ref{eqn:core}) holds, this last term is at least
+\[
+ u(\aset{t}) \paren{a \loss(\pred{t},\outcome{t})
+       - b \closs{\rvu{t}}(\resadvicevec{t},\outcome{t})}
+\]
+by construction of \pred{t}\ and \vp{t+1}.
+Thus, we have proved the following general bound
+which is the main result of this section:
+\begin{eqnarray} \label{eqn:sleepbound}
+  \lefteqn{\sum_{t=1}^T u(\aset{t})\loss(\pred{t},\outcome{t}) \leq} \\
+&    \frac{b}{a} \sum_{t=1}^T u(\aset{t})\closs{\rvu{t}}(\resadvicevec{t},\outcome{t})
+    + \frac{1}{a} \RE{\vu}{\vp{1}} \;\; . \nonumber
+\end{eqnarray}
+In short, we have shown that essentially any online insomniac
+algorithm with a bound of the form given in Equation~(\ref{eqn:insombound}) has a
+corresponding specialist algorithm with a bound of the form given in
+Equation~(\ref{eqn:sleepbound}), provided that the insomniac bound was proved using the
+inequality in Equation~(\ref{eqn:core}).
+
+We now give several applications of this bound for specific loss
+functions. 
+In addition to those included in this abstract, the method can be
+applied to many other online algorithms,
+including all the algorithms derived for the
+expert setting \cite{Vovk90,HausslerKiWa95,CesabianchiFrHeHaScWa92}.
+This is possible because the analysis of all of these
+algorithms can be rewritten using the relative entropy 
+as a measure of progress.
+
+\subsection{Absolute loss}
+
+The absolute loss function is defined by
+$\loss(\pred{},\outcome{}) = |\pred{} - \outcome{}|$, where, in this
+section, we assume that $\outcome{}\in\{0,1\}$.
+For this loss function, it is natural to interpret $\pred{}\in[0,1]$
+as a randomized prediction in $\{0,1\}$ which is $1$ with probability
+$\pred{}$ and $0$ otherwise.
+Then the loss $|\pred{} - \outcome{}|$ is the probability of a
+mistake, and the cumulative loss measures the expected number of
+mistakes in a sequence of randomized predictions.
+
+\begin{figure}[t]
+\normalsize
+{\bf Parameters:}
+\begin{minipage}[t]{\parmwidth}
+Prior distribution $\vp{1}\in \simplex{N}$; \\
+learning rate $\eta>0$;
+number of trials $T$.
+\end{minipage} \newline
+
+{\bf Algorithm \SAbs} \newline
+{\noindent {\bf Do for}} $t=1,2,\ldots,T$
+\begin{enumerate}
+ \item Predict with:
+  $$
+	\pred{t} = F_{\eta} \left(
+                   { \sum_{i \in \aset{t}} \pp{i}{t} \advice{i}{t} 
+                     \over 
+                     \sum_{i \in \aset{t}} \pp{i}{t} }
+                   \right)
+  $$
+  where $F_{\eta}:[0,1] \to [0,1]$ is any function which satisfies,
+for all $0 \leq r \leq 1$:
+\[
+1+{ \ln((1-r)e^{-\eta}+r) \over 2 \ln {2 \over 1+e^{-\eta}}}
+\leq F_{\eta}(r) \leq
+{-\ln(1-r+r e^{-\eta}) \over 2 \ln {2 \over 1+e^{-\eta}} }
+\]
+ \item Observe outcome $\outcome{t}$ and 
+       incur loss $\loss(\pred{t},\outcome{t})=|\pred{t} - \outcome{t}|$.
+ \item Calculate a new posterior distribution:
+if $i \in \aset{t}$
+\[
+	\pp{i}{t+1} = \pp{i}{t} e^{-\eta |\advice{i}{t} - \outcome{t}|}
+	{\sum_{j \in \aset{t}}
+          \pp{j}{t}
+         \over
+         \sum_{j \in \aset{t}}
+          \pp{j}{t} e^{-\eta |\advice{j}{t} - \outcome{t}|}
+        }
+\]
+Otherwise, $\pp{i}{t+1} =\pp{i}{t}$.
+\end{enumerate}
+
+\figline
+\caption{The multiplicative weights algorithm for specialists and 
+absolute loss.\label{fig:SAbs}}
+\end{figure}
+
+
+For the absolute loss, we can apply the transformation of
+Section~\ref{sec:gen} to the algorithm of Cesa-Bianchi et
+al.~\cite{CesabianchiFrHeHaScWa92} which is based on the work of 
+Vovk~\cite{Vovk90}.
+This yields an algorithm that is
+similar but somewhat more complex than \SBayes, which we call \SAbs,
+and which is shown in Figure~\ref{fig:SAbs}.
+Like \SBayes, \SAbs\ maintains a weight for each specialist 
+which it updates by multiplicative factors after each iteration. 
+There are two main differences between \SAbs\ and \SBayes.
+First, \SAbs\ has a parameter $\eta>0$, sometimes called a ``learning
+rate,'' that has to be set
+before the sequence is observed (see
+Cesa-Bianchi~et~al.~\cite{CesabianchiFrHeHaScWa92} for a detailed
+discussion of how to choose $\eta$).
+Second, the prediction is not a weighted average of the
+predictions of the experts, but rather a function of this average
+which also depends on $\eta$.
+
+To analyze \SAbs, we first rewrite
+the analysis of this algorithm~\cite{Vovk90,CesabianchiFrHeHaScWa92}
+using the notation from Section~\ref{sec:gen}.
+The coefficients in the instantiation of Equation~(\ref{eqn:core})
+that apply to this case depend on $\eta$ and are 
+\begin{equation} \label{eqn:abs-loss-constants}
+a_{\eta} = 2 \ln {2 \over 1+e^{-\eta}} ~ \mbox{ and } ~
+b_\eta = \eta~.
+\end{equation}
+It is easy to verify that in this case the two types of comparison
+losses are equal:
+$\sum_{i} \uu{i} | \advicei{i} - \outcome{} | = 
+| \vu\cdot\advicevec{} -\outcome{} |$. 
+
+Applying the general reduction from Section~\ref{sec:gen} 
+to this case we get the following bound:
+%\begin{theorem} \label{thm:SAbs}
+%Assume algorithm \SAbs\ is run with parameter $\eta>0$. 
+%For any sequence of awake specialists, specialist predictions and
+%outcomes and for any distribution $\vu$ over $\{1,\ldots, N\}$, the loss
+%of \SAbs\ satisfies
+\begin{eqnarray}
+\label{e:abs}
+\lefteqn{ \sum_{t=1}^T u(\aset{t}) | \pred{t} - \outcome{t} | \leq } \\
+ &   {1 \over a_\eta} \left(\displaystyle \eta \sum_{t=1}^T 
+  u(\aset{t}) | \vu\cdot\advicevec{t} -\outcome{t} |
+ +
+        \RE{\vu}{\vp{1}} \right) ~ . \nonumber
+\end{eqnarray}
+%\end{theorem}
+\iffalse
+The corollary that parallels Equation~\ref{eqn:SBayes-constant-uAt} is
+\begin{equation} \label{eqn:SAbs-constant-uAt}
+\sum_{t=1}^T \loss(\pred{t},\outcome{t})
+\leq
+{1 \over a_\eta}
+\left(
+\eta
+\sum_{t=1}^T 
+ \clossiii{\vu}(\advicevec{},\outcome{})
++
+{\RE{\vu}{\vp{1}}
+ \over 
+ U}
+\right)
+~.
+\end{equation}
+The interpretation of this bound parallels that of
+Equation~\ref{eqn:SBayes-constant-uAt}. 
+\fi
+
+\subsection{Square loss}
+We next consider the square loss
+$\loss(\pred{},\outcome{})=(\pred{} - \outcome{})^2$.
+Using the algorithm for on-line prediction with square loss described
+by Vovk~\cite{Vovk90}, 
+we can derive an algorithm whose bound is in terms of the
+comparison loss $\clossi{\vu}(\advicevec{},\outcome{})$.
+In this section, we show how to get a more powerful bound in terms of
+$\clossii{\vu}(\advicevec{},\outcome{})$ using a
+different family of algorithms, called the {\em exponentiated
+gradient} (\EG) algorithms. This family was introduced by 
+Kivinen and Warmuth~\cite{KivinenWa95} and is
+derived and analyzed using the relative
+entropy. It thus fits within the
+framework of Section~\ref{sec:gen}.
+
+\iffalse
+% Yoav: this paragraph makes sense only to people that already know EG
+The \EG\ algorithm maintains a probability vector
+$\vp{t}$ and in the
+simplest case predicts
+linearly, i.e., $\pred{t}=\vp{t}\cdot \advicevec{t}$.
+For the case of linear prediction the natural
+loss function is the square loss
+%\cite{HelmboldKiWa95,AuerHeWa95}
+$\loss(\pred{},\outcome{}) = (\pred{} - \outcome{})^2$.
+\fi
+
+The \EG\ algorithm is similar to the algorithms based on Vovk's work
+in that they maintain one weight per input and update these weights
+multiplicatively. The main difference is that instead of having the
+loss in the exponent of the update factor, we have the gradient of the
+loss.
+
+
+\begin{figure}[t]
+\normalsize
+{\bf Parameters:}
+\begin{minipage}[t]{\parmwidth}
+Prior distribution $\vp{1}\in \simplex{N}$; \\
+learning rate $\eta>0$;
+number of trials $T$.
+\end{minipage} \newline
+
+{\bf Algorithm \SEG} \newline
+{\noindent {\bf Do for}} $t=1,2,\ldots,T$
+\begin{enumerate}
+ \item Predict with:
+  $$
+	\pred{t} = { \sum_{i \in \aset{t}} \pp{i}{t} \advice{i}{t} 
+                     \over 
+                     \sum_{i \in \aset{t}} \pp{i}{t} }
+  $$
+ \item Observe outcome $\outcome{t}$ and 
+       incur loss $\loss(\pred{t},\outcome{t})=|\pred{t} - \outcome{t}|$.
+ \item Calculate a new posterior distribution:
+if $i \in \aset{t}$
+\[
+	\pp{i}{t+1} = \pp{i}{t} e^{-2 \eta \advice{i}{t}(\pred{t}-\outcome{t})}
+	{\sum_{j \in \aset{t}}
+          \pp{j}{t}
+         \over
+         \sum_{j \in \aset{t}}
+          \pp{j}{t} e^{-2 \eta \advice{i}{t}(\pred{t}-\outcome{t})}
+        }
+\]
+Otherwise, $\pp{i}{t+1} =\pp{i}{t}$.
+\end{enumerate}
+
+\figline
+\caption{The exponentiated gradient algorithm for specialists and 
+square loss.\label{fig:SEG}}
+\end{figure}
+
+Applying the transformation of Section~\ref{sec:gen} to \EG, we obtain
+the algorithm \SEG\ shown in Figure~\ref{fig:SEG}.
+Like \SAbs, this algorithm has a parameter $\eta>0$ that needs to be
+tuned.
+
+At the core of the relative loss bound for \EG, there is again an inequality of
+the form given in Equation~(\ref{eqn:core}).
+Kivinen and Warmuth~\cite[Lemma~5.8]{KivinenWa95} prove that such an
+inequality holds for $a_\eta=\eta$, $b_\eta = {2 \eta \over 2 - \eta}$
+and $\clossii{\vu}(\advicevec{},\outcome{})=
+(\vu\cdot \advicevec{}-\outcome{})^2$.
+\iffalse
+prove the following inequality:
+\[
+\RE{\vu}{\vp{t}} - \RE{\vu}{\vp{t+1}}
+\geq
+\eta\; (\pred{t}-\outcome{t})^2
+-\frac{2\eta}{2-\eta}\; 
+(\vu\cdot \advicevec{t}-\outcome{t})^2.
+\]
+As this is of the form given in Equation~(\ref{eqn:core})
+(with
+$\closs{\vu}(\advicevec{},\outcome{}) = (\vu\cdot
+\advicevec{}-\outcome{})^2$),
+\fi
+We therefore can apply our general results to obtain the bound
+\begin{eqnarray*}
+\sum_{t=1}^T 
+\lefteqn{u(\aset{t})(\pred{t}-\outcome{t})^2 \leq} \\
+& \frac{2}{2-\eta}
+\sum_{t=1}^T 
+u(\aset{t})(\rvu{t}\cdot\resadvicevec{t}-\outcome{t})^2
++
+\frac{1}{\eta} \RE{\vu}{\vp{1}}
+\end{eqnarray*}
+on the relative loss of \SEG\ with respect to any comparison vector
+\vu. 
+%Again by tuning $\eta$ the constant before the second
+%sum can be braught down to one \cite{KivinenWa95}.
+
+This conversion also works for all other on-line algorithms
+derivable from the relative entropy such as the versions
+of \EG\ where the loss of the algorithm is compared to the
+loss of the best sigmoided linear neuron~\cite{HelmboldKiWa95}.
+%For this to work the loss must be ``matched'' with
+%the sigmoid function used in the neurons \cite{AuerHerbsterWa95}.
+
+\section{Applications}
+
+In this section, we describe several applications of the specialist
+framework. For concreteness, we focus for each application on a
+specific loss function. The applications described can easily be
+extended and used with other loss functions.
+
+\subsection{Markov models}
+\label{sec:markov}
+
+As an illustration of the specialist methodology, we begin with an
+application to a simple prediction problem.
+Suppose we are predicting a binary sequence one bit at a time, and we
+want to minimize the expected number of mistakes, i.e., the absolute loss.
+One common approach is to predict according to a $k$-th order Markov
+model for some fixed $k>0$. 
+In this case the prediction of each bit is a function of the $k$ preceding
+bits.
+More formally, we want our prediction algorithm 
+to predict almost as well as the best
+table-lookup function $\luf:\ohone^k \rightarrow \ohone$, where we
+interpret $\luf(\String)$ as the prediction of such a function or
+expert given that $\String$ is the preceding sequence of $k$ bits.
+
+Without applying the specialist framework, we could use, for instance,
+Vovk's~\cite{Vovk90}
+(insomniac) expert-prediction algorithm in which we maintain one
+expert for each table-lookup function.
+Naively, this would require maintenance of $2^{2^k}$ weights, all of
+which must be updated on every trial.
+
+Alternatively, we propose maintaining $2^{k+1}$ specialists, one for
+every pair $\angles{\String,\cpred}$ in $\ohone^k \times \ohone$.
+Such a specialist is awake if and only if the sequence $\String$
+exactly matches the preceding $k$ bits, and, when awake, it always
+predicts $\cpred$.
+
+This set up requires maintenance of only $2^{k+1}$ weights.
+Furthermore, since only two specialists are awake on each round, the
+time to formulate each prediction and to update the weights is $O(1)$
+per round.
+
+To analyze this algorithm, we wish to compare the absolute loss
+of our algorithm to the absolute loss of the ``best''
+table-lookup function $\luf$.
+To do so, let the comparison vector $\vu$ be uniform over the set of
+$2^k$ specialists identified by $\luf$, i.e., the set
+$\{\angles{\String,\cpred} : \luf(\String) = \cpred\}$.
+Clearly, on each round, exactly one of these is awake so
+$u(\aset{t})=2^{-k}$ for all $t$.
+Also, note that the prediction associated with $\vu$ is identical to
+that of $\luf$.
+If we choose $\vp{1}$ to be uniform over all of the defined
+specialists, then $\RE{\vu}{\vp{1}} = \ln 2$.
+Equation~(\ref{e:abs}) then implies immediately that the loss of
+our algorithm is at most
+$ (\eta / a_\eta) \loss^*  + (1/a_\eta) 2^k \ln 2$
+where $\loss^*$ is the loss of the best table-lookup function, and
+$a_\eta$ and $b_\eta$ are as defined in Equation~(\ref{e:abs}).
+This bound coincides exactly with the bound which would be obtained
+using the more naive approach of maintaining an expert for each of the
+$2^{2^k}$ table-lookup functions.
+
+We included this example as a simple illustration of the general
+method.  The result is not new; for instance, the same loss bound and
+time and space complexity can be achieved using a variant of
+Cover and Shenhar's~\cite{CoverSh77} method of partitioning the data sequence.  
+However, as
+will be seen in the next sections, we can apply the specialist
+framework to much more powerful models and derive algorithms that are,
+to our knowledge, more efficient than the best existing algorithms
+based on the experts approach.
+
+\subsection{Decision graphs}
+
+\iffalse
+\note{MW: This can be simplified.
+The edges of the dags do not have to be labeled
+(I explained this to Rob!)
+An example is simply a path from a source (there
+can be more than one source) to a sink.
+A cut has to be such that it cut each such path exactly once.
+
+More abstractly: There are two families of sets.
+The first family constitutes the possible examples
+the the second the possible cuts.
+The property we are using is that each example set
+intersects each cut at exactly one point.
+}
+\fi
+
+The Markov models described in the previous section are a special case
+of decision trees which are a special case of decision graphs. In this
+section we describe decision graphs and prunings of decision graphs. 
+We give an efficient prediction algorithm, based on specialists, which
+predicts almost as well as the best pruning of a decision graph.
+%, and compare
+%our bounds to those achieved by Helmbold and Schapire~\cite{HelmboldSc95}
+%for the special case of decision trees.
+
+In this section, we use the log loss.
+On each iteration $t$, the prediction
+algorithm receives an instance $\ginst$.
+We will be interested in predictions computed by decision graphs.
+A {\em decision graph} $\pgraph$ is a directed acyclic graph with
+interior nodes and {terminal} nodes, and a designated start node.
+The interior
+nodes are associated with tests on the input instance $\ginst$.
+%The outcome of each test is either true ($1$) or false ($0$).
+Each interior
+node has two outgoing edges, one for each possible outcome of the test. 
+Each terminal node is associated with a prediction in $[0,1]$.
+The prediction associated with an instance is calculated in the
+natural way.
+Starting from the start node, the graph is traversed by performing the
+test associated with the current node, selecting the edge that corresponds
+to the outcome of the test, and moving to the node pointed to
+by the selected edge. This process continues until a terminal node is
+reached. The prediction associated with this terminal node is the
+prediction of the graph.
+
+\begin{figure}[t]
+\centerline{
+\psfig{figure=PS/dag.eps,height=6.0cm}}
+\figline
+\caption{\label{f:decgraph}
+A decision graph and its possible prunings.}
+\end{figure}
+
+For instance, for the graph on the left in
+Figure~\ref{f:decgraph}, given the instance $z = 010$, the terminal
+node reached is node {\tt D} whose prediction
+is $0.7$.
+
+When decision graphs are very large, it is sometime advantageous to
+stop the decision process before reaching a terminal node and
+instead associate the prediction with an internal node. We call the
+decision graph that is derived in such a way a {\em pruning} of the
+original decision graph. An important
+example is the well-studied~\cite{RissanenLa81,WeinbergerLeZi92,MerhavFeGu93,RonSiTi94,WillemsShTj95}
+variable-length Markov model, in
+which the order of 
+decisions is fixed in advance, but the depth of the decision process
+might depend on the instance.
+In other words, as in Section~\ref{sec:markov}, decisions are based on the
+preceding sequence of bits, but the number of bits that are examined
+may not be the same for all instances.
+
+More precisely, assume now that predictions are
+associated with {\em all\/} of the nodes of \pgraph\ (including interior nodes).
+In the context of this paper, a
+pruning \prun\ of this decision graph is any decision graph that can be
+generated in the following way. First, a set of pruning nodes is
+selected. Second, all {\em edges\/} that are reachable from the pruning nodes
+are removed. Finally, all nodes that cannot be reached from the start
+node are removed and all nodes without outgoing edges are defined to
+be terminal. Note that the terminal nodes include the pruning nodes
+but can also include other nodes. Figure~\ref{f:decgraph} shows
+all of the prunings of the left-most graph.
+
+Our goal is to predict almost as well as the pruning that gives the
+predictions with the minimum loss on the observed sequence.
+The naive approach would be to maintain one insomniac expert for each
+possible pruning
+and adjust the weight of each pruning based on its performance. However,
+the number of prunings of a decision graph can be exponentially large
+in the size of the graph, making this approach 
+computationally infeasible.
+
+Instead, we use the specialist framework by associating a specialist
+with each edge in the full decision graph.
+%\footnote{%
+%One might instead assign specialists to the nodes, but the prunings
+%that can be handled seem to be less powerful.}
+The prediction of a specialist is the prediction of the node pointed to
+by its corresponding edge.
+A specialist is awake at time step $t$ if and only the sequence of
+tests performed on $\ginst$ traverses its assigned edge.\footnote{In
+order to handle degenerate situations, we also assign a specialist to a
+``dummy'' edge that comes in to the start node; this specialist is
+always awake.}
+Clearly, the total number of specialists allocated is equal to
+the number of edges of the decision graph $\pgraph$, and the time
+needed to formulate a
+prediction is the length of the path from the start node to a terminal node.
+
+To analyze the algorithm,
+we compare the log loss of the
+algorithm to the loss of any pruning.
+Let $\prun$ be the pruning which achieves the smallest total loss.
+We say that an edge is a {\em terminal edge\/} if it is an ingoing
+edge of a terminal node.
+We let the comparison vector $\vu$ be uniform over all the terminal edges
+in $\prun$. Let $k$ be the number of terminal edges in $\prun$,
+and let $m$ be the total number
+of edges in the full decision graph $\pgraph$.
+On each round, exactly one terminal edge of $\prun$
+is traversed in \pgraph; this follows from the manner in which
+prunings have been defined.
+Hence, exactly one specialist in the support set of $\vu$ is awake so
+$u(\aset{t})=1/k$ for all $t$.
+By construction,
+the loss of $\vu$ is equal to the loss
+of the predictions computed by pruning $\prun$.  From 
+Theorem~\ref{thm:SBayes}, 
+we therefore get that the additional loss of the
+algorithm relative to the loss of \prun\ is at most $k\cdot
+\RE{\vu}{\vp{1}}$.
+If we choose $\vp{1}$ to be uniform over all the edges in the full
+decision graph $\pgraph$ then $\RE{\vu}{\vp{1}} = \ln(m/k)$,
+giving an additional loss bound of $k \ln(m/k)$.
+This bound is essentially optimal for general decision graphs.
+
+In the special case that the decision graph is actually a decision
+tree, we could instead apply
+the techniques of Willems, Shtarkov and Tjalkens~\cite{WillemsShTj95} and
+Helmbold and Schapire~\cite{HelmboldSc95}.
+Their methods also lead to an algorithm for predicting almost as well
+as the best pruning
+of the decision tree, but
+results in an additional loss bound of only $O(k)$
+where, as above, $k$ is the number of terminal edges of $\prun$,
+which, for trees, is simply equal to the number of leaves.
+For trees, our bounds can be improved to $O(k^2)$ which is still
+inferior to the above bound. However, our method is more general
+and can be applied not only to decision trees but to any directed
+acyclic graph.
+
+\iffalse
+For the special case of trees the additional loss
+of our algorithm can be improved to $O(k^2)$ by choosing
+a different prior.
+\note{MW: tagged on a sentence which I  dont feel strongly about}
+\fi
+
+\iffalse
+In this special case that $\pgraph$ is a decision tree, we can derive
+an alternative bound to that in Equation~(\ref{eqn:prune-loss}) by
+assigning a prior weight \vp{1}\ that depends on the depth of the
+edge corresponding to each specialist (where the depth of an edge is
+the depth of the node at its head).
+Specifically, we might choose a weight of $2^{-(2d+1)}$ for
+nonterminal edges, and $2^{-2d}$ for terminal edges of $\pgraph$, where
+$d$ is the depth of the edge.
+We then obtain a loss bound of
+the form
+\[a_\eta \sum_{t} \sloss{\prun}{t} + c_\eta
+      \sum_{i \mbox{~leaf of~} \prun} (2d_i+1)\]
+where $d_i$ is the depth of leaf $i$ in $\prun$.
+The sum over leaves is at most $k(2D+1) \leq 2k^2 - k$ where $D$ is
+the maximum depth of any leaf of $\prun$.
+%\note{MW: I think $D \leq k-1$.}
+
+Compared to the bound in Equation~(\ref{eqn:prune-loss}), this bound
+has the advantage that it is independent of the size of the graph
+$\pgraph$, but is possibly worse if the comparison pruning has large depth.
+Both specialist-based bounds
+are inferior to the bound given by Helmbold and
+Schapire~\cite{HelmboldSc95} in Equation~(\ref{eqn:dutch-loss});
+however, our method is more general
+and can be applied not only to decision trees but to any directed acyclic
+graph.
+
+Finally, we note that, instead of associating the nodes of the prediction
+graph with fixed predictions, we can associate them with online
+prediction algorithms that adapt to elements of the sequence that are
+associated with that node.
+%If the predictions of these online algorithms
+%do not depend on the pruning in which they appear, then the methods
+%described here can be applied, yielding performance bounds that are
+%almost as good as the best pruning of an adaptive decision graph.
+
+\ifflase
+Finally, we note that if the predictions at
+the nodes are not known we can combine the scheme presented in the
+previous section with the framework described above to learn both the
+pruning and the predictions of the nodes.
+To do so, we allocate
+two specialists at each edge, one that always predicts $0$, and the
+other that always predicts $1$. As before, a specialist is awake if
+and only if
+its associated edge was traversed, and, when
+awake, it always
+predicts with its hard-wired prediction.
+Our comparison vector $\vu$ is now uniform over the specialists
+associated with the terminal edges of $\prun$ together with the
+predictions which give minimal loss.
+Choosing $\vp{1}$ to be uniform over all the edges in $\pgraph$
+results in the bound
+\[\sum_{t} \algloss{t} \leq
+a_\eta \sum_{t} \sloss{\prun,\lambda}{t} + c_\eta 2 k \ln(m/k) \enspace ,
+\]
+where $\sloss{\prun,\lambda}{t}$ denotes the loss of a pruning $\prun$
+together with a choice $\lambda$ of predictions at the terminal nodes.
+\fi
+
+\subsection{Switching experts}
+
+In the conventional (insomniac) on-line learning model, we compare the
+loss of the master algorithm to the loss of the best of $N$ experts
+for the entire sequence.
+However, it is natural to expect that different experts will be best
+for different segments of the data sequence.
+In this section, we study such a model of prediction in which the
+``best'' expert may change with time.
+
+Specifically, we imagine that the sequence of $T$ prediction rounds
+is subdivided (in a manner
+unknown to the learner) into at most $k$
+segments where each segment is associated with a unique expert which
+suffers the minimal loss on the segment.
+The sequence of segments and its
+associated sequence of best experts is called a {\em segmentation}.
+Our goal is to perform well relative to the best segmentation.
+
+This prediction problem was first studied by Littlestone
+and Warmuth~\cite{LittlestoneWa94}.
+Currently, the best of the known algorithms for this problem are
+due to Herbster and Warmuth~\cite{HerbsterWa95}.
+Although the algorithms we obtain
+are just as efficient as theirs ($O(N)$ time per iteration),
+our bounds are slightly weaker than Herbster and
+Warmuth's. However, their algorithms require estimates of $k$ and $T$
+and their bounds degrade as the quality of the estimates degrades.
+Our algorithm does {\em not\/} require prior knowledge of $k$ and $T$.
+
+
+We use the log loss
+in this section.
+We call the $N$ original experts the {\em ground experts}, and
+%Let $T$ be the length of
+%the trial sequence and $k$ be the number of switches from one expert
+%to another. The variables $T$ and $k$ are {\em not} known to the algorithm.
+we define a set of higher-level experts called 
+{\em segmentation experts}.
+A $k$-segmentation expert is defined by a segmentation of the sequence
+into $k$ segments, each associated with a ground expert.
+That is, each $k$-segmentation expert is defined by a sequence of
+switch points
+$0 = t_0 < t_1 < \cdots < t_{k} = T$ and a sequence of ground experts
+$e_1,\ldots,e_k$.
+Here, the interpretation is that the segmentation expert predicts the same as
+expert $e_i$ on trials $t_{i-1} + 1$ through $t_i$ (inclusive).
+%We will sometimes refer to a segmentation expert composed of $k$ segments
+%as a $k$-segmentation expert.
+Our goal is to predict almost as well as the best segmentation expert.
+
+If the algorithm were provided in advance
+with the number of segments $k$ and the length of the sequence $T$, then
+we could keep one weight for each of the exponentially many $k$-segmentation
+experts and apply the \Bayes\ algorithm of Section~\ref{s:logloss}.
+In this case, the additional loss, relative to the best $k$-segmentation
+expert, is upper bounded by
+$k \ln N + (k-1) \ln ({T}/{k})$.
+Note that this bound coincides with the description length (in nats)
+of a segmentation expert (when $k$ and $T$ are known), a bound which
+seems impossible to beat.
+Herbster and Warmuth's bound is essentially larger
+than this bound by $k$, provided that $k$ and $T$ are known ahead of
+time by their algorithm.
+Our bound is
+$k (\ln T + o(\ln T))$ larger than either bound,
+but our algorithm requires no prior knowledge of $T$ and $k$.
+
+\iffalse
+A {\em segmentation} is defined by a 
+has the following form:
+\begin{equation}
+\label{e:partexp}
+([1,t_1],e_1),([t_1+1,t_2],e_2),\ldots,([t_{k-1}+1,t_k],e_k),
+([t_{k}+1,T],e_{k+1})
+\enspace ,
+\end{equation}
+where $1\leq t_1 \leq t_2 \leq \ldots \leq t_k \leq T$
+and $1\leq e_i\leq N$.
+This segmentation expert predicts the same as expert $e_1$ in the
+first time step until (and including) the $t_1$ time step, 
+then it `switches' and uses the prediction of expert $e_2$
+$e_2$ in time steps $t_1+1$ through $t_2$, and so forth.
+The loss of such a segmentation expert is the sum of the losses
+of the individual experts on the trials they were assigned to.
+We will use this infinite set of segmentation experts as our comparison
+class to derive a prediction algorithm and corresponding loss bounds.
+Let us assume for a moment that the algorithm was provided in advance
+the the number of switches $k$ and the length of the sequence $T$. Then,
+we could keep one weight per each of the exponentially many segmentation
+experts. For the log loss, for instance, we can set the initial
+weights of all the segmentation experts to be the same and use Bayes
+algorithm to update these weights based on the segmentation experts'
+prediction. In that case, the additional loss incurred by the Bayesian
+algorithm would simply be the logarithm of the number of segmentation
+experts of the form (\ref{e:partexp}) which is upper bounded by
+$(k+1) \ln N + k \ln \frac{T}{k+1}$. Note that this bound coincides with
+the number of bits it takes to describe a segmentation expert provided that
+$k$ and $T$ are known.
+
+Herbster and Warmuth~\cite{HerbsterWa95} show that this seemingly infeasible
+approach can actually be implemented efficiently using dynamic
+programming.
+In this paper, we propose an alternative approach based on the specialist
+framework.
+The relative loss bound we obtain is weaker than Herbster and Warmuth's.
+However, our algorithm is more efficient than theirs, and does {\em not\/}
+require prior knowledge of $T$ and $k$.
+Specifically, our algorithm keeps a single weight
+per ground expert and takes $O(1)$ time to update each of these
+weights on each iteration.
+The additional loss suffered by our algorithm is at most
+$k \ln ({N}/{k}) + 2 k \ln(T+1) + k\; o(\ln T)$.
+\fi
+
+% \subsubsection{The set of specialists}
+We now describe our construction of specialists for the switching
+experts problem.
+We construct one specialist $\partexp(t_1,t_2,i)$
+for each ground expert $i$ and for each pair of positive integers
+$t_1\leq t_2$.
+Such a specialist uses the predictions of expert $i$ on rounds $t_1$
+through $t_2$ (inclusive) and is asleep the rest of the time.
+We choose the initial weight of this specialist to be
+$\prior(\partexp(t_1,t_2,i)) = {\pdist(t_2) / (t_2 N)}$
+where $\pdist(t)$ is any distribution on the natural numbers.
+It is not hard to show that $\prior$ sums to one when summed over all of the
+defined specialists.
+% Since $\sum_{t=1}^\infty P(t) = 1$, 
+%and there for a given $t_2$ there are exactly $t_2$ specialists derived
+%from expert $i$ of the form $\partexp(t',t_2,i), 1 \leq t' \leq t_2$,
+%the prior over all specialists also sums to one, namely,
+%$\sum_{i,1 \leq t_1\leq t_2} P(\partexp(t_1,t_2,i)) = 1$.
+
+With this construction of specialists, we are ready to apply
+\SBayes.\footnote{Although presented for a finite number of
+specialists, \SBayes\ (or any of the other algorithms in this paper)
+can easily be modified to handle a countably infinite number of specialists.}
+Let us first analyze the additional loss of the algorithm.
+%The active set $\aset{t}$ at time step $t$ is by definition composed all
+%specialists that are awake during round $t$, i.e.,
+%$\aset{t} = \{\partexp(t_1,t_2,i): 1\leq t_1 \leq t \leq t_2, 1\leq i \leq N\}$.
+For any $k$-segmentation expert of the form described above,
+we can set the comparison vector $\vu$ to be uniform over the
+$k$ specialists naturally associated with the segmentation, namely,
+$\partexp(1,t_1,e_1),\partexp(t_1+1,t_2,e_2),\ldots,\partexp(t_{k-1}+1,T,e_k)$.
+Since exactly one of these is awake at each time step,
+${u}(\aset{t}) = 1/ k$.
+Furthermore, note that the prediction associated with \vu\ is
+identical to that of the $k$-segmentation expert from which it was derived.
+Therefore, from
+Theorem~\ref{thm:SBayes}, we get that
+the additional loss incurred by our algorithm
+relative to any $k$-segmentation expert is at most
+\begin{eqnarray*}
+\frac{\RE{\vu}{\vp{1}}}{u(\aset{t})}
+%&=& k \sum_{j=1}^{k+1} {1 \over k+1}
+%\ln\left({{1 \over k+1} {t_j N \over P(t_j)}}\right) \\
+&=& k \ln\left(\frac{N}{k}\right) + 
+\sum_{j=1}^{k} \ln t_j
+-
+\sum_{j=1}^{k} \ln \pdist(t_j).
+%\\
+%&\leq& k\ln\left(\frac{N}{k}\right) \,+\,
+%k \ln T \,-\,  k\ln \pdist(T),
+\end{eqnarray*}
+This bound clearly depends on the choice of $\pdist$.
+For instance, if we choose $\pdist(t) = c / (t \, [\ln (t+1)]^2)$ for the
+appropriate normalizing constant~$c$, then the bound is at most
+$k \ln(N/k) + 2 k \ln T + k\cdot o(\ln T)$.
+
+\iffalse
+where for deriving the last inequality we used the concavity of the
+logarithm function and fact that $t_j\leq T$. As in case of decision
+graphs, different priors, $P(t)$, lead to different loss bounds.
+For instance, letting $P(t) = {1 / t (t + 1)}$ results in the loss
+bound,
+\[
+% (k+1)\ln\left(\frac{N}{k+1}\right) \,+\,
+% (k+1) \ln(T) \,+\,   2 (k+1)\ln(T (T + 1)) \leq
+(k+1)\ln\left(\frac{N}{k+1}\right) \,+\,
+3 (k+1) \ln(T + 1) \enspace .
+\]
+To achieve a better bound we can use for instance a prior of the form
+$P(t) = {c / t^{1 + \epsilon}}$, and now the corresponding loss bound is,
+\[
+(k+1)\ln\left(\frac{N}{k+1}\right) \,+\,
+(2 + \epsilon) (k+1) \ln(T + 1) \enspace ,
+\]
+or Rissanen's prior for the integers~\cite{Rissanen}, 
+$P(t) = {c / t \ln(t) \ln(\ln(t)) \ln(\ln(\ln(t))) \ldots}$
+and achieve the loss bound of Equation~\ref{bound:eqn}.
+\fi
+
+\begin{figure}[t]
+\normalsize
+{\bf Parameters:}
+\begin{minipage}[t]{\parmwidth}
+Prior distribution $\pdist$ over \nats; \\
+number of trials $T$. \newline
+\end{minipage} \newline
+
+% \begin{minipage}[t]{2.5in}
+{\bf Specialists Algorithm for Switching Experts} \newline
+{\bf Initialize: } $\sswp{i}{t} = 1/N$ ; $\sumf{1} = \sum_{t=1}^\infty
+                          \pdist(t) / (tN)$. \newline
+{\noindent {\bf Do for}} $t=1,2,\ldots,T$
+\begin{enumerate}
+ \item Predict with the weighted average of the experts predictions:
+	\[
+	\hat{y}^t = \frac{\sum_{i=1}^N \sswp{i}{t} \advice{i}{t}}
+			 {\sum_{i=1}^N \sswp{i}{t}}.
+	\]
+
+ \item Observe outcome $y^t$ and incur loss.
+
+ \item Calculate new weights:
+	\begin{enumerate}
+		\item $\sumf{t+1} = \sumf{t} - \pdist(t) / (t N)$
+		\item $\sfac{i}{t} =
+	\cases{
+            {\advice{i}{t}
+             \over
+             \pred{t}}
+        & if $\outcome{t}=1$ \cr
+           {1-\advice{i}{t}
+             \over
+             1-\pred{t}}
+        & if $\outcome{t}=0$.
+        }
+$
+		\item $\sswp{i}{t+1} = \sumf{t+1}  \paren{1 + \frac{\sfac{i}{t} \sswp{i}{t}}{\sumf{t}}}$.
+	\end{enumerate}
+
+\end{enumerate}
+% \end{minipage}
+
+\figline
+\caption{The SBayes algorithm for switching experts.}
+\label{switch-alg:fig}
+\end{figure}
+
+It is not immediately obvious how to implement this algorithm since it
+requires maintenance of an infinite number of specialists.
+%
+%A straightforward implementation of the specialist framework would
+%require, at each round $t$, maintaining a growing set of active
+%specialists, $\aset{t} = \{\partexp(t_1,t,i) : t_1 \leq t, 1\leq{i}\leq{N}\}$.
+%Thus it would take $O(N t^2)$ space and time to calculate the
+%weighted prediction of the specialists in the active set $\aset{t}$.
+%In Appendix~\ref{s:effswitch}
+We describe below an efficient scheme that requires maintenance of only
+$O(N)$ weights, and in which predictions and updates also require only
+$O(N)$ time per round.
+The main idea is to show that the predictions of \SBayes\ can be
+written in the form
+\[
+  \hat{y}_t = \frac{\sum_{i=1}^N \sswp{i}{t} \advice{i}{t}}
+                   {\sum_{i=1}^N \sswp{i}{t}}
+\]
+where $\advice{i}{t}$ is the prediction of ground expert $i$ at time
+$t$ and $\sswp{i}{t}$ is the total weight of all specialists associated with
+ground expert $i$ that are active at time $t$.
+We then show how to update these weights efficiently, resulting in the
+algorithm shown in Figure~\ref{switch-alg:fig}.
+
+Let $\swp{t}{t_1,t_2,i}$ be the weight maintained by \SBayes\ for specialist
+$\partexp(t_1,t_2,i)$ at time $t$.
+Then the prediction of our algorithm at time $t$ is
+\[\hat{y}_t =
+%\frac{\sum_{i,t_1,t_2: t_1\leq t \leq t_2} \, \swp{t}{t_1,t_2,i} \advice{i}{t}}
+%{\sum_{i,t_1,t_2,i: t_1\leq t \leq t_2} \, \swp{t}{t_1,t_2,i}}.
+\frac{\displaystyle \sum_{i=1}^N \sum_{t_1 = 1}^t
+	\sum_{t_2=t}^\infty \swp{t}{t_1,t_2,i} \advice{i}{t}}
+{\displaystyle \sum_{i=1}^N \sum_{t_1 = 1}^t
+	\sum_{t_2=t}^\infty \swp{t}{t_1,t_2,i}} ~ ,
+\]
+where $\advice{i}{t}$ is the prediction of ground expert $i$ at time $t$.
+Let $\sswp{i}{t}$ be the total weight of all specialists associated with
+ground expert $i$ that are active at time $t$, that is,
+\[
+\sswp{i}{t} = \sum_{t_1 = 1}^t \sum_{t_2=t}^\infty \swp{t}{t_1,t_2,i} ~ .
+\]
+Then,
+\[
+  \hat{y}_t = \frac{\sum_{i=1}^N \sswp{i}{t} \advice{i}{t}}
+                   {\sum_{i=1}^N \sswp{i}{t}} ~ .
+\]
+
+Our implementation maintains only the $N$ weights 
+\sswp{i}{t}.
+We now show how to update these weights efficiently.
+
+Let
+\[ \sfac{i}{t} = 
+	\cases{
+            {\advice{i}{t}
+             \over
+             \pred{t}}
+        & if $\outcome{t}=1$ \cr
+           {1-\advice{i}{t}
+             \over
+             1-\pred{t}}
+        & if $\outcome{t}=0$ ~ .
+        }
+\]
+Then, from the manner in which weights are updated by \SBayes, we have
+that
+\[\swp{t}{t_1,t_2,i} = \frac{\pdist(t_2)}{t_2 N} \prod_{s=t_1}^{t-1}
+\sfac{i}{s} ~ .
+\]
+Therefore,
+\begin{eqnarray*}
+\sswp{i}{t} &=& \sum_{t_1 = 1}^t \sum_{t_2=t}^\infty 
+                    \frac{\pdist(t_2)}{t_2 N} \prod_{s=t_1}^{t-1}\sfac{i}{s} \\
+&=& \sumf{t}  \sum_{t_1 = 1}^t \prod_{s=t_1}^{t-1}\sfac{i}{s} ~ ,
+\end{eqnarray*}
+where $\sumf{t} = \sum_{t_2=t}^\infty \frac{\pdist(t_2)}{t_2 N}$.
+We can thus update \sswp{i}{t}\ using the recurrence
+\begin{eqnarray*}
+\sswp{i}{t+1}
+ \!\!\!\! & = & \!\!\!\!
+	\sumf{t+1}  \sum_{t_1 = 1}^{t+1} \prod_{s=t_1}^{t}\sfac{i}{s} \\
+ \!\!\!\! & = & \!\!\!\!
+\sumf{t+1}  \paren{1 + \sfac{i}{t} \sum_{t_1 = 1}^t
+                           \prod_{s=t_1}^{t-1}\sfac{i}{s} }
+\! = \! \sumf{t+1}  \paren{1 + \frac{\sfac{i}{t} \sswp{i}{t}}{\sumf{t}}}.
+\end{eqnarray*}
+This update takes $O(1)$ time per weight, assuming that $\sumf{1}$ has
+been precomputed.
+The resulting algorithm is shown in Figure~\ref{switch-alg:fig}.
+
+
+
+\iffalse
+\section{Conclusions}
+\note{RS: needs work -- or maybe just skip???}
+We gave a general reduction 
+for a large class of insomniac on-line learning algorithm 
+that are analyzed using the relative entropy
+as a potential function
+to the case where the variables/experts may be asleep.
+%\iffalse
+Other potential functions for deriving and analyzing learning
+algorithms are discussed by Kivinen and Warmuth
+and similar work needs to be done for the families of algorithms
+associated with these other potential functions.
+%\fi
+It is an open problem to find
+other general reductions for on-line learning
+algorithms that would make them more applicable.
+\fi
+
+\subsection*{Acknowledgments}
+
+Thanks to William Cohen for helpful comments on this work.
+
+{
+\footnotesize
+
+\bibliographystyle{plain}
+
+%\bibliography{/home/schapire/latex/bib,add}
+\bibliography{/home/schapire/latex/bib}
+
+}
+
+\end{document}

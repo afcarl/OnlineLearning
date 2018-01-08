@@ -1,0 +1,10 @@
+\beamer@endinputifotherversion {3.07pt}
+\select@language {english}
+\beamer@sectionintoc {1}{Sleeping Experts}{5}{0}{1}
+\beamer@subsectionintoc {1}{1}{Log Loss}{14}{0}{1}
+\beamer@subsectionintoc {1}{2}{General Loss}{25}{0}{1}
+\beamer@sectionintoc {2}{applications of specialists}{44}{0}{2}
+\beamer@subsectionintoc {2}{1}{Variable Length Markov Models}{44}{0}{2}
+\beamer@subsectionintoc {2}{2}{Switching Experts}{44}{0}{2}
+\beamer@subsectionintoc {2}{3}{Text Classification}{44}{0}{2}
+\beamer@sectionintoc {3}{Tracking}{46}{0}{3}

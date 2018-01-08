@@ -1,0 +1,1223 @@
+\documentstyle[12pt]{article}
+
+\newcommand{\withpsfigs}[1]{#1}
+\withpsfigs{\input{psfig}}
+
+\oddsidemargin=1pt
+\evensidemargin=1pt
+
+\newcommand{\loss}[2]{\ell_{#1}^{#2}} %loss of expert i at time t
+\newcommand{\TEloss}[1]{L_{#1}}	%total loss of expert i
+\newcommand{\BEloss}{L_{\min}}	%total loss of the best expert
+\newcommand{\TAloss}{L_A}	%total loss of algorithm
+\newcommand{\weight}[2]{W_{#1}^{#2}} % weight assigned to expert
+					  % i at time t
+\newcommand{\Nweight}[2]{V_{#1}^{#2}}	%the normalized weight
+\newcommand{\dweight}[2]{w^{#2}(#1)} % initial density measure
+\newcommand{\btheta}{\hat{\theta}}
+
+\newcommand{\bt}{$\bullet$~}
+
+\textwidth=6.5in
+\topmargin=-20pt
+\headheight=12pt
+\headsep=12pt
+\textheight=8.5in
+
+\def\topfraction{0.99}
+\def\floatpagefraction{0.99}
+\def\textfraction{0.1} %squeeze lines onto page even if 90% figures!
+
+\pagestyle{empty}
+
+\begin{document}
+\newcommand{\mRule}{\rule{6.35in}{0.01in}}
+
+% Title Slide %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{LARGE}
+\begin{center}
+~\newline \newline \newline \newline 
+\begin{Huge}
+On-line learning of individual sequences
+\end{Huge}
+\newline \newline \newline \newline 
+Yoav Freund, AT\&T Research
+\end{center}
+\vspace{1in}
+A review talk, some results from collaborations with:\newline
+\newline
+Peter Auer \newline\newline
+Nicol\'{o} Cesa-Bianchi \newline\newline
+David Haussler \newline\newline
+David Helmbold \newline\newline
+Rob Schapire \newline\newline
+Manfred Warmuth
+~\newline\newline\newline
+Papers and transparencies in:\newline
+http://www.research.att.com/orgs/ssr/people/yoav
+\end{LARGE}
+
+\pagebreak
+
+\begin{flushleft}
+\begin{LARGE}
+
+% The general problem  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{center}
+\underline{A simple prediction problem}
+\end{center}
+
+\begin{itemize}
+\item On-line prediction of a binary sequence.
+\item $N$ experts provide predictions of the sequence.
+\item {\it Assumption:} one of the experts makes no mistakes.
+\item {\it Goal:} Predict to make the minimal number of mistakes.
+\end{itemize}
+
+{\bf Example:}
+\[\begin{array}{lccccc}
+Sequence: &0,&1,&1,&0,&\ldots \\
+\\
+expert_1: &1,&1,&0,&1,&\ldots \\
+expert_2: &0,&1,&1,&1,&\ldots \\
+expert_3: &0,&1,&1,&0,&\ldots \\
+expert_4: &0,&1,&1,&1,&\ldots \\
+\end{array} \]
+
+\pagebreak
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Solution of simple problem}
+\end{center}
+
+\begin{itemize}
+\item
+Predict according to the majority of experts that have made no mistake.
+\item
+At each mistake the pool of active experts is {\em halved}.
+\end{itemize}
+$\Rightarrow$ At most $\log_2 N$ mistakes can be made.
+~\newline\newline
+~\newline\newline
+\underline{Analysis characteristics:}
+\begin{itemize}
+\item
+{\em Online} (iterative) setup.
+\item
+{\em No} probabilistic assumptions.
+\item
+Bounds hold for {\em worst-case} sequences of experts, predictions and outcomes.
+\end{itemize}
+~\newline
+Can we generalize to when no expert is perfect?
+
+\pagebreak
+% Preview Slide %
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Preview}
+\end{center}
+
+\begin{enumerate}
+\item A simple and general (but not optimal) on-line prediction
+      algorithm.
+\item An even more general (but non-constructive) meta-algorithm.
+\item Detailed results for specific cases.
+\item Continuous sets of experts.
+%\item Multiple-armed bandits problem.
+%\item Efficient algorithms for exponentially many experts.
+\end{enumerate}
+
+\pagebreak
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Predicting when no expert is perfect}
+\end{center}
+
+\underline{Prediction game: algorithm vs. adversary}
+\newline\newline
+for t=1,2,\ldots,T
+\begin{enumerate}
+\item
+{\bf Adversary:} Each expert suggest an action. \newline
+	   A loss $\loss{i}{t} \in [0,1]$ is associated with each action.
+\item
+{\bf Algorithm:} Chooses an expert $i_t$ (can randomize).
+\item
+All losses $\loss{1}{t},\ldots,\loss{N}{t}$ are revealed to player.
+\end{enumerate}
+\pagebreak
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Quantities of interest}
+\end{center}
+Total loss of expert $i$: $$\TEloss{i} \doteq \sum_{t=1}^T \loss{i}{t}$$
+Total loss of best expert: $$\BEloss \doteq \min_{i=1,\ldots,N}
+\TEloss{i}$$
+Expected total loss of algorithm:
+$$\TAloss \doteq E_{i_1,\ldots,i_t} \left[ \sum_{t=1}^T \loss{i_t}{t} \right]$$
+\newline
+{\em Goal:} Minimize $\TAloss - \BEloss$ in the worst case.
+
+\pagebreak
+	
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Algorithm Hedge (Weighted Majority)}
+\end{center}
+[Littlestone, Warmuth 89],[Freund, Schapire 95]\newline
+
+``Weight'' $\weight{i}{t}>0$ associated with expert $i$ at
+time $t$.
+\newline\newline
+One parameter: $\eta>0$.
+\newline\newline
+{\bf Initial weights:} $\forall i \in \{1 \ldots N\}\;\;
+\weight{i}{1}=1/N$
+\begin{enumerate}
+\item
+Prob. of choosing expert $i$ on iteration $t$:
+\[ \weight{i}{t} \over \sum_{j=1}^N \weight{j}{t}\]
+\item
+{Weights update after iteration $t$:} 
+\[ \weight{i}{t+1} = \weight{i}{t}\; e^{-\eta \loss{i}{t}} \]
+\end{enumerate}
+\pagebreak
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Theorem regarding the performance of Hedge}
+\end{center}
+
+For {\em any} sequence of predictions and outcomes of length $T$
+\[
+\TAloss \leq {\eta \BEloss + \ln N \over 1-e^{-\eta}}
+\]
+~\newline\newline
+Setting $\eta$ to minimize bound:
+\begin{itemize}
+\item
+Decreasing $\eta$ decreases numerator.
+\item
+If $\eta \to 0$ denominator becomes zero.
+\end{itemize}
+~\newline\newline
+{\bf Corollary}
+For any $T$
+\[
+\mbox{If  } \eta = \ln \left(1+\sqrt{2 \ln N \over T} \right)
+\]
+then
+\[
+\TAloss - \BEloss \leq \sqrt{2T \ln N} +\ln N~.
+\]
+In other words:
+\[
+{\TAloss \over T} \leq  {\BEloss \over T} + \sqrt{2\ln N \over T}
++{\ln N \over T}~.
+\]
+\pagebreak
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Proof sketch, Main argument}
+\end{center}
+~\newline
+{\bf Lemma I:}
+If expected loss is large, final total weight is small:
+\[
+\ln \sum_i \weight{i}{T+1} 
+ \leq - (1-e^{-\eta})
+	\sum_{t=1}^T E_{i_t} [\loss{i_t}{t}]
+\]
+~\newline
+{\bf Lemma II:}
+If the best expert is good, the final weight cannot be too small:
+
+\[
+\sum_i \weight{i}{T+1} 
+ \geq {1 \over N} \exp (-\eta \BEloss)
+\]
+~\newline
+Combining the bounds we get
+\[
+- (1-e^{-\eta})
+	\sum_{t=1}^T E_{i_t} [\loss{i_t}{t}]
+\geq \ln \left({1 \over N} \exp (-\eta \BEloss) \right)
+\]
+\[
+\sum_{t=1}^T E_{i_t} [\loss{i_t}{t}]
+\leq
+{ \ln N + \eta \BEloss \over 1-e^{-\eta}}
+\]
+
+\pagebreak
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Proof of lemma II}
+\end{center}
+
+For {\em any} $j \in \{1\ldots N\}$:
+\[
+\sum_i \weight{i}{T+1} \geq \weight{j}{T+1} 
+= {1 \over N} \exp (-\eta \TEloss{j})
+\]
+
+\pagebreak
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Proof of lemma I}
+\end{center}
+
+\begin{eqnarray*}
+\sum_i \weight{i}{t+1} 
+&=& \sum_i \weight{i}{t} \;\; \exp (-\eta \loss{i}{t}) \\
+&\leq& \sum_i \weight{i}{t} \left(1-(1-e^{-\eta})\loss{i}{t}
+\right) \\
+&=&
+\sum_i \weight{i}{t} 
+-
+(1-e^{-\eta}) \sum_i \weight{i}{t} \loss{i}{t}
+\end{eqnarray*}
+As
+\[
+E_{i_t} [\loss{i_t}{t}] = \sum_i 
+{\weight{i}{t} \over \sum_j \weight{j}{t}} \loss{i}{t}
+\]
+We get
+\[
+{\sum_i \weight{i}{t+1} \over \sum_i \weight{i}{t} }
+\leq 1 - (1-e^{-\eta}) E_{i_t} [\loss{i_t}{t}]~.
+\]
+~\newline
+Taking logs and Combining for $t=1\ldots T$:
+\begin{eqnarray*}
+\ln {\sum_i \weight{i}{T+1} \over \sum_i \weight{i}{1}}
+&\leq & \sum_{t=1}^T 
+     \ln \left(1-(1-e^{-\eta}) E_{i_t} [\loss{i_t}{t}] \right) \\
+&\leq &
+     - (1-e^{-\eta})
+	\sum_{t=1}^T E_{i_t} [\loss{i_t}{t}]
+\end{eqnarray*}
+But $\sum_i \weight{i}{1} = N {1 \over N} = 1$.\newline
+
+\pagebreak
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{What can be done beyond this?}
+\end{center}
+\begin{itemize}
+\item
+Unbounded loss per trial.
+\item
+Better bounds for special losses
+\begin{itemize}
+\item
+Define loss as a function of {\em prediction} and {\em outcome}.
+\item
+Combine predictions of experts instead of randomly 
+choosing a single expert.
+\end{itemize}
+\item
+Better bounds for special model classes
+\begin{itemize}
+\item
+Models parameterized by continuous parameters.
+\item
+Neighborhood structure of models.
+\end{itemize}
+%\item
+%Efficiency considerations.
+%\item 
+%restricted feedback
+\end{itemize}
+
+\pagebreak
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Some useful loss functions}
+\end{center}
+
+Outcomes: binary $x^1,x^2,\ldots$ \newline
+Predictions: $p^1,p^2,\ldots$  $p^t \in [0,1]$
+
+\begin{itemize}
+\item
+{\bf Absolute loss (Prediction error)}
+\[ \loss{}{t} = | x^t -p^t |\]
+Probability of making a mistake if predicting 0 or 1 
+using a biased coin\newline
+If $P[x^t=1]=q$, then the optimal prediction is 
+\[
+p^t = \cases{1,&if $q > 1/2$ \cr 
+             0,& otherwise}~.
+\]
+\item
+{\bf Log loss (Entropy loss)} 
+\[ \loss{}{t} = -x^t \ln p^t -(1-x^t) \ln (1-p^t) \]
+Cumulative log loss $=$ coding length $\pm 1$ \newline
+If $P[x^t=1]=q$, optimal prediction $p^t=q$.
+\item
+{\bf Square loss (Breier Loss)}
+\[ \loss{}{t} = (x^t-p^t)^2 \]
+If $P[x^t=1]=q$, optimal prediction $p^t=q$.\newline
+Loss is bounded.\newline
+Example: predicting forehand/backhand in ping-pong.
+\end{itemize}
+\pagebreak
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Vovk's general result}
+[Vovk 89,95]
+\end{center}
+
+{\bf A game, between Nature and a Learner:}\newline
+\newline
+For $t=1,2,\ldots$:
+\begin{enumerate}
+\item
+Each expert $i \in \{1 \ldots N \}$ makes a prediction 
+$\gamma_i^t \in \Gamma$.
+\item
+The learner, after observing $\langle \gamma_1^t \ldots \gamma_N^T
+\rangle$, makes its own prediction $\gamma^t$.
+\item
+Nature chooses an outcome $\omega^t \in \Omega$.
+\item
+Each expert incurs loss $\loss{i}{t} = \lambda(\omega^t,\gamma_i^t)$.
+The learner incurs loss $\loss{}{t} = \lambda(\omega^t,\gamma^t)$.
+\end{enumerate}
+
+{\em Goal:} guarantee that 
+\[ \TAloss \leq a \BEloss + c \ln N \]
+for any sequence and for the smallest possible pairs $(a,c) \in [0,\infty)^2$.
+\pagebreak
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{The loss function should be well-behaved}
+\end{center}
+There should be a topology on the set $\Gamma$ such that
+\begin{itemize}
+\item
+$\Gamma$ is compact.
+\item
+$\forall \omega \in \Omega$, the function $\gamma \to
+\lambda(\omega,\gamma)$ is continuous.
+\item
+There is a universally reasonable prediction
+$\exists \gamma \in \Gamma$, $\forall \omega \in \Omega$,
+$\lambda(\omega,\gamma) < \infty$.
+\item
+There is no universally optimal prediction
+$\neg \exists \gamma \in \Gamma$, $\forall \omega \in \Omega$,
+$\lambda(\omega,\gamma) = 0$.
+\end{itemize}
+\pagebreak
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{The set of achievable bounds}
+\end{center}
+The pair $(a,c)$ is {\em achievable} if there exists 
+{\em some} prediction algorithm
+such that for {\em any} $N>0$, {\em any} set of $N$ prediction
+sequences and {\em any} sequence of outcomes
+\[
+\TAloss \leq a \BEloss + c \ln N
+\]
+
+\withpsfigs{\centerline{\psfig{figure=achievable1.ps,width=7in}}}
+
+\pagebreak
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Vovk's meta-algorithm}
+\end{center}
+
+~\newline
+Fix an achievable pair $(a,c)$.\newline
+~\newline
+Set $\eta=a/c$.
+~\newline
+
+\begin{enumerate}
+\item
+Define
+\[
+	\weight{i}{t} = {1 \over N} \; e^{-\eta \TEloss{i}^{t}}
+\]
+\item
+Choose $\gamma_t$ so that, for all $\omega^t \in \Omega$:
+\[
+\lambda(\omega^t,\gamma^t) - c \ln \sum_i \weight{i}{t} 
+\leq
+- c \ln \left( \sum_i 
+      \weight{i}{t}e^{-\eta \lambda(\omega^t,\gamma_i^t)}
+        \right)
+\]
+\end{enumerate}
+
+If choice of $\gamma^t$ always exists, then the total loss satisfies:
+\[
+\sum_t \lambda(\omega^t,\gamma^t)
+\leq
+- c \ln \sum_i \weight{i}{T+1}
+\leq
+a \BEloss + c \ln N
+\]
+~\newline
+Vovk's result: {\em yes!} a choice for $\gamma_t$ always exists!
+\pagebreak
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Vovk's algorithm is optimal}
+\end{center}
+{\bf Theorem (Vovk 95)}\newline
+The pair $(a,c)$ is achievable (by some algorithm) 
+if and only if it is achieved by Vovk's algorithm.
+\newline
+The separation curve is
+\[ \left\{ \left. \left( a(\eta),{a(\eta) \over \eta} \right) \right| 
+           \eta \in [0,\infty] \right\} \]
+
+\withpsfigs{\centerline{\psfig{figure=achievable2.ps,width=7in}}}
+
+\pagebreak
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Special case: $a(\eta) = 1$ for $\eta<\infty$}
+\end{center}
+
+Vovk's condition:
+Choose $\gamma$ so that, for all $\omega \in \Omega$:
+\[
+\lambda(\omega,\gamma^t) - c \ln \sum_i \weight{i}{t} 
+\leq
+- c \ln \left( \sum_i 
+      \weight{i}{t}e^{-\eta \lambda(\omega,\gamma_i^t)}
+        \right)
+\]
+Can be re-written as:
+\[
+e^{-{1 \over c} \lambda(\omega,\gamma)}
+\geq
+\sum_i 
+\left({\weight{i}{} \over \sum_j \weight{j}{}}\right)
+e^{-\eta \lambda(\omega,\gamma_i)}
+\]
+\begin{itemize}
+\item
+$a(\eta)=1$ $\Leftrightarrow$ ${1 \over c} = \eta$.
+\item
+{\bf Assumption:}
+fix $\lambda(\omega,\gamma_i)$ for all but $i \not\in \{j,k\}$
+then increasing $\lambda(\omega,\gamma_j)$ decreases
+$\lambda(\omega,\gamma_k)$. 
+\item
+We get a convexity condition on the image of $\Gamma$ under the
+function
+\[F(\gamma) = 
+\left\langle 
+   e^{-\eta \lambda(\omega,\gamma)} 
+\right\rangle_{\omega \in \Omega}
+\]
+\end{itemize}
+
+\noindent {\bf Example:} Suppose $\Omega=\{0,1\}$, $\Gamma = [0,1]$.
+then
+\[
+F(\gamma) = \left\langle
+  e^{-\eta \lambda(0,\gamma)},e^{-\eta \lambda(1,\gamma)}
+\right\rangle
+\]
+\withpsfigs{\centerline{\psfig{figure=convex.ps,height=2.5in}}}
+
+\pagebreak
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Negating Vovk's condition implies a ``bad'' distribution}
+\end{center}
+Vovk's condition:
+\begin{eqnarray*}
+& \forall & N,\\
+& \forall & \langle (\gamma_1,\weight{1}{}),\ldots,(\gamma_N,\weight{N}{}) \rangle,\\
+& \exists & \gamma,\; \forall \omega: \\
+&&e^{-{1 \over c} \lambda(\omega,\gamma)}
+\geq
+\sum_i 
+\left({\weight{i}{} \over \sum_j \weight{j}{}}\right)
+e^{-\eta \lambda(\omega,\gamma_i)}
+\end{eqnarray*}
+Negation is
+\begin{eqnarray*}
+& \exists & N,\\ 
+& \exists &
+\langle (\gamma_1,\weight{1}{}),\ldots,(\gamma_N,\weight{N}{}) \rangle,\\
+& \forall & \gamma,\; \exists \omega: \\
+&& e^{-{1 \over c} \lambda(\omega,\gamma)}
+<
+\sum_i 
+\left({\weight{i}{} \over \sum_j \weight{j}{}}\right)
+e^{-\eta \lambda(\omega,\gamma_i)}
+\end{eqnarray*}
+Defines a ``BAD'' distribution over $\Gamma$ (prediction space).\newline
+The distribution has a finite support.
+
+\pagebreak
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Adversarial construction for Vovk's algorithm}
+\end{center}
+
+\begin{itemize}
+\item
+{\bf Experts}: Each expert predicts IID according to the ``BAD''
+distribution over $\Gamma$.
+\item
+{\bf Sequence:}
+Choose an outcome $\omega$ which satisfies the bad inequality {\em
+and}:
+\begin{itemize}
+\item
+If $\exists \omega$ such that some expert suffers non-zero loss then use
+it.
+\item
+Else choose $\omega$ that maximizes loss of prediction algorithm.
+\end{itemize}
+\end{itemize}
+~\newline
+~\newline
+Vovk's homepage: HTTP://casbs.stanford.edu/\~{}vovk/
+\pagebreak
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Explicit analysis for special cases}
+\end{center}
+
+Vovk's meta-algorithm is not constructive:\newline
+\newline
+Given $\lambda(\omega,\gamma)$ find:
+\begin{itemize}
+\item
+Set of achievable pairs. $\{(a,c)\}$ \newline
+In particular, is there an achievable $(1,c)$, $c<\infty$ ?
+\item
+How to calculate a good prediction $\gamma^t$?\newline
+(easy when $|\Omega| < \infty$).
+\end{itemize}
+\pagebreak
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Vovk's algorithm for binary outcomes, log loss}
+\end{center}
+\[ \loss{}{t} = -x^t \ln p_i^t -(1-x^t) \ln (1-p_i^t) \]
+
+~
+\begin{itemize}
+\item
+The pair $(1,1)$ is achieved by $\eta=1$.
+\item
+Prediction $=$ weighted average:
+\[
+	{\sum_i \weight{i}{t} \gamma_i^t
+	\over
+	 \sum_i \weight{i}{t}}
+\]
+\item
+The update rule is:
+\begin{eqnarray*}
+\weight{i}{t+1} &=& \weight{i}{t} \; 
+                  \exp \left(x^t \ln p_i^t +(1-x^t) \ln (1-p_i^t)\right)\\
+&=& \weight{i}{t} (p_i^t)^{x^t} (1-p_i^t)^{1-x^t}
+\end{eqnarray*}
+\end{itemize}
+This algorithm is {\em identical} to the Bayes prediction algorithm with 
+a uniform prior.
+\newline\newline
+{\bf Theorem:} For {\em any} sequence the cumulative log loss of the
+algorithm is larger by at most $\ln N$ from the loss of the best
+expert.
+\newline\newline
+This result is well known in Information theory as a ``Universal
+coding'' folk-theorem.
+\pagebreak
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Vovk's algorithm for Binary outcomes, square loss}
+\end{center}
+\[ \loss{}{t} = (x^t - p_i^t)^2 \]
+
+~
+\begin{itemize}
+\item
+The pair $(1,1/2)$ is achieved by $\eta=2$.
+\item
+{\bf Weight Update rule:}
+\begin{eqnarray*}
+\weight{i}{t+1} &=& \weight{i}{t} \; 
+                  \exp \left(-2 (x^t - p_i^t)^2 \right)
+\end{eqnarray*}
+\item
+{\bf Prediction rule:} any choice from the range
+\[
+1-\sqrt{ -{1 \over 2} \ln \sum_i \Nweight{i}{t} e^{-2(1-p^t_i)^2} }
+\leq
+p^t
+\leq
+\sqrt{ -{1 \over 2} \ln \sum_i \Nweight{i}{t} e^{-2(p^t_i)^2} }
+\]
+where
+\[
+	\Nweight{i}{t} = {\weight{i}{t} \over \sum_s \weight{i}{s}}~.
+\]
+\end{itemize}
+~\newline
+This algorithm is quite different from the Bayes algorithm.
+\newline\newline
+{\bf Theorem:} For {\em any} sequence the cumulative square loss
+of the algorithm is larger by at most ${1\over 2}\ln N$ 
+from the loss of the best expert.
+\pagebreak
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Bayes algorithm is sub-optimal for square loss}
+\end{center}
+
+Bayes is optimal only if data is generated by a model
+from the class.
+\newline
+\newline
+{\bf Example:}\newline
+$N=3$\newline
+$\forall t\;\; p_1^t=0,\; p_2^t=1/2,\; p_3^t=1$\newline
+Source: biased coin with $p=0.9$.
+\newline\newline
+For {\em any} prior: Bayes algorithm quickly converges to $p=1/2$.
+\newline
+\begin{tabbing}
+Expected \= total loss of Bayes: \\ \> $ \approx (1/2)^2*T=0.25*T$ \\
+Expected total loss of expert 3: \\ \> $(0.9*(1-1)^2+0.1*(1-0)^2)*T=0.1*T$ \\
+Expected total loss for Vovk's algorithm: \\ \> $\leq 0.1*T+\ln(3)/2$.
+\end{tabbing}
+\pagebreak
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{A prediction algorithm for binary outcome, absolute loss}
+\newline [Cesa-Bianchi et. al. 93]
+\end{center}
+\[ \loss{}{t} =  |x^t - p_i^t| \]
+
+\begin{itemize}
+\item
+There is no achievable pair $(1,c)$, $c<\infty$.
+\item
+By selecting $\eta$ as a function of $T$ we can achieve
+\[
+\TAloss - \BEloss \leq  \sqrt{T \ln (N+1) \over 2} + {\log_2(N+1) \over 2}
+\]
+\item
+{\em Lower bound:} If all predictions and outcome are chosen to be $0$
+or $1$ with equal probability  then, for {\em any} algorithm:
+\[
+\TAloss - \BEloss \geq (1-o(1)) \sqrt{T \ln N \over 2} 
+\mbox{ when } T,N \to \infty
+\]
+\end{itemize}
+
+\pagebreak
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{A lower bound construction for absolute loss}
+\end{center}
+\begin{itemize}
+\item
+{\bf Sequence:} Random, IID, $p={1 \over 2}$.
+\item
+{\bf $N$ Experts:} Random, IID, $p={1 \over 2}$.
+\end{itemize}
+~\newline
+Expected loss of {\em any} algorithm $= {T \over 2}$.
+~\newline
+~\newline
+Expected loss of {\bf best} expert 
+$ = {T \over 2} - (1-o(1)) \sqrt{T \ln N \over 2}$.
+when $T, N \to \infty$.
+~\newline
+\begin{itemize}
+\item
+$T \to \infty$ : $L'_i = {L_i-T/2 \over \sqrt{T}}$ converges to
+normal.
+\item
+$N \to \infty$ : $\sqrt{2 \ln N}\max(L'_1,\ldots,L'_N)+2 \ln N$
+converges to a limit distribution with finite expected value.
+\end{itemize}
+\pagebreak
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Planting the lower bound inside a less trivial case}
+\end{center}
+
+\pagebreak
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Summary of part I, $N$ experts}
+\end{center}
+\begin{itemize}
+\item
+For any bounded loss ``Hedge'' achieves
+\[
+\TAloss - \BEloss = O(\sqrt{T \ln N})
+\]
+\item
+For any continuous loss Vovk's algorithm achieves the best bounds of the form
+\[
+\TAloss \leq a \BEloss + c \ln N
+\]
+\item
+For log loss and square loss Vovk achieves
+\[
+\TAloss - \BEloss = O(\ln N)
+\]
+\item
+For absolute loss, any algorithm satisfies
+\[
+\TAloss - \BEloss = \Omega(\sqrt{T \ln N})
+\]
+\end{itemize}
+
+\pagebreak
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{A continuous class of models}
+\end{center}
+\begin{itemize}
+\item
+Each expert corresponds to a biased coin, 
+predicts with some fixed $\theta \in [0,1]$.
+\item
+All values of $\theta$ allowed.
+\item
+Uncountably infinite set of experts.
+\item
+Bound of the form 
+\[
+	\TAloss \leq a \BEloss +c \ln N
+\]
+is meaningless.
+\item
+Can we still get a meaningful bound?
+\end{itemize}
+\pagebreak
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Analysis of uncountably infinite experts}
+\end{center}
+\begin{itemize}
+\item 
+Replace the initial weight by a density measure $\dweight{\theta}{} =
+\dweight{\theta}{1}$, $\int_0^1 \dweight{\theta}{} d\theta=1$.
+\item 
+{\bf Upper bound} on final total weight holds translates directly:
+\[
+ \TAloss \leq -c \ln \int_0^1 \dweight{\theta}{} e^{-\eta \TEloss{\theta}^{T+1}} d\theta
+\]
+\item
+We need a new {\bf lower bound} on the final total weight
+\item
+{\bf Idea:} If $\dweight{\theta}{t}$ is large then $\dweight{p+\epsilon}{t}$
+is also large.
+\end{itemize}
+
+\withpsfigs{\centerline{\psfig{figure=neighborhood.ps,width=7in}}}
+
+\pagebreak
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Rewriting the integral in exponential form}
+\end{center}
+\begin{itemize}
+\item
+For log loss and square loss best $\theta$ is empirical distribution
+of seq.
+\[
+	\btheta = {\#\{x^t=1;\;\; 1 \leq t \leq T \} \over T} 
+\]
+\item
+The total loss scales with $T$:
+\[
+\TEloss{\theta} =
+ T \cdot (\btheta \ell(\theta,1) + (1-\btheta)\ell(\theta,0))
+ \doteq T \cdot g(\btheta,\theta)
+\]
+\item
+If $a=1$ then $\eta=1/c$ and we can put everything in the exponent:
+\begin{eqnarray*}
+\TAloss - \BEloss &\leq&
+-c \ln \int_0^1 \dweight{\theta}{} e^{-\eta \TEloss{\theta}} d\theta
+-c \ln e^{(1/c) \BEloss} \\
+&=&
+-c \ln \int_0^1 \dweight{\theta}{} e^{-\eta
+(\TEloss{\theta}-\BEloss)} d\theta \\
+&=&
+-c \ln \int_0^1 \dweight{\theta}{} 
+e^{-\eta T (g(\btheta,\theta) - g(\btheta,\btheta))} d\theta \\
+\end{eqnarray*}
+\end{itemize}
+\pagebreak
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Approximating the area under the peak}
+\end{center}
+~\newline
+Expanding the exponent around $\theta=\btheta$:
+\begin{itemize}
+\item
+First and second term in the expansion of
+$g(\btheta,\theta)-g(\btheta,\btheta)$ around $\btheta$ are zero.
+\item
+Third term gives a quadratic expression in the exponent \newline
+$\Rightarrow$ a gaussian.
+\end{itemize}
+\withpsfigs{\centerline{\psfig{figure=Laplace.ps,width=7in}}}
+
+\begin{eqnarray*}
+\lefteqn{\int_0^1  \dweight{\theta}{} 
+         e^{-\eta T (g(\btheta,\theta)-g(\btheta,\btheta))} d\theta}\\
+\\
+&=& \dweight{\btheta}{} \sqrt{-2 \pi c \over 
+T \left. {d^2 \over d\theta^2} \right|_{\theta=\btheta} 
+(g(\btheta,\theta)-g(\btheta,\btheta))}
++ O(T^{-3/2})
+\end{eqnarray*}
+
+\pagebreak
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Choosing the optimal prior}
+\end{center}
+\begin{itemize}
+\item
+Would like to choose $\dweight{\theta}{}$ to maximize
+\[
+	\min_{\btheta} \dweight{\btheta}{} \sqrt{-2 \pi c \over 
+T \left. {d^2 \over d\theta^2} \right|_{\theta=\btheta} 
+(g(\btheta,\theta)-g(\btheta,\btheta))}
+\]
+\item
+Make bound equal for all $\btheta \in [0,1]$ by choosing
+\[
+\dweight{\btheta}{*} =
+{1 \over Z}
+\sqrt{\left. {d^2 \over d\theta^2} \right|_{\theta=\btheta} 
+(g(\btheta,\theta)-g(\btheta,\btheta)) \over - 2 \pi c}~,
+\]
+where $Z$ is the normalization factor:
+\[
+Z =\sqrt{1 \over 2 \pi c}\;\;
+\int_0^1 \;\;\sqrt{\left. {d^2 \over d\theta^2} \right|_{\theta=\btheta} 
+(g(\btheta,\btheta)-g(\btheta,\theta))} \;\;d\btheta
+\]
+\item
+The bound becomes:
+\begin{eqnarray*}
+\TAloss - \BEloss &\leq&
+-c \ln \int_0^1 \dweight{\theta}{*} 
+e^{-\eta T (g(\btheta,\theta) - g(\btheta,\btheta))} d\theta \\ \\
+&=&
+-c \ln \left( \sqrt{2\pi Z \over T} + O(T^{-3/2}) \right) \\ \\
+&=&
+{c \over 2} \ln {T \over 2\pi} -{c \over 2} \ln Z + O(1/T)~.
+\end{eqnarray*}
+\end{itemize}
+
+\pagebreak
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Biased coins with log loss}
+\end{center}
+\begin{itemize}
+\item
+The exponent in the integral is
+\[
+g(\btheta,\theta) - g(\btheta,\btheta)
+=
+\btheta \ln {\btheta \over \theta} + 
+(1-\btheta) \ln {1-\btheta \over 1-\theta}
+=
+D_{KL} (\btheta || \theta)
+\]
+\item
+The second derivative
+\[
+\left. {d^2 \over d\theta^2} \right|_{\theta=\btheta} 
+D_{KL} (\btheta || \theta)
+\]
+Is called the {\em empirical Fisher information}
+\item
+The optimal prior:
+\[
+\dweight{\btheta}{*} ={1 \over Z}
+\sqrt{T \left. {d^2 \over d\theta^2} \right|_{\theta=\btheta} 
+(g(\btheta,\theta)-g(\btheta,\btheta)) \over - 2 \pi c}~,
+\]
+is known as {\em Jeffrey's prior} which, for this class, 
+is the {\em Dirichlet-$(1/2,1/2)$ prior}.
+\end{itemize}
+
+\pagebreak
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Bounds for biased coins, log loss}
+\end{center}
+
+\begin{itemize}
+\item
+The bound, for Bayes algorithm using the Dirichlet-$(1/2,1/2)$
+distribution,
+for $\btheta \in [\epsilon,1-\epsilon]$, is:
+\[
+\TAloss - \BEloss \leq {1 \over 2} \ln (T+1) 
+                     + {1 \over 2} \ln {\pi \over 2}
+                     + O(1/T)
+\]
+\item
+Bound asymptotically equal to the min/max bound when $T$ known in advance.
+\item
+The bound when seq. {\bf generated by a biased coin}, for same
+algorithm [Xie and Barron, 95] is:
+\[
+\max_{\theta}
+E(\TAloss - \TEloss{\theta}) 
+\leq {1 \over 2} \ln (T) 
+   + {1 \over 2} \ln {\pi \over 2e}
+   + O(1/T)
+\]
+\item
+The prediction is very simple:
+\[
+p_t = {\#\{x^t=1;\;\; 1 \leq t \leq T \} + 1/2 \over T+1} 
+\]
+\end{itemize}
+
+\pagebreak
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Biased coins with square loss}
+\end{center}
+
+\begin{itemize}
+\item
+The exponent in the integral is
+\[
+g(\btheta,\theta) - g(\btheta,\btheta)
+=
+(\theta-\btheta)^2
+\]
+\item
+The second derivative is a constant:
+\[
+\left. {d^2 \over d\theta^2} \right|_{\theta=\btheta} 
+(\theta-\btheta)^2 = 2
+\]
+\item
+The optimal prior is uniform over $[0,1]$.
+\item
+The bound for $\btheta \in [\epsilon,1-\epsilon]$, is:
+\[
+\TAloss - \BEloss \leq {1 \over 4} \ln T 
+                     - {1 \over 4} \ln {\pi \over 2}
+                     + O(1/T)
+\]
+\item
+{\bf Prediction:} complicated to write, but $O(\log T)$ to compute.
+\end{itemize}
+
+\pagebreak
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Summary}
+\end{center}
+~\newline
+{\bf $N$ models:} 
+\begin{enumerate}
+\item
+A very simple algorithm to predict almost as well as the best expert.
+\item
+No probabilistic assumptions about the outcomes or the experts.
+\item
+Algorithm is identical to Bayes for log-loss.
+\item
+Algorithm is new and better than Bayes for square loss and absolute
+loss.
+\end{enumerate}
+~\newline
+{\bf Biased coins:} 
+\begin{enumerate}
+\item 
+Bayes with Jeffrey's prior is also optimal in the
+worst case for log loss.
+\item
+Uniform prior is best in the worst case for square loss.
+\end{enumerate}
+\pagebreak
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Relation to on-line competitive analysis}
+\end{center}
+
+Positive Aspects:
+\begin{itemize}
+\item
+Competitive ratio $\to 1$ as $T \to \infty$.
+\item
+Good bounds on the competitive {\em difference}.
+\end{itemize}
+
+Negative aspects:
+\begin{itemize}
+\item
+Off-line algorithm  restricted to choose one strategy
+from a (finite) class.
+\item
+Loss on each iteration must depend only on action taken on same
+iteration.\newline
+{\bf Example:} Servicing Page Faults. Loss depends on previous
+actions.\newline
+Dependence can be weakened by making each 
+iteration correspond to a large
+number of page faults.
+\end{itemize}
+\pagebreak
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Further work}
+\end{center}
+Ordered by my familiarity with the subject
+\begin{enumerate}
+\item
+Uncountably infinite classes of experts (parameterized experts).
+\item
+Observing only the loss of the selected action (multiple arm bandit
+problem).
+\item
+Learning to play repeated matrix games.
+\item
+Relation to boosting.
+\item
+Efficient calculation of exponentially many experts.
+\item
+Relations with universal coding and universal portfolios.
+(Gallager, Risannen, Feder, Merhav, Cover).
+\item
+``Specialists'' - Allowing experts to abstain from predicting.
+\item
+Allowing the identity of the best expert to change from time to time (non-stationarity).
+\item
+Competing against the best {\em linear combination} of experts.
+\item
+Relations with calibration methods (Foster, Vohra).
+\end{enumerate}
+\pagebreak
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{More efficient versions}
+\end{center}
+
+\begin{itemize}
+\item 
+Generally, $\Omega(N)$ computation time per iteration.
+\item
+Some expert classes can be done in $O(\log N)$ time per iteration.
+\end{itemize}
+
+\begin{enumerate}
+\item
+~[Littlestone ??]: ``Winnow'': Expert $=$ a disjunction over $k$ out of
+$n$ elements (Time$=O(n)$ instead of $O(n^k)$).
+\item
+~[Warmuth, Maass ??]: Expert $=$ an indicator function of an
+axis-parallel box in $[1\ldots m]^d$.
+\item
+~[Willems Starkov ??],[Helmbold, Schapire ??]: Expert $=$ a pruning of
+a fixed decision tree.
+\end{enumerate}
+\pagebreak
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\underline{Restricted feedback}
+\end{center}
+\begin{itemize}
+\item $\loss{i}{t} \in [-1,0]$= loss of action $i$ at time $t$.
+\item
+Learner chooses action $i_t$.
+\item
+Learner observes only the loss $\loss{i_t}{t}$.
+\item
+Exploration vs. exploitation achieved by choosing $i_t$ with
+probability
+\[
+p_i^t = \mu  {\weight{i}{t} \over \sum_{j=1}^K \weight{j}{t}}
+        + (1-\mu)
+\]
+\item
+Only weight of selected action is updated
+\[ 
+\weight{i_t}{t+1} = \weight{i_t}{t} \; 
+                    \exp (-\eta \loss{i_t}{t}/p_{i_t}^t)
+\]
+\item
+Upper bound:
+\[
+E [\TAloss - \BEloss] = O(\sqrt{T K \ln K})
+\]
+\item
+Lower bound: for any algorithm
+\[
+E [\TAloss - \BEloss] = \Omega(\sqrt{T K})
+\]
+\end{itemize}
+\end{LARGE}
+\end{flushleft}
+
+\end{document}
+
+
+
+\iffalse
+\item
+Expand the exponent around $p=\btheta$:
+\[
+\TEloss{\theta}^{T+1}-\BEloss^{T+1} = 
+\TEloss{\btheta}^{T+1}-\BEloss^{T+1}
++ \left. {d \over d\theta} \right|_{\theta=\btheta} \TEloss{\theta}^{T+1}
++ \left. {d^2 \over d\theta^2} \right|_{\theta=\btheta} \TEloss{\theta}^{T+1}
++ o((\theta-\btheta)^2)
+\]
+\item
+\[
+\int_0^1 \dweight{\theta}{} e^{-\eta (\TEloss{\theta}^{T+1}-\BEloss^{T+1})} d\theta
+= \dweight{\btheta}{} 
+\]
+\fi
+

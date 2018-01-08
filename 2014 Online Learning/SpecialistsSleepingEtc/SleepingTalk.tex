@@ -1,0 +1,464 @@
+\documentclass{beamer}
+%\documentclass[handout]{beamer}
+% This file is a solution template for:
+
+% - Giving a talk on some subject.
+% - The talk is between 15min and 45min long.
+% - Style is ornate.
+
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice. 
+
+
+\mode<presentation>
+{
+  \usetheme{Montpellier}
+
+  %\setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+\usepackage{xmpmulti} % package that defines \multiinclude
+
+\usepackage[english]{babel}
+
+\usepackage[latin1]{inputenc}
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+% Or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+
+%\title [short title] (optional, use only with long paper titles)
+\title{Sleeping experts \\ and \\ Expert Engineering}
+
+\author[Freund] % (optional, use only with lots of authors)
+{Yoav Freund}
+% - Give the names in the same order as the appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[Universities of Somewhere and Elsewhere] % (optional, but mostly needed)
+
+\subject{Machine Learning}
+% This is only inserted into the PDF information catalog. Can be left
+% out. 
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+% \pgfdeclareimage[height=0.5cm]{university-logo}{university-logo-filename}
+% \logo{\pgfuseimage{university-logo}}
+
+
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+%% \AtBeginSubsection[]
+%% {
+%%   \begin{frame}<beamer>
+%%     \frametitle{Outline}
+%%     \tableofcontents[currentsection,currentsubsection]
+%%   \end{frame}
+%% }
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command: 
+
+\beamerdefaultoverlayspecification{<+->}
+
+\input{../macros}
+\input{SleepingMacros}
+\begin{document}
+
+%\iffalse %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Outline}
+  \tableofcontents[pausesections]
+  % You might wish to add the option [pausesections]
+\end{frame}
+
+
+\section{Sleeping Experts}
+
+\begin{frame}
+\frametitle{Specialists}
+\begin{itemize}
+\item Also called sleeping experts
+\item The basic idea: specialists can associate a {\em confidence} with
+  their predictions.
+\item Master's prediction depends more on the confident predictions.
+\item The weight of confident experts is changed more than that of
+  unconfident ones.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{The specialists protocol}
+
+\begin{enumerate}
+\item
+The adversary chooses a set \R{$\aset{t} \subseteq \{1,\ldots,N\}$} of
+specialists that are awake at iteration \R{$t$}.
+\item
+The adversary chooses a prediction \R{$\advice{i}{t}$} for each awake
+specialist \R{$i \in \aset{t}$}. 
+\item
+The algorithm chooses its own prediction \R{$\pred{t}$}.
+\item
+The adversary chooses an outcome \R{$\outcome{t}$}.
+\item
+The algorithm suffers loss \R{$\algloss{t} = \loss(\pred{t},\outcome{t})$}
+and each of the awake specialists suffers loss 
+\R{$\sloss{i}{t}=\loss(\advice{i}{t},\outcome{t})$}. 
+Specialists that are asleep suffer no loss.
+\end{enumerate}
+\end{frame}
+
+\subsection{Log Loss}
+
+\begin{frame}
+\frametitle{Log Loss}
+\begin{itemize}
+\item Log loss is the simplest case
+\item
+\R{\[
+\loss(\pred{},\outcome{}) =
+  \begin{cases}
+          - \ln \pred{}
+        & if $\outcome{} = 1$ \cr
+           - \ln (1-\pred{})
+        & if $\outcome{} = 0$.
+  \end{cases}
+\]}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{The standard Bayes algorithm (normalized weights)}
+{\noindent {\bf Do for}} \R{$t=1,2,\ldots,T$}
+\begin{enumerate}
+ \item Predict with the weighted average of the experts
+predictions:\newline
+  \R{$$
+	\pred{t} = \sum_{i=1}^N \pp{i}{t} \advice{i}{t} 
+  $$}
+ \item Observe outcome \R{$\outcome{t}$}
+ \item Calculate a new posterior distribution:
+\R{\[
+\pp{i}{t+1} = 
+\begin{cases}
+            \frac{{\displaystyle \pp{i}{t} \advice{i}{t}}
+             }{
+             {\displaystyle \pred{t}}}
+        & if $\outcome{t}=1$ \cr
+\frac{{\displaystyle \pp{i}{t} (1-\advice{i}{t})}}{
+            {\displaystyle  1-\pred{t}}}
+        & if $\outcome{t}=0$.
+\end{cases}
+\]}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Bayes for Specialists}
+{\noindent {\bf Do for}} \R{$t=1,2,\ldots,T$}
+\begin{enumerate}
+ \item Predict with the weighted average of the predictions of the
+awake specialists:
+  \R{$$
+	\pred{t} = \frac{ \sum_{i \in \aset{t}} \pp{i}{t} \advice{i}{t} 
+                     }{ 
+                     \sum_{i \in \aset{t}} \pp{i}{t} }
+  $$}
+ \item Observe outcome \R{$\outcome{t}$} 
+ \item Calculate a new posterior distribution: \\
+\B{If} \R{$i \in \aset{t}$} \B{then}
+\R{\[
+\pp{i}{t+1} = 
+\begin{cases}
+            \frac{{\displaystyle \pp{i}{t} \advice{i}{t}}
+             }{
+             {\displaystyle \pred{t}}}
+        & if $\outcome{t}=1$ \cr
+           \frac{{\displaystyle \pp{i}{t} (1-\advice{i}{t})}
+             }{
+            {\displaystyle  1-\pred{t}}}
+        & if $\outcome{t}=0$.
+\end{cases}
+\]}
+\B{Otherwise:} \R{$\pp{i}{t+1}=\pp{i}{t}$}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Bound on Bayes for Specialists}
+\begin{theorem} \label{thm:SBayes}
+For any sequence of 
+awake specialists, specialist predictions and outcomes
+and for any distribution \R{$\vu$} over \R{$\{1,\ldots, N\}$}, the loss of
+\B{\SBayes} satisfies
+\R{\[
+ \sum_{t=1}^T u(\aset{t}) \loss(\pred{t},\outcome{t})
+\leq
+ \sum_{t=1}^T 
+  \sum_{i \in \aset{t}} \uu{i} \loss(\advice{i}{t},\outcome{t})
++
+  \RE{\vu}{\vp{1}}~.
+\]}
+Where \R{$$u(\aset{t})\doteq \sum_{i \in E_t}u_i$$}
+\end{theorem}
+\end{frame}
+
+\begin{frame}
+\frametitle{Proof of Theorm}
+\begin{itemize}
+\item for each step:
+\R{\begin{eqnarray}
+\lefteqn{\RE{\vu}{\vp{t}} - \RE{\vu}{\vp{t+1}}} \nonumber \\
+&=&
+u(\aset{t}) \loss(\pred{t},\outcome{t})
+- \sum_{i \in \aset{t}} \uu{i} \loss(\advice{i}{t},\outcome{t}).
+ \label{eqn:Bayes-pred}
+\end{eqnarray}
+}
+\item Summing over \R{$t=1,\ldots,T$} and using that
+relative entropy is always positive:
+\R{
+\begin{eqnarray*}
+  \RE{\vu}{\vp{1}}
+ \!\!\!\! & \geq & \!\!\!\!
+     \RE{\vu}{\vp{1}} - \RE{\vu}{\vp{T+1}}  \\
+ \!\!\!\! & = &    \!\!\!\!
+\sum_{t=1}^T u(\aset{t}) \loss(\pred{t},\outcome{t})
+       -  \sum_{t=1}^T \sum_{i\in\aset{t}} \uu{i} \loss(\advice{i}{t},\outcome{t}).
+\end{eqnarray*}
+}
+\end{itemize}
+\end{frame}
+
+\subsection{General Loss}
+\begin{frame}
+\frametitle{Using general loss functions}
+We focus on algorithms which, like \B{\Bayes}, maintain a
+distribution vector \R{$\vp{t}\in \simplex{N}$}.
+Such algorithms are defined by two functions:
+\begin{enumerate}
+\item
+\R{$$\pfunc: \simplex{N}\times [0,1]^N \rightarrow [0,1]$$}
+which maps the current weight vector \R{$\vp{t}$} and instance
+\R{\advicevec{t}} to a prediction \R{\pred{t}}; and
+\item
+\R{$$\ufunc: \simplex{N}\times [0,1]^N\times [0,1] \rightarrow
+  \simplex{N}$$}
+which maps the current weight vector \R{$\vp{t}$}, instance
+\R{\advicevec{t}} and outcome \R{\outcome{t}} to a new weight vector
+\R{$\vp{t+1}$}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Generic Insomniac Algorithm}
+{\noindent {\bf Do for}} \R{$t=1,2,\ldots,T$}
+\begin{enumerate}
+ \item Observe \R{\advicevec{t}}
+ \item Predict \R{$\pred{t} = \pfunc(\vp{t},\advicevec{t})$}
+ \item Observe outcome \R{$\outcome{t}$} and 
+       suffer loss \R{$\loss(\pred{t},\outcome{t})$}
+ \item Calculate the new weight vector\\
+	 \R{$\vp{t+1} = \ufunc(\vp{t},\advicevec{t},\outcome{t})$}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Generic Specialist Algorithm}
+{\noindent {\bf Do for}} \R{$t=1,2,\ldots,T$}
+\begin{enumerate}
+ \item Observe \R{\aset{t}} and \R{\resadvicevec{t}}.
+ \item Predict \R{$\pred{t} = \pfunc(\rvp{t},\resadvicevec{t})$}
+ \item Observe outcome \R{$\outcome{t}$} and 
+       suffer loss \R{$\loss(\pred{t},\outcome{t})$}.
+ \item Calculate the new weight vector
+	 \R{$\vp{t+1}$} so that it satisfies the following:
+   \begin{enumerate}
+      \item \R{$\pp{i}{t+1} = \pp{i}{t}$ for $i\not\in \aset{t}$}
+      \item \R{\mbox{$\rvpp{t+1}{t} = \frac{1}{z_t} \ufunc(\rvp{t},\resadvicevec{t},\outcome{t})$}}
+      \item \R{$\sum_{i=1}^N \pp{i}{t+1} = 1$}
+      \item or Equivalently: \R{$\sum_{i \in \aset{t}} \pp{i}{t+1} = \sum_{i \in \aset{t}} \pp{i}{t}$}
+   \end{enumerate}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Comparison cumulative losses for specialists}
+\begin{itemize}
+\item Comparison to average loss.
+\R{\[
+\min_{\vu \in \simplex{N}} \sum_{t=1}^T 
+\clossi{\vu}(\advicevec{t},\outcome{t}) 
+\;\; \mbox{ where }\;\; 
+\clossi{\vu}(\advicevec{t},\outcome{t}) \doteq
+\frac{\sum_{i \in \aset{t}} u_i \; \loss(\advice{i}{t},\outcome{t})}{\sum_{i \in \aset{t}} u_i}~.
+\]}
+\item Comparison to average prediction.
+\R{\[
+\min_{\vu \in \simplex{N}} \sum_{t=1}^T 
+\clossii{\vu}(\advicevec{t},\outcome{t})
+\;\; \mbox{ where } \;\; 
+\clossii{\vu}(\advicevec{t},\outcome{t}) \doteq
+  \loss \left(
+   \frac{\sum_{i \in \aset{t}} u_i \advice{i}{t}}
+        {\sum_{i \in \aset{t}} u_i}
+   ,\outcome{t}
+  \right)
+\]}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Analysis using relative entropy}
+\begin{itemize}
+\item Log-Loss / Bayes
+\R{\[
+  \RE{\vu}{\vp{t}} - \RE{\vu}{\vp{t+1}}
+    = \loss(\pred{t},\outcome{t})
+       - \sum_{i=1}^N \uu{i} \loss(\advice{i}{t},\outcome{t}).
+\]}
+\item General Vovk-style algorithm:
+\R{\begin{equation*} \label{eqn:core}
+  c\paren{\RE{\vu}{\vp{t}} - \RE{\vu}{\vp{t+1}}}
+    \geq \loss(\pred{t},\outcome{t})
+       - a \closs{\vu}(\advicevec{t},\outcome{t}).
+\end{equation*}
+}
+Where \R{$\closs{}$} is \R{$(a,c)$}-achievable (Using Vovk with \R{$\eta=a/c$})
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Bound for general loss sleeping experts}
+For any achievable \R{$(a,c)$}
+\R{\begin{eqnarray*} \label{eqn:sleepbound}
+  \sum_{t=1}^T u(\aset{t})\loss(\pred{t},\outcome{t}) \leq
+    a \sum_{t=1}^T u(\aset{t})\closs{\rvu{t}}(\resadvicevec{t},\outcome{t})
+    + c \RE{\vu}{\vp{1}} \;\; . \nonumber
+\end{eqnarray*}
+}
+Where \R{$$u(\aset{t})\doteq \sum_{i \in E_t}u_i$$}
+
+\B{\SBayes} satisfies
+\R{\[
+ \sum_{t=1}^T u(\aset{t}) \loss(\pred{t},\outcome{t})
+\leq
+ \sum_{t=1}^T 
+  \sum_{i \in \aset{t}} \uu{i} \loss(\advice{i}{t},\outcome{t})
++
+  \RE{\vu}{\vp{1}}~.
+\]}
+\end{frame}
+
+\section{applications of specialists}
+
+\subsection{Variable Length Markov Models}
+\subsection{Switching Experts}
+\subsection{Text Classification}
+
+\begin{frame}
+\frametitle{The Text Classification Problem}
+\begin{normalsize}
+Context-Sensitive Learning Methods for Text Categorization / Cohen and
+Singer 1999
+\end{normalsize}
+\begin{center}
+\includegraphics[height=3cm]{figures/TextClassification1.png}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Using Specialists for text classification}
+\begin{center}
+\includegraphics[height=6cm]{figures/TextClassification2.png}
+\end{center}
+\end{frame}
+
+\section{Tracking}
+\begin{frame}
+\frametitle{Dynamics using Kalman Filters}
+Too many resources to list.
+\begin{center}
+\includegraphics[height=6cm]{figures/KalmanFilter.png}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Dynamics using Particle Filters}
+{\bf The unscented particle filter} / R. Van Der Merwe, A. Doucet, N. De Freitas, E. Wan
+\begin{center}
+\includegraphics[height=6cm]{figures/ParticleFilters.png}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Specialists for dynamics}
+\begin{itemize}
+\item Tracking for interaction.
+\item Handwriting recognition (Sunsern)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Experts for appearance modeling}
+\begin{itemize}
+\item Templates - sample image patch and compare to future patches.
+\item Identify location of object using a boosted combination of
+  low-level features. (Online Boosting)
+\item Specialists: tracking the best appearance model.
+\item Within a small set: assuming that old appearances will recur.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Confidence}
+\begin{itemize}
+\item Can we quantify the confidence we have in our prediction?
+\item If there is a set of awake specialists that have a large weight
+  and make similar predictions.
+\item In Kalman filters: covariance of the posterior distribution.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Co-Training}
+\begin{itemize}
+\item When tracking, we have no ground truth - how can we train our
+  models?
+\item Co-training: Train in proportion to confidence
+\item When Dynamics is confident: use it to train appearance.
+\item When appearance is confident: use it to train dynamics.
+\item Specialists can correspond to using different features,
+  different image resolutions etc.
+\end{itemize}
+\end{frame}
+
+\iffalse
+\fi
+\end{document}
+
+

@@ -1,0 +1,112 @@
+%\documentclass{beamer}
+\documentclass[handout]{beamer}
+
+\mode<presentation>
+{
+  \usetheme{Montpellier}
+
+  %\setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+\usepackage{xmpmulti} % package that defines \multiinclude
+\usepackage[english]{babel}
+\usepackage[latin1]{inputenc}
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+
+% Or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+
+\title[\ouralg] % (optional, use only with long paper titles)
+{Estimation, Tracking and Control}
+
+\author[Freund] % (optional, use only with lots of authors)
+{Yoav Freund}
+% - Give the names in the same order as the appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[Universities of Somewhere and Elsewhere] % (optional, but mostly needed)
+
+\subject{Machine Learning}
+% This is only inserted into the PDF information catalog. Can be left
+% out. 
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+% \pgfdeclareimage[height=0.5cm]{university-logo}{university-logo-filename}
+% \logo{\pgfuseimage{university-logo}}
+
+
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+%% \AtBeginSubsection[]
+%% {
+%%   \begin{frame}<beamer>
+%%     \frametitle{Outline}
+%%     \tableofcontents[currentsection,currentsubsection]
+%%   \end{frame}
+%% }
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command: 
+
+\beamerdefaultoverlayspecification{<+->}
+
+\input{macros}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Outline}
+  \tableofcontents[pausesections]
+  % You might wish to add the option [pausesections]
+\end{frame}
+
+\section{Estimation}
+
+\begin{frame}
+\frametitle{The static discrete estimation problem}
+\begin{itemize}
+\item A system has an internal unobservable \blue{state}:
+\redEq{s \in \{0,1,\ldots,K\}}
+\item \blue{observations} are corrupted versions of the state: 
+\redEq{o_1,o_2,\dots\;\; o_t \in \{0,1,\ldots,K\}}
+\item Our goal is to estimate \redEq{s} from \redEq{o_1,o_2,\dots,o_T}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Estimation by maximizing likelihood}
+\begin{itemize}
+\item Prob. of observation \RedEq{o} conditioned on state \RedEq{s}:\newline
+\RedEq{P\paren{O=o | S=s}}
+\item Given \redEq{o_1,o_2,\dots,o_T} define likelihood of state
+  \RedEq{s} as \RedEq{\prod_{t=1}^T P\paren{O=o_t | S=s}}.
+\end{itemize}
+\end{frame}
+ 
+\begin{frame}
+\frametitle{The static estimation problem}
+\begin{itemize}
+\item 
+\end{itemize}
+\end{frame}
+\begin{frame}
+
+\iffalse %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\fi
+
+\end{document}
+
+

@@ -1,0 +1,56 @@
+\setlength{\unitlength}{4144sp}%
+%
+\begingroup\makeatletter\ifx\SetFigFont\undefined%
+\gdef\SetFigFont#1#2#3#4#5{%
+  \reset@font\fontsize{#1}{#2pt}%
+  \fontfamily{#3}\fontseries{#4}\fontshape{#5}%
+  \selectfont}%
+\fi\endgroup%
+\begin{picture}(5400,5114)(901,-3701)
+\put(901,839){\makebox(0,0)[b]{\smash{\SetFigFont{17}{20.4}{\rmdefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$\cdots$\special{ps: grestore}}}}
+\thinlines
+\special{ps: gsave 0 0 0 setrgbcolor}\put(5468,-893){\oval(360,360)[bl]}
+\put(5468,-1028){\oval(360,360)[tl]}
+\put(5333,-893){\oval(360,360)[br]}
+\put(5333,-1028){\oval(360,360)[tr]}
+\put(5468,-1073){\line( 1, 0){-135}}
+\put(5468,-848){\line( 1, 0){-135}}
+\put(5288,-893){\line( 0, 1){-135}}
+\put(5513,-893){\line( 0, 1){-135}}
+\special{ps: gsave 0 0 0 setrgbcolor}\put(3668,-1793){\oval(360,360)[bl]}
+\put(3668,-1928){\oval(360,360)[tl]}
+\put(3533,-1793){\oval(360,360)[br]}
+\put(3533,-1928){\oval(360,360)[tr]}
+\put(3668,-1973){\line( 1, 0){-135}}
+\put(3668,-1748){\line( 1, 0){-135}}
+\put(3488,-1793){\line( 0, 1){-135}}
+\put(3713,-1793){\line( 0, 1){-135}}
+\special{ps: gsave 0 0 0 setrgbcolor}\put(3601,-61){\line( 2,-1){1800}}
+\put(5401,-961){\line(-2,-1){1800}}
+\special{ps: grestore}\special{ps: gsave 0 0 0 setrgbcolor}\put(1801,-961){\line( 2,-1){1800}}
+\put(3601,-1861){\line(-2,-1){1800}}
+\special{ps: grestore}\special{ps: gsave 0 0 0 setrgbcolor}\put(1688,-2873){\framebox(225,225){}}
+\special{ps: gsave 0 0 0 setrgbcolor}\put(3488,-173){\framebox(225,225){}}
+\special{ps: gsave 0 0 0 setrgbcolor}\put(3207,277){\line( 0,-1){844}}
+\put(3207,-567){\line(-1, 0){1800}}
+\put(1407,-567){\line( 0,-1){3094}}
+\special{ps: grestore}\special{ps: gsave 0 0 0 setrgbcolor}\put(3094,277){\line( 0,-1){731}}
+\put(3094,-454){\line(-1, 0){1800}}
+\put(1294,-454){\line( 0,-1){3207}}
+\special{ps: grestore}\special{ps: gsave 0 0 0 setrgbcolor}\put(1801,727){\line( 0, 1){449}}
+\special{ps: grestore}\special{ps: gsave 0 0 0 setrgbcolor}\put(3601,727){\line( 0, 1){449}}
+\special{ps: grestore}\special{ps: gsave 0 0 0 setrgbcolor}\put(5401,1401){\line( 0,-1){899}}
+\special{ps: grestore}\put(1801,-3604){\makebox(0,0)[lb]{\smash{\SetFigFont{17}{20.4}{\rmdefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}model\special{ps: grestore}}}}
+\put(901,-3605){\makebox(0,0)[rb]{\smash{\SetFigFont{17}{20.4}{\rmdefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}parameters\special{ps: grestore}}}}
+\put(4501,-286){\makebox(0,0)[b]{\smash{\SetFigFont{17}{20.4}{\rmdefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}1\special{ps: grestore}}}}
+\put(4501,-1861){\makebox(0,0)[b]{\smash{\SetFigFont{17}{20.4}{\rmdefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}0\special{ps: grestore}}}}
+\put(2701,-2761){\makebox(0,0)[b]{\smash{\SetFigFont{17}{20.4}{\rmdefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}0\special{ps: grestore}}}}
+\put(2701,-1186){\makebox(0,0)[b]{\smash{\SetFigFont{17}{20.4}{\rmdefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}1\special{ps: grestore}}}}
+\put(2701,-61){\makebox(0,0)[rb]{\smash{\SetFigFont{17}{20.4}{\rmdefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$\theta_1=0.1$\special{ps: grestore}}}}
+\put(901,-1073){\makebox(0,0)[rb]{\smash{\SetFigFont{17}{20.4}{\rmdefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$\theta_{10}=0.3$\special{ps: grestore}}}}
+\put(901,-2873){\makebox(0,0)[rb]{\smash{\SetFigFont{17}{20.4}{\rmdefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$\theta_{00}=0.5$\special{ps: grestore}}}}
+\put(2701,839){\makebox(0,0)[b]{\smash{\SetFigFont{17}{20.4}{\rmdefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$x_{t-2}$\special{ps: grestore}}}}
+\put(4501,839){\makebox(0,0)[b]{\smash{\SetFigFont{17}{20.4}{\rmdefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$x_{t-1}$\special{ps: grestore}}}}
+\put(6301,839){\makebox(0,0)[b]{\smash{\SetFigFont{17}{20.4}{\rmdefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$x_{t}$\special{ps: grestore}}}}
+\special{ps: gsave 0 0 0 setrgbcolor}\put(1688,-1073){\framebox(225,225){}}
+\end{picture}

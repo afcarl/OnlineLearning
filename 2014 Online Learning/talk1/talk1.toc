@@ -1,0 +1,8 @@
+\beamer@endinputifotherversion {3.07pt}
+\select@language {english}
+\beamer@sectionintoc {1}{Admin}{3}{0}{1}
+\beamer@sectionintoc {2}{Overview of Statistical Machine Learning}{5}{0}{2}
+\beamer@sectionintoc {3}{Halving Algorithm}{8}{0}{3}
+\beamer@sectionintoc {4}{Hedge Algorithm}{11}{0}{4}
+\beamer@sectionintoc {5}{Perceptron}{16}{0}{5}
+\beamer@sectionintoc {6}{Laplace law of succession}{24}{0}{6}

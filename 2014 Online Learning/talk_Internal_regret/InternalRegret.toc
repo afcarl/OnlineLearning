@@ -1,0 +1,5 @@
+\beamer@endinputifotherversion {3.01pt}
+\select@language {english}
+\beamer@sectionintoc {1}{External and Internal Regret}{5}{0}{1}
+\beamer@sectionintoc {2}{Calibration}{13}{0}{2}
+\beamer@sectionintoc {3}{Using an external regret algorithm to minimize internal regret}{21}{0}{3}

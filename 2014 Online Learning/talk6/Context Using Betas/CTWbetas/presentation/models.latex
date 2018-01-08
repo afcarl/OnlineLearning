@@ -1,0 +1,37 @@
+\setlength{\unitlength}{4144sp}%
+%
+\begingroup\makeatletter\ifx\SetFigFont\undefined%
+\gdef\SetFigFont#1#2#3#4#5{%
+  \reset@font\fontsize{#1}{#2pt}%
+  \fontfamily{#3}\fontseries{#4}\fontshape{#5}%
+  \selectfont}%
+\fi\endgroup%
+\begin{picture}(1824,6999)(-911,-6148)
+\put(732,-4336){\makebox(0,0)[rb]{\smash{\SetFigFont{17}{20.4}{\rmdefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}CTW\special{ps: grestore}}}}
+\thinlines
+\put(675,389){\oval(112,112)}
+\put(225,-1636){\oval(112,112)}
+\put(675,-1411){\oval(112,112)}
+\put(225,-2536){\oval(112,112)}
+\put(675,-2986){\oval(112,112)}
+\put(225,-3436){\oval(112,112)}
+\special{ps: gsave 0 0 0 setrgbcolor}\put(-899,-6136){\framebox(1800,6975){}}
+\special{ps: gsave 0 0 0 setrgbcolor}\put(226,-61){\line( 2,-1){450}}
+\put(676,-286){\line(-2,-1){450}}
+\special{ps: grestore}\special{ps: gsave 0 0 0 setrgbcolor}\put(-224,-1411){\line( 2,-1){450}}
+\put(226,-1636){\line(-2,-1){450}}
+\special{ps: grestore}\special{ps: gsave 0 0 0 setrgbcolor}\put(226,-1186){\line( 2,-1){450}}
+\put(676,-1411){\line(-2,-1){450}}
+\special{ps: grestore}\special{ps: gsave 0 0 0 setrgbcolor}\put(-224,-2311){\line( 2,-1){450}}
+\put(226,-2536){\line(-2,-1){450}}
+\special{ps: grestore}\special{ps: gsave 0 0 0 setrgbcolor}\put(-224,-3211){\line( 2,-1){450}}
+\put(226,-3436){\line(-2,-1){450}}
+\special{ps: grestore}\special{ps: gsave 0 0 0 setrgbcolor}\put(226,-2536){\line( 1,-1){450}}
+\put(676,-2986){\line(-1,-1){450}}
+\special{ps: grestore}\put(-729,333){\makebox(0,0)[lb]{\smash{\SetFigFont{17}{20.4}{\rmdefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}blue\special{ps: grestore}}}}
+\put(-730,-342){\makebox(0,0)[lb]{\smash{\SetFigFont{17}{20.4}{\rmdefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}green\special{ps: grestore}}}}
+\put(-730,-1691){\makebox(0,0)[lb]{\smash{\SetFigFont{17}{20.4}{\rmdefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}red\special{ps: grestore}}}}
+\put(-729,-4336){\makebox(0,0)[lb]{\smash{\SetFigFont{17}{20.4}{\rmdefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}violet\special{ps: grestore}}}}
+\put(-730,-3042){\makebox(0,0)[lb]{\smash{\SetFigFont{17}{20.4}{\rmdefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}light blue\special{ps: grestore}}}}
+\put(675,-286){\oval(112,112)}
+\end{picture}

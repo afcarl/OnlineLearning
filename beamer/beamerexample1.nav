@@ -1,0 +1,115 @@
+\beamer@endinputifotherversion {3.01pt}
+\headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
+\headcommand {\beamer@framepages {1}{1}}
+\headcommand {\sectionentry {1}{Outline}{2}{Outline}{0}}
+\headcommand {\beamer@sectionpages {1}{1}}
+\headcommand {\beamer@subsectionpages {1}{1}}
+\headcommand {\slideentry {1}{0}{2}{2/4}{}{0}}
+\headcommand {\beamer@framepages {2}{4}}
+\headcommand {\partentry {Main Talk}{1}}
+\headcommand {\beamer@partpages {1}{4}}
+\headcommand {\beamer@sectionpages {2}{4}}
+\headcommand {\beamer@subsectionpages {2}{4}}
+\headcommand {\sectionentry {2}{Models}{5}{The Model of Overhead-Free Computation}{1}}
+\headcommand {\beamer@sectionpages {5}{4}}
+\headcommand {\beamer@subsectionpages {5}{4}}
+\headcommand {\beamer@subsectionpages {5}{4}}
+\headcommand {\slideentry {2}{1}{1}{5/5}{Standard Model}{1}}
+\headcommand {\beamer@framepages {5}{5}}
+\headcommand {\slideentry {2}{1}{2}{6/15}{Standard Model}{1}}
+\headcommand {\beamer@framepages {6}{15}}
+\headcommand {\slideentry {2}{1}{3}{16/16}{Standard Model}{1}}
+\headcommand {\beamer@framepages {16}{16}}
+\headcommand {\beamer@subsectionpages {5}{16}}
+\headcommand {\slideentry {2}{2}{1}{17/17}{Our Model}{1}}
+\headcommand {\beamer@framepages {17}{17}}
+\headcommand {\slideentry {2}{2}{2}{18/24}{Our Model}{1}}
+\headcommand {\beamer@framepages {18}{24}}
+\headcommand {\slideentry {2}{2}{3}{25/25}{Our Model}{1}}
+\headcommand {\beamer@framepages {25}{25}}
+\headcommand {\slideentry {2}{2}{4}{26/29}{Our Model}{1}}
+\headcommand {\beamer@framepages {26}{29}}
+\headcommand {\slideentry {2}{2}{5}{30/30}{Our Model}{1}}
+\headcommand {\beamer@framepages {30}{30}}
+\headcommand {\sectionentry {3}{Power of the Model}{31}{The Power of Overhead-Free Computation}{1}}
+\headcommand {\beamer@sectionpages {5}{30}}
+\headcommand {\beamer@subsectionpages {17}{30}}
+\headcommand {\beamer@subsectionpages {31}{30}}
+\headcommand {\slideentry {3}{1}{1}{31/31}{Palindromes}{1}}
+\headcommand {\beamer@framepages {31}{31}}
+\headcommand {\slideentry {3}{1}{2}{32/47}{Palindromes}{1}}
+\headcommand {\beamer@framepages {32}{47}}
+\headcommand {\slideentry {3}{1}{3}{48/48}{Palindromes}{1}}
+\headcommand {\beamer@framepages {48}{48}}
+\headcommand {\beamer@subsectionpages {31}{48}}
+\headcommand {\slideentry {3}{2}{1}{49/49}{Linear Languages}{1}}
+\headcommand {\beamer@framepages {49}{49}}
+\headcommand {\slideentry {3}{2}{2}{50/51}{Linear Languages}{1}}
+\headcommand {\beamer@framepages {50}{51}}
+\headcommand {\slideentry {3}{2}{3}{52/52}{Linear Languages}{1}}
+\headcommand {\beamer@framepages {52}{52}}
+\headcommand {\slideentry {3}{2}{4}{53/55}{Linear Languages}{1}}
+\headcommand {\beamer@framepages {53}{55}}
+\headcommand {\slideentry {3}{2}{5}{56/56}{Linear Languages}{1}}
+\headcommand {\beamer@framepages {56}{56}}
+\headcommand {\beamer@subsectionpages {49}{56}}
+\headcommand {\slideentry {3}{3}{1}{57/57}{Forbidden Subword}{1}}
+\headcommand {\beamer@framepages {57}{57}}
+\headcommand {\slideentry {3}{3}{2}{58/60}{Forbidden Subword}{1}}
+\headcommand {\beamer@framepages {58}{60}}
+\headcommand {\slideentry {3}{3}{3}{61/62}{Forbidden Subword}{1}}
+\headcommand {\beamer@framepages {61}{62}}
+\headcommand {\slideentry {3}{3}{4}{63/63}{Forbidden Subword}{1}}
+\headcommand {\beamer@framepages {63}{63}}
+\headcommand {\beamer@subsectionpages {57}{63}}
+\headcommand {\slideentry {3}{4}{1}{64/64}{Complete Languages}{1}}
+\headcommand {\beamer@framepages {64}{64}}
+\headcommand {\slideentry {3}{4}{2}{65/65}{Complete Languages}{1}}
+\headcommand {\beamer@framepages {65}{65}}
+\headcommand {\slideentry {3}{4}{3}{66/66}{Complete Languages}{1}}
+\headcommand {\beamer@framepages {66}{66}}
+\headcommand {\sectionentry {4}{Limitations of the Model}{67}{Limitations of Overhead-Free Computation}{1}}
+\headcommand {\beamer@sectionpages {31}{66}}
+\headcommand {\beamer@subsectionpages {64}{66}}
+\headcommand {\beamer@subsectionpages {67}{66}}
+\headcommand {\slideentry {4}{1}{1}{67/67}{Strict Inclusion}{1}}
+\headcommand {\beamer@framepages {67}{67}}
+\headcommand {\slideentry {4}{1}{2}{68/68}{Strict Inclusion}{1}}
+\headcommand {\beamer@framepages {68}{68}}
+\headcommand {\slideentry {4}{1}{3}{69/69}{Strict Inclusion}{1}}
+\headcommand {\beamer@framepages {69}{69}}
+\headcommand {\slideentry {4}{1}{4}{70/71}{Strict Inclusion}{1}}
+\headcommand {\beamer@framepages {70}{71}}
+\headcommand {\sectionentry {5}{Summary}{72}{Summary}{1}}
+\headcommand {\beamer@sectionpages {67}{71}}
+\headcommand {\beamer@subsectionpages {67}{71}}
+\headcommand {\beamer@subsectionpages {72}{71}}
+\headcommand {\slideentry {5}{1}{1}{72/72}{Summary}{1}}
+\headcommand {\beamer@framepages {72}{72}}
+\headcommand {\beamer@subsectionpages {72}{72}}
+\headcommand {\slideentry {5}{2}{1}{73/76}{Further Reading}{1}}
+\headcommand {\beamer@framepages {73}{76}}
+\headcommand {\partentry {Appendix}{2}}
+\headcommand {\beamer@partpages {5}{76}}
+\headcommand {\beamer@sectionpages {72}{76}}
+\headcommand {\beamer@subsectionpages {73}{76}}
+\headcommand {\beamer@appendixpages {77}}
+\headcommand {\sectionentry {6}{Appendix}{77}{Appendix}{2}}
+\headcommand {\beamer@sectionpages {77}{76}}
+\headcommand {\beamer@subsectionpages {77}{76}}
+\headcommand {\slideentry {6}{0}{2}{77/77}{}{2}}
+\headcommand {\beamer@framepages {77}{77}}
+\headcommand {\beamer@subsectionpages {77}{77}}
+\headcommand {\slideentry {6}{1}{1}{78/78}{Complete Languages}{2}}
+\headcommand {\beamer@framepages {78}{78}}
+\headcommand {\beamer@subsectionpages {78}{78}}
+\headcommand {\slideentry {6}{2}{1}{79/79}{Improvements for Context-Free Languages}{2}}
+\headcommand {\beamer@framepages {79}{79}}
+\headcommand {\beamer@subsectionpages {79}{79}}
+\headcommand {\slideentry {6}{3}{1}{80/80}{Abbreviations}{2}}
+\headcommand {\beamer@framepages {80}{80}}
+\headcommand {\beamer@partpages {77}{80}}
+\headcommand {\beamer@subsectionpages {80}{80}}
+\headcommand {\beamer@sectionpages {77}{80}}
+\headcommand {\beamer@documentpages {80}}
+\headcommand {\def \inserttotalframenumber {35}}

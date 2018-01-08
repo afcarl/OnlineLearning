@@ -1,0 +1,345 @@
+% $Header: /data/cvsroot/Courses/OnlineLearning/talks/talk1/talk1.tex,v 1.5 2006/01/11 03:23:33 yfreund Exp $
+
+\documentclass{beamer}
+%\documentclass[handout]{beamer}
+\mode<presentation>
+{
+  \usetheme{Montpellier}
+
+  %\setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+\usepackage{xmpmulti} % package that defines \multiinclude
+\usepackage[english]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+
+\newcommand{\blue}[1]{{\color{blue} #1}}
+\newcommand{\red}[1]{{\color{red} #1}}
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+% Or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+
+\title%[short title] (optional, use only with long paper titles)
+{Adaptive Resource Allocation\\ Intel visit, May 16 2011}
+
+\author[Freund] % (optional, use only with lots of authors)
+{Yoav Freund}
+% - Give the names in the same order as the appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+%\institute[Universities of Somewhere and Elsewhere] % (optional, but mostly needed)
+
+%\subject
+% This is only inserted into the PDF information catalog. Can be left
+% out. 
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+% \pgfdeclareimage[height=0.5cm]{university-logo}{university-logo-filename}
+% \logo{\pgfuseimage{university-logo}}
+
+
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+%% \AtBeginSubsection[]
+%% {
+%%   \begin{frame}<beamer>
+%%     \frametitle{Outline}
+%%     \tableofcontents[currentsection,currentsubsection]
+%%   \end{frame}
+%% }
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command: 
+
+\beamerdefaultoverlayspecification{<+->}
+
+\newcommand{\W}{\vec{W}}
+\newcommand{\V}{\vec{V}}
+\newcommand{\X}{\vec{X}}
+\newcommand{\loss}{\vec{\ell}}
+\newcommand{\HedgeLoss}{L_{\mbox{\footnotesize Hedge}}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Outline}
+  \tableofcontents
+  % You might wish to add the option [pausesections]
+\end{frame}
+
+%\iffalse %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The Problem}
+\begin{frame}
+\frametitle{Data-center resource allocation}
+\begin{itemize}
+\item 10,000 or more computers.
+\item Massive consumption of power and cooling.
+\item Massive communication load.
+\item Diverse work loads and Service Level Agreements, Low margins.
+\item Diverse hardware.
+\item Manual optimization does not scale.
+\end{itemize}
+\end{frame}
+
+
+\end{document}
+
+
+% \iffalse
+% \begin{frame}
+
+% \frametitle{The Perceptron Problem}
+% \begin{columns}
+% \begin{column}[T]{5.2cm}
+% \multiinclude[graphics={width=7cm},format=pdf]{perceptronAnim/Perceptron}
+% \end{column}
+
+% \begin{column}[T]{4cm}
+% \begin{itemize}
+% \item
+% $\| \V \| =1$
+% \item 
+% Example = $(\X,y)$, $y \in \{-1,+1\}$.
+% \item
+% $\forall \X,\;\; \| \X \| \leq R$.
+% \item
+% $\forall (\X,y),$\\$y(\X \cdot \V) \geq g$
+% \end{itemize}
+% \end{column}
+% \end{columns}
+
+% \end{frame}
+
+% \item 
+% Total Cost of Ownership (TCO) = datacenter depreciation + datacenter Opex + server depreciation + server Opex
+% \item
+% datacenter depreciation = chost of building the facility, amortied over
+% the lifetime of facility (15 years).
+% \item
+% datacenter opex = cooling, maintenance and security of the facility
+% \item
+% server depreciation = cost of computer amortized over the lifetime of
+% the server (3 years)
+% \item
+% server opex = electricity, computer maintenance, communication.
+
+% \fi
+
+\begin{frame}
+\frametitle{Goals of the course}
+\begin{itemize}
+\item The hedging  / regret minimization framework.
+\item A few hedging algorithms, with proofs.
+\item A more theoretical treatment available in books, many papers,
+  and previous course (available online).
+\item Applications:
+\begin{enumerate}
+\item Computer Resource management.
+\item Estimation, Tracking and control.
+\item Financial portfolio management.
+\item Many many more...
+\end{enumerate}
+\item \blue{This class:} An introduction through a resource management example.
+\end{itemize}
+\end{frame}
+
+\section{managing contention through cost}
+
+\begin{frame}
+\frametitle{Resource sharing in computation}
+\begin{itemize}
+\item Traditional resources:
+\begin{enumerate}
+\item Run time.
+\item Memory.
+\end{enumerate}
+\item Emerging resources:
+\begin{enumerate}
+\item Energy consumption.
+\item Cooling.
+\item Communication bandwidth.
+\end{enumerate}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{The changing landscape}
+\begin{itemize}
+\item Moore's law
+\begin{enumerate}
+\item Doubling of clock speed: stopped around 2000.
+\item Doubling of number of transistors: continuing.
+\end{enumerate}
+\item Parallelism is the only way forward
+\begin{enumerate}
+\item Multi-core.
+\item Datacenters instead of super-computers.
+\end{enumerate}
+\item Computation as a commodity
+\begin{enumerate}
+\item From the Lab, to the Office, to the home.
+\item Movement from one-of(protein folding) to scalable applications
+  (google maps).
+\end{enumerate}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Resource allocation / the standard approach}
+\begin{itemize}
+\item Several tasks need to use a common resource.
+\item The {\color{blue} scheduler} arbitrates use of resource.
+\item Conflicts are resolved based on {\color{blue} priorities}
+\begin{itemize}
+\item High priority tasks complete before low priority tasks.
+\item Tasks with the same priority wait in a queue.
+\item Example: Fatal error > user input > computation > Housekeeping. 
+\end{itemize}
+\item Problems with priorities:
+\begin{itemize}
+\item Who assigns priorities? (Unix ``nice'')
+\item Low priority queues can get starved. (``Your call will be
+  answered in the order in which it was recieved.'')
+\item No deadline guarantees (real-time operating systems).
+\item Very hard to scale up to large distributed systems.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{An economic model of resource allocation}
+\begin{itemize}
+\item Assign price to each resource.
+\item Assign revenue to the completion of each task.
+\item Scheduler task is to maximize \\
+{\color{blue} profit = total revenues - total costs.}
+\item Example: scheduling search tasks on a 4-core machine.
+\begin{itemize}
+\item \blue{Revenue:} search completed < 0.5 sec -- {\textcent}0.1
+\item \blue{Total cost:}  {\textcent}10 per hour.
+\item \blue{Scheduling heuristic}: Schedule tasks in order
+  recieved, occupying all available cores.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Contension resolution through prices}
+\begin{itemize}
+\item Profit analysis
+\begin{itemize}
+\item Assume average search taked 0.1 sec on a single core.
+\item Max throughput: 40 queries per second.
+\item Max Revenue: {\textcent}2 per second. Break even after 5 seconds / hour. 
+\end{itemize}
+\item {\bf bursty load:} we get 1000 queries in 10 seconds and nothing
+  the rest of the hour.
+\begin{itemize}
+\item Potential revenue: \$1.
+\item Revenue with limited resources: {/textcent}20
+\item Better to use $5 \times 4=20$ cores for 10 seconds and nothing
+  for the rest of the hour.
+\end{itemize}
+\item Can we benefit from computation on the cloud?
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Amazon's Elastic cloud (EC2)}
+\begin{itemize}
+\item Small instance, Windows OS, North California
+% #  Break even point is 28% utilization. 
+\begin{itemize}
+\item \blue{cost} {\textcent}13 per hour 
+\item \$93.6 per month if used 100\% of time.
+\end{itemize}
+\item Reserving computers.
+\begin{itemize}
+\item Paying \$227.5 per year reduces the price to {\textcent}4 per
+  hour.
+\item Break even point is 28\%
+\item If load in coming year > 28\% - reservation is worthwhile.
+\end{itemize}
+\item Spot pricing - a market system.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{The spot market in EC2}
+\multiinclude[graphics={width=4in},format=pdf]{SpotMarket}
+\end{frame}
+
+\section{Example: putting computer screen to sleep}
+
+\begin{frame}
+\frametitle{Simpler problem: putting screen to sleep}
+\begin{itemize}
+\item Many variants: energy management in data-center, WiFi link, hard-disk spindown.
+\item Standard heuristic: timeout.
+\item Failures: screen turns off while watching a movie, giving a talk
+  on the computer.
+\item Underlying problem: predicting when screen will be turned back
+  on (user keystroke).
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Relevant information for prediction}
+\begin{itemize}
+\item time since last keystroke.
+\item number of keystrokes in last minute, 10 minutes, hour ...
+\item active application (powerpoint, DVD player, skype ...)
+\item detection of user through microphone, video camera ...
+\end{itemize}
+\end{frame}
+ 
+\begin{frame}
+\frametitle{Heuristics / Experts}
+\begin{itemize}
+\item Expert = a rule for deciding when to turn off screen.
+\item \blue{Timeout Expert}: Keyboard idle for 5 minutes.
+\item \blue{Relative Timeout Expert}: Kbd idle $\geq$ \newline
+  ($C \times$ average time between keystrokes in last hour)
+\item \blue{Night Expert:} Kbd idle 30 minutes after 6pm.
+\item \blue{App Expert}: Keep on $2$ hours if DVD is playing.
+\item \blue{Sensor Expert}: Don't turn off if detecting user watching screen.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Hedging}
+\begin{itemize}
+\item \blue{\bf Hedge:} A {\bf master algorithm} that combines the experts.
+\item Each Expert is assigned a {\bf weight}.
+\begin{itemize}
+\item Large weight - expert is performing well - use this expert more.
+\item Small weight - expert performing poorly - use this expert less.
+\end{itemize} 
+\item \blue{\bf Goal of Hedge:} Perform almost as well as the best expert
+  in hind-sight.
+\item \blue{\bf Performance measure:} cumulative gain/loss.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Loss/gain for single screen turn-off}
+\multiinclude[graphics={width=3.5in},format=pdf]{Figures/Cumulative}
+\end{frame}
+
+\iffalse %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\fi

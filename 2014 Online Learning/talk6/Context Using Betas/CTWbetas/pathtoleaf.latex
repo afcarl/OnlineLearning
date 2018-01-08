@@ -1,0 +1,28 @@
+\setlength{\unitlength}{2763sp}%
+%
+\begingroup\makeatletter\ifx\SetFigFont\undefined%
+\gdef\SetFigFont#1#2#3#4#5{%
+  \reset@font\fontsize{#1}{#2pt}%
+  \fontfamily{#3}\fontseries{#4}\fontshape{#5}%
+  \selectfont}%
+\fi\endgroup%
+\begin{picture}(4191,2158)(1997,-3568)
+\thinlines
+\put(2701,-2536){\line( 3,-2){675}}
+\put(3376,-2986){\line(-3,-2){675}}
+\put(3376,-2086){\line( 3,-2){675}}
+\put(4051,-2536){\line(-3,-2){675}}
+\put(4726,-1636){\line( 3,-2){675}}
+\put(5401,-2086){\line(-3,-2){675}}
+\put(5401,-2086){\line( 3,-2){675}}
+\put(6076,-2536){\line(-3,-2){675}}
+\put(2588,-3492){\makebox(0,0)[rb]{\smash{{\SetFigFont{8}{9.6}{\familydefault}{\mddefault}{\updefault}$s=s(d)$}}}}
+\put(2588,-2592){\makebox(0,0)[rb]{\smash{{\SetFigFont{8}{9.6}{\familydefault}{\mddefault}{\updefault}$s^{c}(d)$}}}}
+\put(3263,-2142){\makebox(0,0)[rb]{\smash{{\SetFigFont{8}{9.6}{\familydefault}{\mddefault}{\updefault}$s^{c}(d-1)$}}}}
+\put(5288,-3042){\makebox(0,0)[rb]{\smash{{\SetFigFont{8}{9.6}{\familydefault}{\mddefault}{\updefault}$s^{c}(1)$}}}}
+\put(4613,-1692){\makebox(0,0)[rb]{\smash{{\SetFigFont{8}{9.6}{\familydefault}{\mddefault}{\updefault}$s^{c}(2)$}}}}
+\put(3488,-3155){\makebox(0,0)[lb]{\smash{{\SetFigFont{8}{9.6}{\familydefault}{\mddefault}{\updefault}$s(d-1)$}}}}
+\put(5513,-2030){\makebox(0,0)[lb]{\smash{{\SetFigFont{8}{9.6}{\familydefault}{\mddefault}{\updefault}$s(1)$}}}}
+\put(6188,-2592){\makebox(0,0)[lb]{\smash{{\SetFigFont{8}{9.6}{\familydefault}{\mddefault}{\updefault}$\lambda=s(0)$}}}}
+\put(4388,-2592){\makebox(0,0)[b]{\smash{{\SetFigFont{8}{9.6}{\familydefault}{\mddefault}{\updefault}$\dots$}}}}
+\end{picture}%

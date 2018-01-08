@@ -1,0 +1,6 @@
+\beamer@endinputifotherversion {3.06pt}
+\select@language {english}
+\beamer@sectionintoc {1}{Repeated Matrix Games}{3}{0}{1}
+\beamer@sectionintoc {2}{The basic algorithm}{6}{0}{2}
+\beamer@sectionintoc {3}{The basic analysis}{7}{0}{3}
+\beamer@sectionintoc {4}{Proof of minmax theorem}{13}{0}{4}

@@ -1,0 +1,80 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                 MACROS                                   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% \newcommand{\nats}{\mbox{\msym N}}
+
+%% \newmcommand{\predspace}{\Phi}
+
+\newmcommandii{\advice}{x_{{#2},{#1}}}
+\newmcommandi{\advicei}{x_{#1}}
+\newmcommandi{\advicevec}{{\bf x}_{#1}}
+\newmcommandi{\pred}{\hat{y}_{#1}}
+\newmcommandi{\outcome}{y_{#1}}
+
+\newmcommandii{\sloss}{\ell_{#1}^{#2}}
+\newmcommandi{\algloss}{\ell_A^{#1}}
+\newmcommand{\talgloss}{L_A}
+
+%%\newmcommand{\vu}{{\bf u}}	% the optimal weighting of the specialists
+%%\newmcommand{\vv}{{\bf v}}
+\newmcommandi{\uu}{u_{#1}}
+
+\newmcommandi{\vp}{{\bf p}_{#1}} % the $t$th distribution chosen by
+				 % the algorithm
+\newmcommandii{\pp}{p_{{#2},{#1}}}
+%%\newmcommandi{\ppi}{p_{#1}}	% an element of \vp at an unspeciafied
+				% time
+\newmcommand{\Bayes}{{\bf Bayes}} % Bayes algorithm
+\newmcommand{\SBayes}{{\bf SBayes}} % Bayes algorithm for Specialists
+%% \newmcommand{\SAbs}{{\bf SAbs}}	%Absolute loss algorithm with experts
+
+%% \newmcommand{\SI}{{\bf WMS}}
+%% \newmcommand{\SII}{{\bf EGS}}
+%% \newmcommandii{\RE}{{\mbox{\bf RE} \left( #1 \| #2 \right)}}
+%% \newmcommand{\updatefcn}{U_\beta}
+
+%% \newcommand{\ohone}{\{0,1\}}
+%% \newcommand{\luf}{\mu}
+%% \newcommand{\angles}[1]{\left\langle {#1} \right\rangle}
+% Rob's new macros
+\newmcommand{\pfunc}{{\rm pred}}
+\newmcommand{\pfuncN}{\pfunc_N}
+\newmcommand{\ufunc}{{\rm update}}
+\newmcommand{\ufuncN}{\ufunc_N}
+\newmcommandi{\simplex}{\Delta_{#1}}
+\newmcommandi{\aset}{{E_{#1}}}
+\newmcommandi{\resadvicevec}{\advicevec{#1}^\aset{#1}}
+\newmcommandii{\resadvice}{\advice{#1}{#2}^\aset{#2}}
+\newmcommandi{\resadvicei}{\advicei{#1}^\aset{}}
+\newmcommandii{\rvpp}{\vp{#1}^\aset{#2}}
+%\newcommand{\rvpp}[2]{{\bf p}_{#1}^\aset{#2}}
+\newmcommandi{\rvp}{\rvpp{#1}{#1}}
+\newmcommandii{\rpp}{\pp{#1}{#2}^\aset{#2}}
+\newmcommandi{\rppi}{\ppi{#1}^\aset{}}
+\newmcommandi{\rvu}{\vu^\aset{#1}}
+\newmcommand{\EG}{{\bf EG}}
+\newmcommand{\SEG}{{\bf SEG}}
+\newmcommandi{\closs}{\loss_{#1}}
+\newmcommandi{\clossi}{\loss_{#1}^{I}}
+\newmcommandi{\clossii}{\loss_{#1}^{II}}
+\newmcommandi{\clossiii}{\loss_{#1}^{I/II}}
+%%\newmcommandi{\paren}{\left({#1}\right)}
+
+\newcommand{\cpred}{b}
+\newcommand{\String}{s}
+\newcommand{\uptok}{\ohone^{\le k}}
+\newmcommand{\pgraph}{\cal G}
+\newmcommand{\prun}{\cal P}
+\newmcommand{\ginst}{z^t}
+\newmcommand{\prior}{p_{1}}
+\newmcommand{\pdist}{\nu}
+\newmcommandii{\swp}{p^{#1}_{#2}}
+\newmcommandii{\sswp}{Q^{#2}_{#1}}
+\newmcommandi{\sumf}{F_{#1}}
+\newmcommandii{\sfac}{R^{#2}_{#1}}
+\newmcommand{\partexp}{S}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                              END OF MACROS                               %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

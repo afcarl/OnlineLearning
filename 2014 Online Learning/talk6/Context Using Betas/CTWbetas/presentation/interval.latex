@@ -1,0 +1,50 @@
+\setlength{\unitlength}{4144sp}%
+%
+\begingroup\makeatletter\ifx\SetFigFont\undefined%
+\gdef\SetFigFont#1#2#3#4#5{%
+  \reset@font\fontsize{#1}{#2pt}%
+  \fontfamily{#3}\fontseries{#4}\fontshape{#5}%
+  \selectfont}%
+\fi\endgroup%
+\begin{picture}(3387,7328)(8551,-6823)
+\put(9001,-6361){\makebox(0,0)[rb]{\smash{\SetFigFont{25}{30.0}{\familydefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}Source-intervals\special{ps: grestore}}}}
+\thinlines
+\special{ps: gsave 0 0 0 setrgbcolor}\put(10351,-3211){\line( 1, 0){1350}}
+\special{ps: grestore}\special{ps: gsave 0 0 0 setrgbcolor}\put(10351,-1411){\line( 1, 0){1125}}
+\special{ps: grestore}\special{ps: gsave 0 0 0 setrgbcolor}\put(10351,-511){\line( 1, 0){900}}
+\special{ps: grestore}\special{ps: gsave 0 0 0 setrgbcolor}\put(10351,-961){\line( 1, 0){675}}
+\special{ps: grestore}\special{ps: gsave 0 0 0 setrgbcolor}\put(10351,-1861){\line( 1, 0){675}}
+\special{ps: grestore}\special{ps: gsave 0 0 0 setrgbcolor}\put(10351,164){\line( 1, 0){675}}
+\special{ps: grestore}\special{ps: gsave 0 0 0 setrgbcolor}\put(10575,389){\line( 0,-1){225}}
+\special{ps: grestore}\special{ps: gsave 0 0 0 setrgbcolor}\put(10575,-511){\line( 0,-1){450}}
+\special{ps: grestore}\special{ps: gsave 0 0 0 setrgbcolor}\put(10575,-1411){\line( 0,-1){450}}
+\special{ps: grestore}\special{ps: gsave 0 0 0 setrgbcolor}\put(10575,-3211){\line( 0,-1){3600}}
+\special{ps: grestore}\special{ps: gsave 0 0 0 setrgbcolor}\put(8776,389){\line( 1, 0){1125}}
+\put(9901,389){\line( 0,-1){7200}}
+\put(9901,-6811){\line(-1, 0){1125}}
+\special{ps: grestore}\special{ps: gsave 0 0 0 setrgbcolor}\put(9226, 52){\line( 1, 0){675}}
+\special{ps: grestore}\special{ps: gsave 0 0 0 setrgbcolor}\put(9001,-1073){\line( 1, 0){900}}
+\special{ps: grestore}\special{ps: gsave 0 0 0 setrgbcolor}\put(9226,-2198){\line( 1, 0){675}}
+\special{ps: grestore}\special{ps: gsave 0 0 0 setrgbcolor}\put(9675,389){\line( 0,-1){7200}}
+\special{ps: grestore}\put(11251,-6361){\makebox(0,0)[lb]{\smash{\SetFigFont{25}{30.0}{\familydefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}Code-intervals\special{ps: grestore}}}}
+\put(11926,-3323){\makebox(0,0)[lb]{\smash{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$1/2$\special{ps: grestore}}}}
+\put(11926,-1973){\makebox(0,0)[lb]{\smash{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$11/16$\special{ps: grestore}}}}
+\put(11926,-1523){\makebox(0,0)[lb]{\smash{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$3/4$\special{ps: grestore}}}}
+\put(11926,-1073){\makebox(0,0)[lb]{\smash{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$13/16$\special{ps: grestore}}}}
+\put(11926,-623){\makebox(0,0)[lb]{\smash{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$7/8$\special{ps: grestore}}}}
+\put(11926, 52){\makebox(0,0)[lb]{\smash{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$31/32$\special{ps: grestore}}}}
+\put(10801,-5067){\makebox(0,0)[lb]{\smash{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$0$\special{ps: grestore}}}}
+\put(10801,-1748){\makebox(0,0)[lb]{\smash{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$1011$\special{ps: grestore}}}}
+\put(10801,-820){\makebox(0,0)[lb]{\smash{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$1101$\special{ps: grestore}}}}
+\put(10801,178){\makebox(0,0)[lb]{\smash{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$11111$\special{ps: grestore}}}}
+\put(9451,122){\makebox(0,0)[rb]{\smash{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$11$\special{ps: grestore}}}}
+\put(9451,-567){\makebox(0,0)[rb]{\smash{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$10$\special{ps: grestore}}}}
+\put(9451,-1748){\makebox(0,0)[rb]{\smash{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$01$\special{ps: grestore}}}}
+\put(9451,-4336){\makebox(0,0)[rb]{\smash{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$00$\special{ps: grestore}}}}
+\put(8551,-60){\makebox(0,0)[rb]{\smash{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$0.96$\special{ps: grestore}}}}
+\put(8551,-1186){\makebox(0,0)[rb]{\smash{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$0.8$\special{ps: grestore}}}}
+\put(8551,-2311){\makebox(0,0)[rb]{\smash{\SetFigFont{17}{20.4}{\familydefault}{\mddefault}{\updefault}\special{ps: gsave 0 0 0 setrgbcolor}$0.64$\special{ps: grestore}}}}
+\special{ps: gsave 0 0 0 setrgbcolor}\put(11926,389){\line(-1, 0){1575}}
+\put(10351,389){\line( 0,-1){7200}}
+\put(10351,-6811){\line( 1, 0){1575}}
+\special{ps: grestore}\end{picture}

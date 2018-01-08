@@ -1,0 +1,4 @@
+\beamer@endinputifotherversion {3.01pt}
+\select@language {english}
+\beamer@sectionintoc {1}{The Minimax theorem}{3}{0}{1}
+\beamer@sectionintoc {2}{Learning games}{6}{0}{2}

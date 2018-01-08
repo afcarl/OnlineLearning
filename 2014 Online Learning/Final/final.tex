@@ -1,0 +1,178 @@
+\documentclass{article}[12pt]
+\usepackage{fullpage}
+\usepackage{epsfig}
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\def\tf{{\hfill True \ \ \ False}}
+
+\def\undshort{{\underline{\hskip1in}}}
+
+\def\und2{{\underline{\hskip2in}}}
+
+\begin{document}
+
+{\bf\Large Final Exam} \hfill CSE 254 / Winter 2011
+\\
+
+\vspace{.25in}
+
+Name: \underline{\hspace{3in}}
+\\
+
+ID: \underline{\hspace{3.2in}}
+\\
+
+\vspace{1in}
+
+Be clear and concise. Write your answers in the space provided. Use the backs of pages for scratchwork.
+
+\vspace{1in}
+
+\begin{center}
+\begin{tabular}{|c|c|} \hline
+\hspace{1in} & \hspace{1in} \\
+1 & \\
+ &  \\ \hline
+& \\
+2 & \\
+& \\ \hline
+& \\
+3 & \\
+& \\ \hline
+& \\
+4 & \\
+& \\ \hline
+& \\
+5 & \\
+& \\ \hline
+\end{tabular}
+\end{center}
+
+\pagebreak
+
+\begin{enumerate}
+
+\item Let $F$ be the set of functions defining disks in $R^2$,
+  i.e. functions of the form 
+\[
+f(\vec{x}) = \begin{cases}
+1 & \mbox{if } \|\vec{x}-\vec{c}\|_2 \leq r \cr
+0 & \mbox{otherwise}
+\end{cases}
+\]
+where $\vec{c} \in R^2$ is the center of the disk and $r\in R$ is it's
+radius.
+
+Find the VC dimension of $F$, prove your answer.
+
+\pagebreak
+
+\item
+Let $F$ be the set of indicator function for second degree polynomials
+on defines over $(x,y) \in R^2$, i.e. functions of the form
+\[
+f(x,y) = \begin{cases}
+1 & \mbox{if } \sum_{0 \leq i+j \leq 2} a_{i,j} x^i y^j > 0 \cr
+0 & \mbox{ otherwise}
+\end{cases}
+\]
+give the tightest (smallest) upper bound you can on the number of
+labelings for a set of $m$ instances.
+
+\pagebreak
+
+\item 
+
+  Consider the problem of two people crossing an intersection from two
+  different directions. The main source of conflict is that if both
+  people cross at the same time, there is likely to be an accident,
+  which will hurt both people.
+
+  We can describe this interaction using the following game matrix
+  between a row player and a column player (each entry defines row
+  loss/column loss).
+~\\
+~\\
+\begin{center}
+\begin{tabular} {| c | c | c |}
+\hline
+ & cross & stop \\
+\hline
+cross & 100/100 & 0/5 \\
+\hline
+stop & 5/0 & 5/5 \\
+\hline
+\end{tabular}
+\end{center}
+~\\
+~\\
+\begin{enumerate}
+\item
+Find all of the Nash equilibria for this game and the expected loss of
+each player under each of the equilibria.
+\item
+We say that an equilibrium is ``fair'' if the expected losses of all
+the players are equal. One of the Nash equilibria for this game is
+fair. Explain in words what behaviour of the two people is represented
+by this equilibrium.
+\item Find a {\em correlated} equilibrium that is fair and that has a
+  lower expected loss for both players than the fair Nash equilibrium.
+\end{enumerate}
+
+\pagebreak
+\item
+  {\bf Question 4.6 in Cesa-Bianchi and Lugosi}\\
+  Suppose your have $N$ experts whose loss at each iteration is a
+  number in the range $[0,1]$. Show that the regret of ``follow the
+  leader'' algorithm is bounded by the number of times the ``leader''
+  (i.e. the action with minimal cumulative loss) changes during the
+  sequence of plays.
+
+\newcommand{\X}{{\cal X}}      % input space
+\newcommand{\Mnk}{{\cal M}_{n,k}}
+\newcommand{\Gn}{{\cal G}_{n}}
+\newcommand{\braces}[1]{\left\{{#1}\right\}}
+\newcommand{\paren}[1]{\left({#1}\right)}
+\newcommand{\brackets}[1]{\left[{#1}\right]}
+\newcommand{\sign}{{\rm sign}}
+\newcommand{\pr}[2]{{\rm Pr}_{#1}\brackets{#2}} % Probability of event #2 according to distribution #1
+
+\pagebreak
+\item {\bf Question 3.6 in Schapire and Freund}\\
+Let $\X_n=\{0,1\}^n$, and let $\Gn$ be a class of boolean functions
+$g:\X_n\rightarrow\{-1,+1\}$.
+Let $\Mnk$ be the class of all boolean functions that can be written
+as a simple majority vote of $k$ functions in $\Gn$:
+\[
+  \Mnk \doteq \braces{f: x\mapsto \sign\paren{\sum_{j=1}^k g_j(x)}
+                      \mid
+                      g_1,\ldots,g_k\in \Gn}.
+\]
+In this problem, we will see, roughly speaking, that if $f$ can be
+written as a majority vote of polynomially many functions in $\Gn$,
+then under any distribution, $f$ can be approximated by some function
+in $\Gn$.
+But if $f$ cannot be so written as a majority vote, then there exists
+some ``hard'' distribution under which $f$ cannot be approximated by
+{\em any\/} function in $\Gn$.
+
+\begin{enumerate}
+\item
+Show that if $f\in\Mnk$ then for all distributions $D$ on $\X_n$,
+there exists a function $g\in\Gn$ for which
+\[  \pr{x\sim D}{f(x)\neq g(x)} \leq \frac{1}{2} - \frac{1}{2k}. \]
+\item
+Show that if $f\not\in\Mnk$ then there exists a distribution $D$ on
+$\X_n$ such that
+\[
+  \pr{x\sim D}{f(x)\neq g(x)} 
+             > \frac{1}{2} - \sqrt{\frac{n\ln 2}{2k}}
+\]
+for every $g\in\Gn$.
+\end{enumerate}
+
+\end{enumerate}
+
+
+\end{document}

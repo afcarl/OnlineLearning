@@ -1,0 +1,82 @@
+\beamer@endinputifotherversion {3.07pt}
+\headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
+\headcommand {\beamer@framepages {1}{1}}
+\headcommand {\slideentry {0}{0}{2}{2/10}{}{0}}
+\headcommand {\beamer@framepages {2}{10}}
+\headcommand {\sectionentry {1}{Review}{11}{Review}{0}}
+\headcommand {\beamer@sectionpages {1}{10}}
+\headcommand {\beamer@subsectionpages {1}{10}}
+\headcommand {\slideentry {1}{0}{3}{11/16}{}{0}}
+\headcommand {\beamer@framepages {11}{16}}
+\headcommand {\slideentry {1}{0}{4}{17/20}{}{0}}
+\headcommand {\beamer@framepages {17}{20}}
+\headcommand {\slideentry {1}{0}{5}{21/29}{}{0}}
+\headcommand {\beamer@framepages {21}{29}}
+\headcommand {\sectionentry {2}{The general prediction game}{30}{The general prediction game}{0}}
+\headcommand {\beamer@sectionpages {11}{29}}
+\headcommand {\beamer@subsectionpages {11}{29}}
+\headcommand {\slideentry {2}{0}{6}{30/35}{}{0}}
+\headcommand {\beamer@framepages {30}{35}}
+\headcommand {\slideentry {2}{0}{7}{36/39}{}{0}}
+\headcommand {\beamer@framepages {36}{39}}
+\headcommand {\slideentry {2}{0}{8}{40/42}{}{0}}
+\headcommand {\beamer@framepages {40}{42}}
+\headcommand {\sectionentry {3}{Some useful loss functions}{43}{Some useful loss functions}{0}}
+\headcommand {\beamer@sectionpages {30}{42}}
+\headcommand {\beamer@subsectionpages {30}{42}}
+\headcommand {\slideentry {3}{0}{9}{43/44}{}{0}}
+\headcommand {\beamer@framepages {43}{44}}
+\headcommand {\slideentry {3}{0}{10}{45/50}{}{0}}
+\headcommand {\beamer@framepages {45}{50}}
+\headcommand {\slideentry {3}{0}{11}{51/55}{}{0}}
+\headcommand {\beamer@framepages {51}{55}}
+\headcommand {\slideentry {3}{0}{12}{56/60}{}{0}}
+\headcommand {\beamer@framepages {56}{60}}
+\headcommand {\slideentry {3}{0}{13}{61/63}{}{0}}
+\headcommand {\beamer@framepages {61}{63}}
+\headcommand {\slideentry {3}{0}{14}{64/70}{}{0}}
+\headcommand {\beamer@framepages {64}{70}}
+\headcommand {\slideentry {3}{0}{15}{71/75}{}{0}}
+\headcommand {\beamer@framepages {71}{75}}
+\headcommand {\sectionentry {4}{Vovk's algorithm}{76}{Vovk's algorithm}{0}}
+\headcommand {\beamer@sectionpages {43}{75}}
+\headcommand {\beamer@subsectionpages {43}{75}}
+\headcommand {\slideentry {4}{0}{16}{76/81}{}{0}}
+\headcommand {\beamer@framepages {76}{81}}
+\headcommand {\slideentry {4}{0}{17}{82/84}{}{0}}
+\headcommand {\beamer@framepages {82}{84}}
+\headcommand {\sectionentry {5}{mixable loss functions}{85}{mixable loss functions}{0}}
+\headcommand {\beamer@sectionpages {76}{84}}
+\headcommand {\beamer@subsectionpages {76}{84}}
+\headcommand {\slideentry {5}{0}{18}{85/88}{}{0}}
+\headcommand {\beamer@framepages {85}{88}}
+\headcommand {\sectionentry {6}{The convexity condition}{89}{The convexity condition}{0}}
+\headcommand {\beamer@sectionpages {85}{88}}
+\headcommand {\beamer@subsectionpages {85}{88}}
+\headcommand {\slideentry {6}{0}{19}{89/92}{}{0}}
+\headcommand {\beamer@framepages {89}{92}}
+\headcommand {\slideentry {6}{0}{20}{93/94}{}{0}}
+\headcommand {\beamer@framepages {93}{94}}
+\headcommand {\sectionentry {7}{Log loss}{95}{Log loss}{0}}
+\headcommand {\beamer@sectionpages {89}{94}}
+\headcommand {\beamer@subsectionpages {89}{94}}
+\headcommand {\slideentry {7}{0}{21}{95/98}{}{0}}
+\headcommand {\beamer@framepages {95}{98}}
+\headcommand {\sectionentry {8}{Square loss}{99}{Square loss}{0}}
+\headcommand {\beamer@sectionpages {95}{98}}
+\headcommand {\beamer@subsectionpages {95}{98}}
+\headcommand {\slideentry {8}{0}{22}{99/101}{}{0}}
+\headcommand {\beamer@framepages {99}{101}}
+\headcommand {\beamer@subsectionentry {0}{8}{1}{102}{Square loss using simple averaging}}\headcommand {\beamer@subsectionpages {99}{101}}
+\headcommand {\slideentry {8}{1}{1}{102/104}{Square loss using simple averaging}{0}}
+\headcommand {\beamer@framepages {102}{104}}
+\headcommand {\sectionentry {9}{Summary table}{105}{Summary table}{0}}
+\headcommand {\beamer@sectionpages {99}{104}}
+\headcommand {\beamer@subsectionpages {102}{104}}
+\headcommand {\slideentry {9}{0}{2}{105/105}{}{0}}
+\headcommand {\beamer@framepages {105}{105}}
+\headcommand {\beamer@partpages {1}{105}}
+\headcommand {\beamer@subsectionpages {105}{105}}
+\headcommand {\beamer@sectionpages {105}{105}}
+\headcommand {\beamer@documentpages {105}}
+\headcommand {\def \inserttotalframenumber {24}}

@@ -1,0 +1,11 @@
+\beamer@endinputifotherversion {3.01pt}
+\select@language {english}
+\beamer@subsectionintoc {1}{1}{Part I: Review of Previous Lecture}{2}{0}{0}
+\beamer@subsectionintoc {1}{2}{Part II: Today's Lecture}{3}{0}{0}
+\beamer@sectionintoc {2}{Summary of the Previous Lecture}{6}{1}{1}
+\beamer@subsectionintoc {2}{1}{Topics}{6}{1}{1}
+\beamer@subsectionintoc {2}{2}{Learning Objectives}{8}{1}{1}
+\beamer@sectionintoc {3}{The Model of Overhead-Free Computation}{11}{2}{2}
+\beamer@subsectionintoc {3}{1}{The Standard Model of Linear Space}{12}{2}{2}
+\beamer@sectionintoc {4}{Limitations of Overhead-Free Computation}{13}{2}{3}
+\beamer@subsectionintoc {4}{1}{Linear Space versus Overhead-Free Computation}{14}{2}{3}

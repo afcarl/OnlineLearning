@@ -1,0 +1,13 @@
+\BOOKMARK [1][]{Outline1}{Lossless data compression}{}
+\BOOKMARK [1][]{Outline2}{The guessing game}{}
+\BOOKMARK [1][]{Outline3}{Arithmetic coding}{}
+\BOOKMARK [1][]{Outline4}{Arithmetic coding and log loss}{}
+\BOOKMARK [1][]{Outline5}{Other properties of log loss}{}
+\BOOKMARK [1][]{Outline6}{universal coding}{}
+\BOOKMARK [2][]{Outline6.1.14}{Two part codes}{Outline6}
+\BOOKMARK [1][]{Outline7}{Combining experts in the log loss framework}{}
+\BOOKMARK [1][]{Outline8}{The online Bayes Algorithm}{}
+\BOOKMARK [1][]{Outline9}{The performance bound}{}
+\BOOKMARK [2][]{Outline9.1.23}{Advantage over two part codes}{Outline9}
+\BOOKMARK [1][]{Outline10}{Comparison with Bayesian Statistics}{}
+\BOOKMARK [1][]{Outline11}{Computational issues}{}

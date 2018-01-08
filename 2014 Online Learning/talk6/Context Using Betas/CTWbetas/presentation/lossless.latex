@@ -1,0 +1,23 @@
+\setlength{\unitlength}{3947sp}%
+%
+\begingroup\makeatletter\ifx\SetFigFont\undefined%
+\gdef\SetFigFont#1#2#3#4#5{%
+  \reset@font\fontsize{#1}{#2pt}%
+  \fontfamily{#3}\fontseries{#4}\fontshape{#5}%
+  \selectfont}%
+\fi\endgroup%
+\begin{picture}(9474,1171)(-11,-298)
+\thinlines
+\put(4388,164){\vector( 1, 0){1913}}
+\put(1351,164){\vector( 1, 0){1687}}
+\put(  1,-286){\framebox(1350,900){}}
+\put(3038,-286){\framebox(1350,900){}}
+\put(6301,-286){\framebox(1350,900){}}
+\put(7651,164){\vector( 1, 0){1800}}
+\put(8551,502){\makebox(0,0)[b]{\smash{{\SetFigFont{17}{20.4}{\rmdefault}{\mddefault}{\updefault}$x_1 x_2 \cdots x_{T}$}}}}
+\put(5401,389){\makebox(0,0)[b]{\smash{{\SetFigFont{17}{20.4}{\rmdefault}{\mddefault}{\updefault}$c(x_1x_2\cdots x_T)$}}}}
+\put(2251,389){\makebox(0,0)[b]{\smash{{\SetFigFont{17}{20.4}{\rmdefault}{\mddefault}{\updefault}$x_1 x_2 \cdots x_{T}$}}}}
+\put(3713,108){\makebox(0,0)[b]{\smash{{\SetFigFont{17}{20.4}{\rmdefault}{\mddefault}{\updefault}encoder}}}}
+\put(6976,108){\makebox(0,0)[b]{\smash{{\SetFigFont{17}{20.4}{\rmdefault}{\mddefault}{\updefault}decoder}}}}
+\put(676, 52){\makebox(0,0)[b]{\smash{{\SetFigFont{17}{20.4}{\rmdefault}{\mddefault}{\updefault}source}}}}
+\end{picture}%

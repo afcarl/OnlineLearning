@@ -1,0 +1,31 @@
+\setlength{\unitlength}{2763sp}%
+%
+\begingroup\makeatletter\ifx\SetFigFont\undefined%
+\gdef\SetFigFont#1#2#3#4#5{%
+  \reset@font\fontsize{#1}{#2pt}%
+  \fontfamily{#3}\fontseries{#4}\fontshape{#5}%
+  \selectfont}%
+\fi\endgroup%
+\begin{picture}(3861,3643)(29,-3242)
+\thinlines
+\put(1576,-736){\oval(112,112)}
+\put(1576,-2086){\oval(112,112)}
+\put(2701,-61){\oval(112,112)}
+\put(3826,-736){\oval(112,112)}
+\put(2701,-61){\line( 5,-3){1125}}
+\put(3826,-736){\line(-5,-3){1125}}
+\put(2701,-1411){\line(-5,-3){1125}}
+\put(1576,-736){\line( 5,-3){1125}}
+\put(2363,389){\line( 0,-1){787}}
+\put(2363,-398){\line(-1, 0){1125}}
+\put(1238,-398){\line( 0,-1){2813}}
+\put(2025,-126){\makebox(0,0)[rb]{\smash{{\SetFigFont{8}{9.6}{\familydefault}{\mddefault}{\updefault}$\theta_{1}=0.1$}}}}
+\put(900,-803){\makebox(0,0)[rb]{\smash{{\SetFigFont{8}{9.6}{\familydefault}{\mddefault}{\updefault}$\theta_{10}=0.3$}}}}
+\put(900,-2153){\makebox(0,0)[rb]{\smash{{\SetFigFont{8}{9.6}{\familydefault}{\mddefault}{\updefault}$\theta_{00}=0.5$}}}}
+\put(899,-3166){\makebox(0,0)[rb]{\smash{{\SetFigFont{8}{9.6}{\familydefault}{\mddefault}{\updefault}parameters}}}}
+\put(1575,-3166){\makebox(0,0)[lb]{\smash{{\SetFigFont{8}{9.6}{\familydefault}{\mddefault}{\updefault}model}}}}
+\put(3375,-342){\makebox(0,0)[lb]{\smash{{\SetFigFont{7}{8.4}{\familydefault}{\mddefault}{\updefault}$1$}}}}
+\put(2250,-1017){\makebox(0,0)[lb]{\smash{{\SetFigFont{7}{8.4}{\familydefault}{\mddefault}{\updefault}$1$}}}}
+\put(3375,-1265){\makebox(0,0)[lb]{\smash{{\SetFigFont{8}{9.6}{\familydefault}{\mddefault}{\updefault}$0$}}}}
+\put(2250,-1939){\makebox(0,0)[lb]{\smash{{\SetFigFont{8}{9.6}{\familydefault}{\mddefault}{\updefault}$0$}}}}
+\end{picture}%

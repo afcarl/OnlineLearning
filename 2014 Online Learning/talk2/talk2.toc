@@ -1,0 +1,10 @@
+\beamer@endinputifotherversion {3.07pt}
+\select@language {english}
+\beamer@sectionintoc {1}{{\unhbox \voidb@x \hbox {${{\unhbox \voidb@x \hbox {\bf Hedge}({\eta })}}$}}Algorithm}{6}{0}{1}
+\beamer@subsectionintoc {1}{1}{Hedging vs. Halving}{31}{0}{1}
+\beamer@sectionintoc {2}{Bound on total loss}{49}{0}{2}
+\beamer@subsectionintoc {2}{1}{Upper bound on ${\unhbox \voidb@x \hbox {${\DOTSB \sum@ \slimits@ _{i=1}^N {\unhbox \voidb@x \hbox {${{w}^{{\unhbox \voidb@x \hbox {${T}$}}+1}_{i}}$}}}$}}$}{52}{0}{2}
+\beamer@subsectionintoc {2}{2}{Lower bound on ${\unhbox \voidb@x \hbox {${\DOTSB \sum@ \slimits@ _{i=1}^N {\unhbox \voidb@x \hbox {${{w}^{{\unhbox \voidb@x \hbox {${T}$}}+1}_{i}}$}}}$}}$}{65}{0}{2}
+\beamer@subsectionintoc {2}{3}{Combining Upper and Lower bounds}{66}{0}{2}
+\beamer@sectionintoc {3}{tuning $\eta $}{68}{0}{3}
+\beamer@sectionintoc {4}{Lower Bounds}{74}{0}{4}

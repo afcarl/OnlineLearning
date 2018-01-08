@@ -1,0 +1,66 @@
+\beamer@endinputifotherversion {3.07pt}
+\headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
+\headcommand {\beamer@framepages {1}{1}}
+\headcommand {\slideentry {0}{0}{2}{2/4}{}{0}}
+\headcommand {\beamer@framepages {2}{4}}
+\headcommand {\sectionentry {1}{Sleeping Experts}{5}{Sleeping Experts}{0}}
+\headcommand {\beamer@sectionpages {1}{4}}
+\headcommand {\beamer@subsectionpages {1}{4}}
+\headcommand {\slideentry {1}{0}{3}{5/8}{}{0}}
+\headcommand {\beamer@framepages {5}{8}}
+\headcommand {\slideentry {1}{0}{4}{9/13}{}{0}}
+\headcommand {\beamer@framepages {9}{13}}
+\headcommand {\beamer@subsectionentry {0}{1}{1}{14}{Log Loss}}\headcommand {\beamer@subsectionpages {5}{13}}
+\headcommand {\slideentry {1}{1}{1}{14/15}{Log Loss}{0}}
+\headcommand {\beamer@framepages {14}{15}}
+\headcommand {\slideentry {1}{1}{2}{16/18}{Log Loss}{0}}
+\headcommand {\beamer@framepages {16}{18}}
+\headcommand {\slideentry {1}{1}{3}{19/21}{Log Loss}{0}}
+\headcommand {\beamer@framepages {19}{21}}
+\headcommand {\slideentry {1}{1}{4}{22/22}{Log Loss}{0}}
+\headcommand {\beamer@framepages {22}{22}}
+\headcommand {\slideentry {1}{1}{5}{23/24}{Log Loss}{0}}
+\headcommand {\beamer@framepages {23}{24}}
+\headcommand {\beamer@subsectionentry {0}{1}{2}{25}{General Loss}}\headcommand {\beamer@subsectionpages {14}{24}}
+\headcommand {\slideentry {1}{2}{1}{25/26}{General Loss}{0}}
+\headcommand {\beamer@framepages {25}{26}}
+\headcommand {\slideentry {1}{2}{2}{27/30}{General Loss}{0}}
+\headcommand {\beamer@framepages {27}{30}}
+\headcommand {\slideentry {1}{2}{3}{31/38}{General Loss}{0}}
+\headcommand {\beamer@framepages {31}{38}}
+\headcommand {\slideentry {1}{2}{4}{39/40}{General Loss}{0}}
+\headcommand {\beamer@framepages {39}{40}}
+\headcommand {\slideentry {1}{2}{5}{41/42}{General Loss}{0}}
+\headcommand {\beamer@framepages {41}{42}}
+\headcommand {\slideentry {1}{2}{6}{43/43}{General Loss}{0}}
+\headcommand {\beamer@framepages {43}{43}}
+\headcommand {\sectionentry {2}{applications of specialists}{44}{applications of specialists}{0}}
+\headcommand {\beamer@sectionpages {5}{43}}
+\headcommand {\beamer@subsectionpages {25}{43}}
+\headcommand {\beamer@subsectionentry {0}{2}{1}{44}{Variable Length Markov Models}}\headcommand {\beamer@subsectionpages {44}{43}}
+\headcommand {\beamer@subsectionentry {0}{2}{2}{44}{Switching Experts}}\headcommand {\beamer@subsectionpages {44}{43}}
+\headcommand {\beamer@subsectionentry {0}{2}{3}{44}{Text Classification}}\headcommand {\beamer@subsectionpages {44}{43}}
+\headcommand {\slideentry {2}{3}{1}{44/44}{Text Classification}{0}}
+\headcommand {\beamer@framepages {44}{44}}
+\headcommand {\slideentry {2}{3}{2}{45/45}{Text Classification}{0}}
+\headcommand {\beamer@framepages {45}{45}}
+\headcommand {\sectionentry {3}{Tracking}{46}{Tracking}{0}}
+\headcommand {\beamer@sectionpages {44}{45}}
+\headcommand {\beamer@subsectionpages {44}{45}}
+\headcommand {\slideentry {3}{0}{3}{46/46}{}{0}}
+\headcommand {\beamer@framepages {46}{46}}
+\headcommand {\slideentry {3}{0}{4}{47/47}{}{0}}
+\headcommand {\beamer@framepages {47}{47}}
+\headcommand {\slideentry {3}{0}{5}{48/49}{}{0}}
+\headcommand {\beamer@framepages {48}{49}}
+\headcommand {\slideentry {3}{0}{6}{50/53}{}{0}}
+\headcommand {\beamer@framepages {50}{53}}
+\headcommand {\slideentry {3}{0}{7}{54/56}{}{0}}
+\headcommand {\beamer@framepages {54}{56}}
+\headcommand {\slideentry {3}{0}{8}{57/61}{}{0}}
+\headcommand {\beamer@framepages {57}{61}}
+\headcommand {\beamer@partpages {1}{61}}
+\headcommand {\beamer@subsectionpages {46}{61}}
+\headcommand {\beamer@sectionpages {46}{61}}
+\headcommand {\beamer@documentpages {61}}
+\headcommand {\def \inserttotalframenumber {23}}

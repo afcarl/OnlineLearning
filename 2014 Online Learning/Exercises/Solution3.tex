@@ -1,0 +1,122 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsfonts}
+\usepackage{amssymb,amsmath}
+\usepackage{fullpage}
+\usepackage{epsfig}
+\usepackage{color}
+\setlength{\oddsidemargin}{0pt}
+\setlength{\evensidemargin}{0pt}
+\setlength{\textwidth}{6.0in}
+\setlength{\topmargin}{0.7in}
+\setlength{\textheight}{8.5in}
+
+\title{Solution Of Homework 3}
+
+\begin{document}
+\maketitle
+\begin{enumerate}
+\item {\bf Exercise 4.8} \\
+
+  Denote the actions by $\{1,\ldots,N\}$. Internal regret takes the
+  maximum over all pairs of actions. Swap regret takes the maximum
+  over all functions from the set of actions into itself. To prove the
+  desired bound we partition the function $\sigma$ which achieves the highest
+  smap regret  into $N$ action pairs.
+
+Formally, let $R_{(i,j),n}$ be the regret associated with (not) taking
+  action $j$ each time we took action $i$, and $R_{\sigma,n}$ be the
+  regret associate with the mapping $\sigma$.
+
+As the sequences of times at which actions $i \neq j$ have been taken
+are disjoint, we get that As the times at which different actions were
+taken we get that, for any mapping $\sigma$
+\[
+R_{\sigma,n} = \sum_{i=1}^N R_{(i,\sigma(i)),n} \leq N \max_{i,j} R_{(i,j),n}
+\]
+
+From which it follows that 
+\[
+\max_\sigma R_{\sigma,n} \leq N \max_{i,j} R_{(i,j),n}
+\]
+
+\item {\bf Exercise 4.9} \\
+
+Intuitively, the reason that a deterministic predictor cannot be well
+calibrated for any sequence is that an adversary can construct the
+next bit in the sequence $y_t$ as a function of the deterministically
+predetermined prediction $q_t$.
+
+We want to show non $\epsilon$-calibration for $\epsilon<1/3$.
+
+We consider the following strategy for the adversary:
+\begin{itemize}
+\item If $q_t<2/3$ then $y_t=1$
+\item If $q_t\geq 2/3$ then $y_t=0$
+\end{itemize}
+
+To prove that the resulting sequence will not be
+$\epsilon$-calibrated we need to show the existance of $x$ such that 
+$q_t \in [x-\epsilon,x+\epsilon]$ occurs infinitely often and
+$| \rho_n^{\epsilon}(x)-x | > \epsilon$
+
+Let $m$ be the number of values of $t$ such that $q_t<2/3$ and
+therefor, by construction $y_t=1$. We consider two cases, conditioned
+on whether or not $m$ is finite.
+
+If $m$ is infinite, then there must be an $x \leq 2/3-\epsilon$ such
+that $q_t \in [x-\epsilon,x+\epsilon]$ infinitely often. For this $x$,
+$\rho_n^{\epsilon}(x)=1$ and thus $\limsup_{n \to
+  \infty}|x-\rho_n^{\epsilon}(x)| \geq 1/3 + \epsilon > \epsilon$.
+
+If $m$ is finite, the number of times that $y_t=1$ is finite. Therefor
+$\lim_{n \to \infty} \rho_n^{\epsilon}(x)=0$. On the other hand, there
+must be some $x \geq 2/3$ for which $q_t \in (x-\epsilon,x+\epsilon)$
+infinitely often, as $\lim_{n \to \infty} \rho_n^{\epsilon}(x)=0$ for
+all $x$, we get that in this case there is also no $\epsilon$-calibration.
+
+\item {\bf Exercise 4.10}\\
+
+We are given that $\lim_{n \to \infty} {1 \over n} \sum_{t=1}^n y_t =a$.
+
+We are using the estimator $q_t = {1 \over t-1} \sum_{s=1}^{t-1} y_t$
+
+We wish to show that the estimator $q_t$ is well calibrated.
+
+Fix $\epsilon$. We consider three cases, $|x-a| > \epsilon$, $|x-a| < \epsilon$,
+$|x-a| = \epsilon$.
+
+If $|x-a| > \epsilon$ then there comes a point in the sequence after which
+$|q_t-a| < |x-a| - \epsilon$ and so $q_t \notin
+(x-\epsilon,x+\epsilon)$. In other words, there are only a finite
+number of elements assigned to that $x$ and we don't care whether the
+estimator is claibrated for that value of $x$
+
+If $|x-a| < \epsilon$ then there comes a point in the sequence after
+which $|q_t - a| < \epsilon - |x-a|$. From that it follows
+that $q_t \in (x-a,x+a)$ for all $t>t_x$. Therefor
+$\rho_n^{\epsilon}(x) \to a$ and $\limsup | \rho_n^\epsilon (x)-x |
+\leq \epsilon$.
+
+However, there seems to be a problem with the proof when $|x-a|
+=\epsilon$. In this case it is possible that $q_t \in (x-a,x+a)$ an
+infinite number of times and at the same time $q_t \notin (x-a,x+a)$
+an intinite number of times.
+
+In fact, it is not hard to construct a sequence for which the claim fails:
+
+Consider the alternating sequence 
+\[
+0,1,0,1,0,1,\ldots
+\]
+This is a ligitimate sequence as the average of the prefixes converges
+to $1/2$. Let $x=0.49$, $\epsilon=0.01$. In this case $q_t=1/2$ for
+odd values of $t$ and $q_t$ for even values of $t$. Thus the
+subsequence that corresponds to $q_t \in (0.48,0.5)$ correspings to
+$y_t=1$ and the estimate $\rho_t^{\epsilon}(0.49)=1$, i.e. the
+estimator is not claibrated!
+
+\end{enumerate}
+\end{document}
+
+

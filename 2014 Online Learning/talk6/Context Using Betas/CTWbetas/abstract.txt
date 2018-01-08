@@ -1,0 +1,6 @@
+The context-tree weighting method (Willems, Shtarkov, and Tjalkens [1995]) is a sequential universal source coding method that achieves the Rissanen lower bound [1984] for tree sources.
+The same authors also proposed context-tree maximizing, a two-pass version of the context-tree weighting method [1993].
+Later Willems and Tjalkens [1998] described a method based on ratios (betas) of sequence probabilities that can be used to reduce the storage complexity of the context-tree weighting method.
+These betas can be applied to express a posteriori model probabilities in a recursive way (Willems, Nowbahkt-Irani, Volf [2001]).
+In the present paper we present new results related to betas.
+These results provide a new view on the relation between context-tree weighting and maximizing.

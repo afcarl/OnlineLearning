@@ -1,0 +1,30 @@
+---+++ Students that are taking the class for four credits
+
+| <nop>TWikiName | Student | Credits | College | Major | Level | Email | 
+| Main.VikasBansal | Bansal, Vikas | 4.00 | GR | CS75 | D1 | vibansal@ucsd.edu |
+| | Demchak, Barry | 4.00 | GR | CS75 | D1 | bdemchak@ucsd.edu |
+| Main.EvanEttinger | Ettinger, Evan I. | 4.00 | GR | CS75 | D1 | eettinge@ucsd.edu |
+| | Han, Buhm | 4.00 | GR | CS76 | D1 | buhan@ucsd.edu |
+| Main.AriFrank | Frank, Ari | 4.00 | GR | CS75 | D1 | arf@cs.ucsd.edu |
+| | Laxton, Benjamin J. | 4.00 | GR | CS75 | D1 | blaxton@ucsd.edu |
+| Main.VadimLyubashevsky | Lyubashevsky, Vadim | 4.00 | GR | CS75 | D1 | vlyubash@cs.ucsd.edu | 
+| Main.JiaMao | Mao, Jia | 4.00 | GR |CS75 | D1 | jiamao@cs.ucsd.edu |
+| Main.BrianMcFee | <nop>McFee, Brian R | 4.00 | GR | CS75 | D1 | bmcfee@ucsd.edu |
+| | O'Rourke, Sean M. | 4.00 | GR | CS75 | D2 | sorourke@ucsd.edu |
+| | Voung, Jan W. | 4.00 | GR | CS75 | D1 | jvoung@ucsd.edu |
+| Main.LingyunZhang | Zhang, Lingyun | 4.00 | GR | CS75 | D1 | l6zhang@ucsd.edu |
+| Main.AnupDoshi | Doshi, Anup | 4.00 | GR | CS75 | D1 | andoshi@ucsd.edu |
+
+---+++ Students that are taking the class for less than two credits
+
+| <nop>TWikiName | Student | Credits | College | Major | Level | Email | 
+| Main.BruceCarneal | Carneal, Bruce L. | 1.00 | GR | CS75 | D1 | bcarneal@ucsd.edu |
+| Main.JeremyLau | Lau, Jeremy | 0.00 | GR | CS75 | D1 | jl@cs.ucsd.edu |
+| Main.DanielHsu | Hsu, Daniel J. | 1.00 | GR | CS75 | D1 | djhsu@ucsd.edu |
+| | Zang, Nan | 1.00 | GR | CS75 | D1 | nzang@ucsd.edu |
+| | Sriperumbudur Vangeepuram, Bharath | 1.00 | GR | EC82 | D1 | bsriperu@ucsd.edu |
+| Main.MattTong | Tong, Matthew H. | 1.00 | GR | CS75 | D1 | mhtong@ucsd.edu  |
+| | Turnbull, Douglas R. | 1.00 | GR | CS75 | D1 | dturnbul@ucsd.edu  |
+| | Van Biesbrouck, Michael L. | 1.00 | GR | CS75 | D1 | mvanbies@ucsd.edu |
+| | Pereira, Cristiano L. | 1.00 | GR | CS75 | D1 | cpereira@ucsd.edu  |
+| | Lefevre, Jeffrey P. | 1.00 | GR | CS75 | MA | jlefevre@ucsd.edu |

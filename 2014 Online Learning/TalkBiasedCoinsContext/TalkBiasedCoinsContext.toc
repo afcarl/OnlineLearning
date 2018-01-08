@@ -1,0 +1,15 @@
+\beamer@endinputifotherversion {3.07pt}
+\select@language {english}
+\beamer@sectionintoc {1}{Combining experts in the log loss framework}{3}{0}{1}
+\beamer@sectionintoc {2}{The online Bayes Algorithm}{5}{0}{2}
+\beamer@sectionintoc {3}{The performance bound}{6}{0}{3}
+\beamer@sectionintoc {4}{Comparison with Bayesian Statistics}{9}{0}{4}
+\beamer@sectionintoc {5}{Computational issues}{10}{0}{5}
+\beamer@sectionintoc {6}{The Universal prediction machine}{11}{0}{6}
+\beamer@sectionintoc {7}{The biased coins set of experts}{15}{0}{7}
+\beamer@sectionintoc {8}{Generalization to larger sets of distributions}{28}{0}{8}
+\beamer@sectionintoc {9}{Fixed Length Markov Models}{31}{0}{9}
+\beamer@sectionintoc {10}{Variable Length Markov Model (VMM)}{33}{0}{10}
+\beamer@sectionintoc {11}{Assigning weights to trees}{36}{0}{11}
+\beamer@sectionintoc {12}{Learning the structure, an inefficient solution}{36}{0}{12}
+\beamer@sectionintoc {13}{Efficient Implementation}{37}{0}{13}

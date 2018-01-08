@@ -1,0 +1,12 @@
+\beamer@endinputifotherversion {3.01pt}
+\select@language {english}
+\beamer@sectionintoc {1}{History}{3}{1}{1}
+\beamer@subsectionintoc {1}{1}{Enumerability in Recursion and Automata Theory}{4}{1}{1}
+\beamer@subsectionintoc {1}{2}{Known Weak Cardinality Theorem}{16}{1}{1}
+\beamer@subsectionintoc {1}{3}{Why Do Cardinality Theorems Hold Only for Certain Models?}{23}{1}{1}
+\beamer@sectionintoc {2}{Unification by First-Order Logic}{27}{1}{2}
+\beamer@subsectionintoc {2}{1}{Elementary Definitions}{28}{1}{2}
+\beamer@subsectionintoc {2}{2}{Enumerability for First-Order Logic}{32}{1}{2}
+\beamer@subsectionintoc {2}{3}{Weak Cardinality Theorems for First-Order Logic}{34}{1}{2}
+\beamer@sectionintoc {3}{Applications}{41}{1}{3}
+\beamer@subsectionintoc {3}{1}{A Separability Result for First-Order Logic}{42}{1}{3}

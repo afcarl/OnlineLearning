@@ -1,0 +1,105 @@
+\documentclass{report}
+
+\usepackage[headings]{fullpage}
+\usepackage{scribe}
+
+% Packages
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+%\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{epsfig}
+\usepackage{color}
+\usepackage{array}
+\usepackage{pstricks}
+\usepackage{pst-plot}
+%\usepackage{pstricks-add}
+\usepackage{multirow}
+
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}
+\newtheorem{claim}[lemma]{Claim}
+\newtheorem{theorem}[lemma]{Theorem}
+\newtheorem{corollary}[lemma]{Corollary}
+\newtheorem{prop}[lemma]{Property}
+\newtheorem{fact}[lemma]{Fact}
+
+\theoremstyle{definition}
+\newtheorem{define}[lemma]{Definition}
+\newtheorem{example}[lemma]{Example}
+
+\newtheorem{problem}{Problem}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\var}{\mbox{\rm var}}
+\newcommand{\pr}{\mbox{\rm Pr}}
+
+\def\X{{\cal X}}
+\def\cost{{\mbox{\rm cost}}}
+\def\U{{\cal U}}
+
+\begin{document}
+
+\course{CSE 254}
+\coursetitle{Statistical Machine Learning}
+\semester{Winter 2011}
+\lecturer{}
+\scribe{}
+\lecturenumber{4}
+\lecturetopic{On the Generalization Ability of On-Line Learning Algorithms}
+
+\maketitle
+
+\section{The problem}
+Online algorithms, such as the Perceptron algorithm, hava a guaranteed
+bound on the cumulative loss on the sequence itself. These bounds hold
+for {\em every} sequence. The Perceptron algorithm makes at most
+$(R/\gamma)^2$ mistakes where $R$ is the radius of the ball containing
+the examples and $\gamma$ is the classification margin.
+
+We define a ``comparison class'' $\cal H$ of prediction functions, and
+a loss function $\ell$. The loss of $h \in \cal H$ on the example
+$(X,Y)$ is $0 \leq \ell(h(X),Y) \leq 1$. Given a training set
+$(X_1,Y_1),\ldots,(X_n,Y_n)$ drawn IID from some fixed distribution
+$\cal D$, find $\widehat{H}$, whose generalization error is not much
+worse than the best rule in $\cal H$.
+\newcommand{\risk}{\mbox{risk}}
+\newcommand{\riskemp}{\risk_{\mbox{emp}}}
+\[
+\risk(h) = E \ell(h(X),Y)
+\]
+
+\[
+P\left( \risk(\hat{H}) \geq \inf_{h \in \cal H} \risk(h) + \epsilon  \right) \leq \delta
+\]
+
+\section{Simple Solutions}
+
+Uniform convergence method, minimize
+\[
+\riskemp(h) = {1 \over n} \sum_{i=1}^n \ell(h(X_i),Y_i)
+\]
+ Given that the VC dimension of $\cal H$ is $d$ then we have the bound
+\[
+\risk(\hat{H}) \leq \risk(h^*) + 2c \sqrt{\frac{d+\ln(2/\delta)}{n}}
+\]
+
+Plug in a random place algorithm. The total loss of the online
+algoirthm is
+\[
+M_n = {1 \over n} \sum_{t=1}^n \ell(H_{t-1}(X_t),Y_t)
+\]
+
+By considering the average over all $n$ hypotheses we get:
+\[
+P \left( \frac{1}{n} \sum_{t=1}^n \risk(H_{t-1})  \geq M_n + \sqrt{{2
+      \over n} \ln {1 \over \delta}} \right) \leq \delta
+\]
+
+\section{Test-on-Rest solution}
+
+\section{Application to SVM}
+
+\end{document}
