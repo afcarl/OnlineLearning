@@ -1,7 +1,7 @@
 % $Header: /data/cvsroot/Courses/OnlineLearning/talks/talk2/talk2.tex,v 1.5 2006/01/17 08:11:25 yfreund Exp $
 
-\documentclass{beamer}
-%\documentclass[handout]{beamer}
+%\documentclass{beamer}
+\documentclass[handout]{beamer}
 % This file is a solution template for:
 
 % - Giving a talk on some subject.
@@ -409,8 +409,12 @@ A trivial random data, in which there is nothing to be learned forces
 \begin{frame}
 \frametitle{Some loose threads}
 \begin{itemize}
-\item Total Loss of best action usually scales linearly with time, but we can't change 
-$\eta$ on the fly. (I think El Yaniv proposed a reasonable solution).
+\item Total Loss of best action usually scales linearly with time
+  \R{$T$}, but we need to know the {\bf horizon} $T$ ahead of time to
+  choose \R{$\eta$} correctly.
+  \item \R{$T$} is tight only when the loss of experts at each iteration is
+    either 0 or 1. If the loss of the best expert is $o(T)$ then we
+    would like to have a tighter bound.
 \item Observing only the loss of chosen action - the multi-armed
   bandit problem. Will get to that later in the course.
 \item Register to the class on the google drive.
