@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  18 JAN 2018 09:12
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  18 JAN 2018 09:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -982,26 +982,26 @@ Package pdftex.def Info: figures/matrixProduct.jpg used on input line 132.
 
 Package amsmath Warning: Foreign command \over;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 189.
+(amsmath)                 on input line 191.
 
 [10
 
 ]
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <10> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 210.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 212.
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <7> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 210.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 212.
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 210.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 212.
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <7> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 210.
-LaTeX Font Info:    Try loading font information for T1+ptm on input line 210.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 212.
+LaTeX Font Info:    Try loading font information for T1+ptm on input line 212.
  (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 ) [11
 
 ]
-Overfull \hbox (24.70247pt too wide) detected at line 224
+Overfull \hbox (24.70247pt too wide) detected at line 226
 [][] \OMS/cmsy/m/n/10.95 ^^T []  [] []
  []
 
@@ -1015,7 +1015,7 @@ Overfull \hbox (24.70247pt too wide) detected at line 224
 File: figures/divergenceAnalysis.pdf Graphic file (type pdf)
 
 <use figures/divergenceAnalysis.pdf>
-Package pdftex.def Info: figures/divergenceAnalysis.pdf used on input line 267.
+Package pdftex.def Info: figures/divergenceAnalysis.pdf used on input line 269.
 
 (pdftex.def)             Requested size: 284.52756pt x 133.89589pt.
  [15
@@ -1047,11 +1047,11 @@ Package pdftex.def Info: figures/divergenceAnalysis.pdf used on input line 267.
 \tf@snm=\write8
 \openout8 = `talk12.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 425.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 425.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 427.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 427.
  (./talk12.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 425.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 425.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 427.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 427.
 
 
 Package rerunfilecheck Warning: File `talk12.out' has changed.
@@ -1059,9 +1059,9 @@ Package rerunfilecheck Warning: File `talk12.out' has changed.
 (rerunfilecheck)                or use package `bookmark'.
 
 Package rerunfilecheck Info: Checksums for `talk12.out':
-(rerunfilecheck)             Before: F3681B68E04AE91BC2CA90A73582E75B;475
+(rerunfilecheck)             Before: 7F5C2149B04EF7030CCBA00E6E706330;475
 (rerunfilecheck)             After:  9D36A180F7C57605D338731147156C5E;475.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 425.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 427.
  ) 
 Here is how much of TeX's memory you used:
  17597 strings out of 493117
@@ -1071,31 +1071,31 @@ Here is how much of TeX's memory you used:
  77303 words of font info for 90 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,16n,56p,386b,426s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{Navigation80} has been referenced but does not ex
+pdfTeX warning (dest): name{Navigation79} has been referenced but does not ex
 ist, replaced by a fixed one
 
-pdfTeX warning (dest): name{Navigation78} has been referenced but does not exis
+pdfTeX warning (dest): name{Navigation77} has been referenced but does not exis
 t, replaced by a fixed one
 
-pdfTeX warning (dest): name{Navigation64} has been referenced but does not exis
+pdfTeX warning (dest): name{Navigation63} has been referenced but does not exis
 t, replaced by a fixed one
 
-pdfTeX warning (dest): name{Navigation42} has been referenced but does not exis
+pdfTeX warning (dest): name{Navigation41} has been referenced but does not exis
 t, replaced by a fixed one
 
-pdfTeX warning (dest): name{Navigation38} has been referenced but does not exis
+pdfTeX warning (dest): name{Navigation37} has been referenced but does not exis
 t, replaced by a fixed one
 
-pdfTeX warning (dest): name{Navigation32} has been referenced but does not exis
+pdfTeX warning (dest): name{Navigation31} has been referenced but does not exis
 t, replaced by a fixed one
 
-pdfTeX warning (dest): name{Navigation81} has been referenced but does not exis
+pdfTeX warning (dest): name{Navigation80} has been referenced but does not exis
 t, replaced by a fixed one
 
-pdfTeX warning (dest): name{Outline0.6.2.81} has been referenced but does not e
+pdfTeX warning (dest): name{Outline0.6.2.80} has been referenced but does not e
 xist, replaced by a fixed one
 
-pdfTeX warning (dest): name{Outline0.6.1.80} has been referenced but does not e
+pdfTeX warning (dest): name{Outline0.6.1.79} has been referenced but does not e
 xist, replaced by a fixed one
 
 {/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/tex
@@ -1113,7 +1113,7 @@ texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2014/texmf-d
 ist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2014/texmf-dist/fon
 ts/type1/urw/helvetic/uhvro8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/typ
 e1/urw/times/utmr8a.pfb>
-Output written on talk12.pdf (23 pages, 165394 bytes).
+Output written on talk12.pdf (23 pages, 165425 bytes).
 PDF statistics:
  343 PDF objects out of 1000 (max. 8388607)
  266 compressed objects within 3 object streams
