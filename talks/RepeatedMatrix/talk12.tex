@@ -131,7 +131,52 @@
 \R{$\M(\P,\Q) = \P^T \M \Q = \sum_{i=1}^n \sum_{j=1}^m \P(i) \M(i,j) \Q(j)$}
 \end{frame}
 
-\section{The basic algorithm}
+\begin{frame}
+\frametitle{The minmax Theorem}
+~\\
+John von Neumann, 1928.
+\\ ~ \\ \pause
+\R{\[ \minp \maxq \mpq \leq \maxq \minp \mpq \]}
+\\ ~ \\ \pause
+In words: for \B{mixed} strategies, choosing second gives no advantage.
+\end{frame}
+
+\begin{frame}
+\frametitle{Minmax is weaker than diminishing regret}
+\begin{itemize}
+\item The minmax theorem proves the existence of an \B{Equilibrium}.
+\item Learning guarantees no regret with respect to the past.
+\item If all sides use learning, then game will converge to minmax equilibrium.
+\item If opponent is not optimally adversarial (limited by knowledge, computationa power...) then learning gives \B{better} performance than min-max.
+\item Our goal is to minimize regret.
+\end{itemize}
+\end{frame}
+
+\section{Fictitious play}
+
+\begin{frame}
+\frametitle{Fictitious play}
+\begin{itemize}
+\item Choose the best action with respect to the sum of past loss vectors.
+\item Might not converge to optimal mixed strategy.
+\item Consider playing the matching coins game against an adversary
+  that alternates HTTHHTTHHTTHH....
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Randomized Fictitious play}
+\begin{itemize}
+\item Choose the best action with respect to the sum of past loss
+  vectors \R{plus noise}.
+\item Adding noise allows us to choose responses that are slightly
+  worse than best response.
+\item \B{Hannan 1957} Randomized ficticonverge to regret minimizing strategy.
+\end{itemize}
+\end{frame}
+
+
+\section{Strategy using Hedge}
 
 \begin{frame}
 \frametitle{The basic algorithm}
@@ -144,6 +189,25 @@
 \end{frame}
 
 \section{The basic analysis}
+
+\begin{frame}
+  \frametitle{Generalized regret bound}
+  \begin{itemize}
+  \item Regret relative to the best {\em pure strategy}
+    \R{$i$}
+    \R{\small{\[
+   \sumt \mptqt \leq \paren{\frac{1}{1-e^{-\eta}}}\;
+        \min_i \brac{\eta\; \sumt \M(i,\Qt) - \ln \P_1(i)}
+        \]}}
+\item    regret with respect the the best {\em mixed strategy}
+    \R{$\P$}:
+    \R{\small{\[
+   \sumt \mptqt \leq \paren{\frac{1}{1-e^{-\eta}}}\;
+        \minp \brac{\eta\; \sumt \mpqt + \RE{\P}{\P_1}}
+        \]}}
+    \item \small{Where \R{$$ \RE{1\P}{\Q}\doteq \sum_{i=1}^n \P(i) \ln \frac{\P(i)}{\Q(i)}$$}}
+\end{itemize}
+\end{frame}
 
 \begin{frame}
 \frametitle{Main Theorem}
@@ -249,7 +313,7 @@ $}
 ~\\
 John von Neumann, 1928.
 \\ ~ \\ \pause
-\R{\[ \minp \maxq \mpq \leq \maxq \minp \mpq \]}
+\R{\[ \minp \maxq \mpq = \maxq \minp \mpq \]}
 \\ ~ \\ \pause
 In words: for \B{mixed} strategies, choosing second gives no advantage.
 \end{frame}
@@ -310,6 +374,7 @@ but \R{$\delt$} can be set arbitrarily small.
 
 \end{frame}
 
+\iffalse
 \begin{frame}
 \frametitle{Minmax is weaker than diminishing regret}
 \begin{itemize}
@@ -322,23 +387,27 @@ but \R{$\delt$} can be set arbitrarily small.
 use learning then game converges to \B{correlated equilibrium}.
 \end{itemize}
 \end{frame}
+\fi
 
-\iffalse %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\iffalse %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Approximately solving games}
+
+\begin{frame}
+  \frametitle{Solving a game}
+  \begin{itemize}
+    \item to \B{solve} a game is to find the min-max mixed strategies
+      \R{$\P,\Q$}
+    \item Suppose that \ouralg is playing \R{$\P_1,\P_2,$} against an
+      adversary that plays \R{$\Q_1,\Q_2,\ldots$} such that
+  \end{itemize}
+\end{frame}
 
 \subsection{Fixed Learning rate}
 \begin{frame}
 \frametitle{Using average row distribution}
 \begin{itemize}
-\item XXX
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Using the average column distribution}
-\begin{itemize}
-\item XXX
+\item Using the 
 \end{itemize}
 \end{frame}
 
@@ -350,14 +419,8 @@ use learning then game converges to \B{correlated equilibrium}.
 \end{itemize}
 \end{frame}
 
-\begin{frame}
-\frametitle{}
-\begin{itemize}
-\item XXX
-\end{itemize}
-\end{frame}
 
-\fi %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\fi %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \end{document}
 
