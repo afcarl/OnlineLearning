@@ -400,26 +400,60 @@ use learning then game converges to \B{correlated equilibrium}.
   \begin{itemize}
     \item to \B{solve} a game is to find the min-max mixed strategies
       \R{$\P,\Q$}
-    \item Suppose that \ouralg is playing \R{$\P_1,\P_2,$} against an
-      adversary that plays \R{$\Q_1,\Q_2,\ldots$} such that
+    \item Suppose that \ouralg is playing \R{$\P_1,\P_2,$} against a
+      worst case adversary that playes second: 
+      adversary that plays \R{$\Q_1,\Q_2,\ldots$} such that \R{$\Qt =
+        \arg \maxq \mptq$}.
+    \item Without loss of generality \R{$\Qt$} is a pure strategy
+      (prob. 1 on a single action).
+     \item Let \R{$\Pa \doteq \frac{1}{T} \sumt \Pt$}, \R{$\Qa \doteq \frac{1}{T} \sumt \Qt$}
   \end{itemize}
 \end{frame}
 
 \subsection{Fixed Learning rate}
 \begin{frame}
-\frametitle{Using average row distribution}
+\frametitle{Using average distributions}
 \begin{itemize}
-\item Using the 
+\item Von Neumann Min/Max Thm: \R{$ v \doteq \minp \maxq \mpq = \maxq \minp \mpq $}
+\item Fixing \R{$T$} and letting \R{$ \eta = \ln \paren{ 1+\sqrt{\frac{2\ln n}{T}} }$}
+\item Two immediate corrolaries of the proof of the min/max Thm:
+\R{ \[    \maxq \M(\Pa,\Q) \leq v + \delt.
+          \minp \M(\P,\Qa) \geq v - \delt \]}
+
 \end{itemize}
 \end{frame}
 
 \subsection{Variable learning rate}
 \begin{frame}
-\frametitle{Using the final row distribution}
+\frametitle{Using the final row distribution \R{\lwalgvar}}
 \begin{itemize}
-\item XXX
+\item Can we make the row distribution converge?
+\item Suppose we have an upper bound on the value of the game \R{$u
+  \geq v$}
+\item {\bf Good Enough:} If \R{$\M(\Pt,\Qt) \leq u$} the row player does nothing
+\R{$\P_{t+1}=\P_t$}
+\item {\bf Learn:} If \R{$\M(\Pt,\Qt) > u$} set
+  \R{$$
+     \eta= \ln { (1-u) \M(\Pt,\Qt) \over u (1 - \M(\Pt,\Qt))}~.
+    $$}
 \end{itemize}
 \end{frame}
+
+\begin{frame}
+\frametitle{Bound for \R{\lwalgvar}}
+\begin{itemize}
+\item Let \R{$\Pref$} be any mixed strategy for the rows such that 
+\R{$\maxq \M(\Pref,\Q) \leq u$}
+\item
+  Then on any iteration of algorithm \R{\lwalgvar} in which 
+\R{$\M(\Pt,\Qt) \geq u$} the relative entropy between \R{$\Pref$} and \R{$\P_{t+1}$}
+satisfies
+\R{\[
+\RE{\Pref}{\P_{t+1}} \leq \RE{\Pref}{\Pt} - \RE{u}{\M(\Pt,\Qt)}~.
+\]}
+\end{itemize}
+\end{frame}
+
 
 
 %\fi %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
